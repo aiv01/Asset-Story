@@ -2,13 +2,6 @@
 
 [CreateAssetMenu(menuName = "Creates Scriptable Object/DatabasePlayer")]
 public class DatabasePlayer : ScriptableObject {
-    #region Private enum
-    private enum MovementType : byte {
-        TransformBased,
-        RigidbodyBased,
-        CharacterControllerBased
-    }
-    #endregion
     [Header("DATA")]
     #region Enum variable
     [SerializeField]
@@ -36,12 +29,12 @@ public class DatabasePlayer : ScriptableObject {
     [Tooltip("Multiplier that will be multiplied at speed when the player is in a running state")]
     private float runMultiplier = 1f;
     private float RunMultiplier {
-        get { return isRunning ? runMultiplier : 1f; }
+        get { return run ? runMultiplier : 1f; }
     }
 
 
     [HideInInspector]
-    public bool isRunning = false;
+    public bool run = false;
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]
     #region Sprite Renderer attributes and properties
@@ -112,9 +105,9 @@ public class DatabasePlayer : ScriptableObject {
     [SerializeField]
     [Range(0f, 100f)]
     [Tooltip("How much gravity affects this body")]
-    private float gravity = 1f;
-    public float Gravity {
-        get { return gravity; }
+    private float gravityScale = 1f;
+    public float GravityScale {
+        get { return gravityScale; }
     }
 
 
@@ -214,6 +207,11 @@ public class DatabasePlayer : ScriptableObject {
     private CapsuleDirection2D capsuleDirection = CapsuleDirection2D.Vertical;
     public CapsuleDirection2D CapsuleDirection {
         get { return capsuleDirection; }
+    }
+    #endregion
+    #region Methods
+    public Vector2 Gravity(float _gravity) {
+        return _gravity * Vector2.up;
     }
     #endregion
 }

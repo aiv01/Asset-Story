@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour {
     protected Rigidbody2D myRigidbody = null;
     protected BoxCollider2D myHeadCollider = null;
     protected CapsuleCollider2D myBodyCollider = null;
+    protected CircleCollider2D myStickCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;
     protected Animator myAnimator = null;
     #endregion
@@ -42,8 +43,14 @@ public class Movement : MonoBehaviour {
         private set;
     } = false;
     #endregion
+    #region Constant
+    private const float STICKCOLLIDER_POSITION_X = 2.46f;
+    private const float STICKCOLLIDER_POSITION_Y = 0.84f;
+    private const float SHOOTPOSITION_XOFFSET = 1f;
+    private const float SHOOTPOSITION_YOFFSET = 1.35f;
+    #endregion
 
-    public CircleCollider2D circleCollider = null;
+
 
     protected virtual void Awake() {
         TakeTheReferences();
@@ -53,6 +60,7 @@ public class Movement : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
         myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
+        myStickCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
     }
@@ -63,8 +71,6 @@ public class Movement : MonoBehaviour {
     protected virtual void Start() {
         VariablesAssignment();
         databaseInput.AssignRewiredPlayer();
-
-        circleCollider.enabled = false;
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
@@ -77,7 +83,7 @@ public class Movement : MonoBehaviour {
         myRigidbody.drag = databasePlayer.LinearDrag;
         myRigidbody.angularDrag = databasePlayer.AngularDrag;
         myRigidbody.mass = databasePlayer.Mass;
-        myRigidbody.gravityScale = databasePlayer.Gravity;
+        myRigidbody.gravityScale = databasePlayer.GravityScale;
         myRigidbody.constraints = databasePlayer.RigidbodyConstraints;
         myRigidbody.sharedMaterial = databasePlayer.PhysicMaterial;
         //HeadCollider
@@ -93,73 +99,23 @@ public class Movement : MonoBehaviour {
         myBodyCollider.usedByEffector = databasePlayer.BodyUsedByEffector;
         myBodyCollider.usedByComposite = databasePlayer.BodyUsedByComposite;
         myBodyCollider.direction = databasePlayer.CapsuleDirection;
+        //StickCollider
+        myStickCollider.enabled = false;
     }
     #endregion
 
-
+    Vector2 shootPosition;
+    Vector2 shootPositionFlip;
 
     protected virtual void Update() {
-        //TakeTheInputs();
-
         databaseInput.TakeTheInputs();
-        //SPEED
-        //SetAnimatorSpeed();
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
 
-        //RUN
-        if (databaseInput.Player.GetButton
-           (databaseInput.RunButton)) {
-            Run();
-        }
-        else {
-            databasePlayer.isRunning = false;
-            SetAnimatorParameters("IsRunning", false);
-        }
-
-        if (databaseInput.Player.GetButtonDown
-           (databaseInput.HitButton)) {
-            Hit();
-        }
-
-
-        if (IsHitting) {
-            if (IsFlipped) {
-                circleCollider.offset = new Vector2(-2.46f, 0.84f);
-                circleCollider.enabled = true;
-            }
-            else {
-                circleCollider.offset = new Vector2(2.46f, 0.84f);
-                circleCollider.enabled = true;
-            }
-            IsHitting = false;
-        }
-        else {
-            circleCollider.enabled = false;
-        }
-        //VERSIONE ORIGINALE
-        //if (myRigidbody.velocity.magnitude != 0) {
-        //    Walk();
-        //}
-        //else {
-        //    Idle();
-        //}
-
-
-        //if (myRigidbody.velocity.magnitude <= 0.1f ||
-        //    myRigidbody.velocity.magnitude >= 0.1f) {
-        //    Walk();
-        //}
-        //else {
-        //    Idle();
-        //}
-
-        if (databaseInput.jump) {
-            Jump();
-            databaseInput.jump = false;
-            //SetAnimatorParameters("IsJumping", false);
-        }
-
-
+        shootPosition = new Vector2(transform.position.x + SHOOTPOSITION_XOFFSET,
+                                    transform.position.y + SHOOTPOSITION_YOFFSET);
+        shootPositionFlip = new Vector2(transform.position.x + (-SHOOTPOSITION_XOFFSET),
+                                        transform.position.y + SHOOTPOSITION_YOFFSET); 
+        #region Flip
         if (databaseInput.horizontal < 0f) {
             FlipSprite(SnapAxis.X, true);
             IsFlipped = true;
@@ -167,35 +123,91 @@ public class Movement : MonoBehaviour {
         else if (databaseInput.horizontal > 0f) {
             FlipSprite(SnapAxis.X, false);
             IsFlipped = false;
+        } 
+        #endregion
+        #region Run
+        if (databaseInput.Player.GetButton
+           (databaseInput.RunButton)) {
+            Run();
+        }
+        else {
+            databasePlayer.run = false;
+            SetAnimatorParameters("IsRunning", false);
+        }
+        #endregion
+        #region Jump
+        IsJumping = !IsJumping && databaseInput.Player.GetButtonDown
+                    (databaseInput.JumpButton) ? true : false;
+
+
+        if (IsJumping) {
+            Jump();
+        }
+        else {
+            SetAnimatorParameters("IsJumping", false);
+        }
+        #endregion
+        #region Hit
+        if (databaseInput.Player.GetButtonDown
+           (databaseInput.HitButton)) {
+            Hit();
         }
 
-        Debug.Log(myAnimator.speed);
+
+        if (IsHitting) {
+            myStickCollider.enabled = true;
+            if (IsFlipped) {
+                SetStickColliderPosition(-STICKCOLLIDER_POSITION_X,
+                                          STICKCOLLIDER_POSITION_Y);
+            }
+            else {
+                SetStickColliderPosition(STICKCOLLIDER_POSITION_X,
+                                         STICKCOLLIDER_POSITION_Y);
+            }
+            IsHitting = false;
+        }
+        else {
+            myStickCollider.enabled = false;
+        }
+        #endregion
+        #region Shoot
+        if (databaseInput.Player.GetButtonDown
+           (databaseInput.ShootButton)) {
+            IsShooting = true;
+        }
+
+        if (IsShooting) {
+            Shoot();
+        }
+        else {
+            SetAnimatorParameters("IsShooting", false);
+        }
+        #endregion
     }
     #region Update methods
-    //protected virtual void TakeTheInputs() {
-    //    databaseInput.horizontal = Input.GetAxis("Horizontal");
-    //    databaseInput.vertical = Input.GetAxis("Vertical");
-    //}
-    private void SetAnimatorSpeed() {
-        SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
-    }
-    //private void Walk() {
-    //    SetAnimatorParameters("IsWalking", true);
-    //    //SetAnimatorParameters("Speed", mat);
-    //}
-    //private void Idle() {
-    //    SetAnimatorParameters("IsWalking", false);
-    //}
     private void Run() {
         SetAnimatorParameters("IsRunning", true);
-        databasePlayer.isRunning = true;
+        databasePlayer.run = true;
     }
     private void Jump() {
         SetAnimatorParameters("IsJumping", true);
+        IsJumping = false;
     }
     private void Hit() {
-        IsHitting = true;
         SetAnimatorParameters("IsHitting", true);
+        IsHitting = true;
+    }
+    private void Shoot() {
+        BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
+                                         shootPositionFlip);
+
+        SetAnimatorParameters("IsShooting", true);
+        IsShooting = false;
+    }
+
+
+    private void SetStickColliderPosition(float _posX, float _posY) {
+        myStickCollider.offset = new Vector2(_posX, _posY);
     }
     #endregion
 
@@ -203,19 +215,15 @@ public class Movement : MonoBehaviour {
 
     protected virtual void FixedUpdate() {
         Move();
-
-        if (databaseInput.jump) {
-            myRigidbody.AddForce(new Vector2(0, 100), ForceMode2D.Impulse);
-        }
     }
     #region FixedUpdate methods
     private void Move() {
         #region Variable assignment
-        Vector2 velocity = new Vector2(databaseInput.horizontal,
-                                       myRigidbody.velocity.y);
+        Vector2 velocity = new Vector2(databaseInput.horizontal, 0);
         #endregion
 
-        myRigidbody.velocity = velocity.normalized * databasePlayer.Speed;
+        myRigidbody.velocity = (velocity.normalized * databasePlayer.Speed) +
+                               databasePlayer.Gravity(myRigidbody.velocity.y);
     }
     #endregion
 

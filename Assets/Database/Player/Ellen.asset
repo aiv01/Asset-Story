@@ -15,7 +15,7 @@ MonoBehaviour:
   movementType: 1
   speed: 100
   runMultiplier: 2
-  isRunning: 0
+  run: 0
   startingSprite: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
   speedAnimationDivider: 100
   rigidbodyType: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   mass: 1
   linearDrag: 0
   angularDrag: 0.05
-  gravity: 1
+  gravityScale: 1
   rigidbodyConstraints: 4
   headPhysicsMaterial: {fileID: 0}
   headIsTrigger: 0
