@@ -3,3 +3,10 @@ public enum MovementType : byte {
     RigidbodyBased,
     CharacterControllerBased
 }
+
+
+public enum SkillType : byte {
+    Shield,
+    Dash,
+    Last
+}
