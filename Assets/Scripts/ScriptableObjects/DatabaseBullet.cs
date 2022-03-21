@@ -31,10 +31,6 @@ public class DatabaseBullet : ScriptableObject {
     }
 
 
-    //[HideInInspector]
-    //public float lifeCounter = 0f;
-
-
     [SerializeField]
     [Range(1f, 15f)]
     [Tooltip("Life time of the bullet")]
@@ -44,8 +40,5 @@ public class DatabaseBullet : ScriptableObject {
     }
     #endregion
     #region Methods
-    //public void SetLifeCounter() {
-    //    lifeCounter = reloadLifeCounter;
-    //}
     #endregion
 }

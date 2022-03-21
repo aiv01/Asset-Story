@@ -16,9 +16,11 @@ MonoBehaviour:
   xAxis: Horizontal
   yAxis: Vertical
   runButton: Run
+  crouchButton: Crouch
   jumpButton: Jump
   hitButton: Hit
   shootButton: Shoot
   specialSkillButton: SpecialSkill
   horizontal: 0
   vertical: 0
+  jump: 0

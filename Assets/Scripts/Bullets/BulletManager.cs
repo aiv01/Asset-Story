@@ -18,7 +18,7 @@ public class BulletManager : MonoBehaviour {
     #endregion
 
     //rivedibile
-    //public bool IsFree = false;
+    public bool IsFree = false;
 
     private void Awake() {
         SetSingleton();
@@ -32,7 +32,7 @@ public class BulletManager : MonoBehaviour {
 
 
     private void Start() {
-        for (int i = 0; i < numOfBullet; i++) {
+        for (int i = 0; i < databaseBulletManager.NumOfBullet; i++) {
             CreateBullet();
         }
     }
@@ -65,19 +65,19 @@ public class BulletManager : MonoBehaviour {
         for (int i = 0; i < myBullets.Count; i++) {
             if (!myBullets[i].gameObject.activeSelf) {
                 //rivedibile 
-                //IsFree = true;
-                //if (i > -1) {
-                //    IsFree = true;
-                //}
+                IsFree = true;
+                if (i > -1) {
+                    IsFree = true;
+                }
 
                 myBullets[i].gameObject.transform.position = _startPosition;
                 myBullets[i].gameObject.SetActive(true);
                 break;
             }
             //rivedibile
-            //else {
-            //    IsFree = false;
-            //}
+            else {
+                IsFree = false;
+            }
         }
     }
     #endregion

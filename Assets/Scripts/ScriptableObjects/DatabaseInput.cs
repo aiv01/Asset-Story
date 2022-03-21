@@ -35,6 +35,14 @@ public class DatabaseInput : ScriptableObject {
 
 
     [SerializeField]
+    [Tooltip("Button name defined in rewired for the 'run'")]
+    private string crouchButton = null;
+    public string CrouchButton {
+        get { return crouchButton; }
+    }
+
+
+    [SerializeField]
     [Tooltip("Button name defined in rewired for the 'jump'")]
     private string jumpButton = null;
     public string JumpButton {
@@ -72,10 +80,6 @@ public class DatabaseInput : ScriptableObject {
 
     [HideInInspector]
     public float vertical = 0f;
-
-
-    [HideInInspector]
-    public bool jump = false;
     #endregion
     #region Methods
     public void AssignRewiredPlayer() {
@@ -86,8 +90,6 @@ public class DatabaseInput : ScriptableObject {
     public void TakeTheInputs() {
         horizontal = Player.GetAxis(xAxis);
         vertical = Player.GetAxis(yAxis);
-        jump = player.GetButtonDown
-               (JumpButton) ? true : false;
     }
     #endregion
 }

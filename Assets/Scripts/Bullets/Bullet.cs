@@ -21,14 +21,6 @@ public class Bullet : MonoBehaviour {
 
 
 
-    private void OnEnable() {
-        playerIsFlipped = Movement.IsFlipped ? true : false;
-        mySpriteRenderer.flipX = playerIsFlipped ? true : false;
-        counter = databaseBullet.ReloadLifeCounter;
-    }
-
-
-
     private void Awake() {
         TakeTheReferences();
     }
@@ -42,70 +34,47 @@ public class Bullet : MonoBehaviour {
 
 
 
-    private void Start() {
+    private void OnEnable() {
         VariablesAssignment();
     }
-    #region Start methods
+    #region OnEnable methods
     private void VariablesAssignment() {
-        //SpriteRenderer
+        playerIsFlipped = Movement.IsFlipped ? true : false;
         mySpriteRenderer.sprite = databaseBullet.Sprite;
-        //Set counter
-        //databaseBullet.SetLifeCounter();
-    }
+        mySpriteRenderer.flipX = playerIsFlipped ? true : false;
+        reloadCounter = databaseBullet.ReloadLifeCounter;
+        counter = reloadCounter;
+    } 
     #endregion
 
 
 
     private void Update() {
         counter -= Time.deltaTime;
+
         if (counter <= 0) {
             DestroyMe();
-            //databaseBullet.SetLifeCounter();
             counter = reloadCounter;
         }
-        //Debug.Log(databaseBullet.lifeCounter);
-
-        //databaseBullet.lifeCounter -= Time.deltaTime;
-        //if (databaseBullet.lifeCounter <= 0) {
-        //    DestroyMe();
-        //    databaseBullet.SetLifeCounter();
-        //}
-        //Debug.Log(databaseBullet.lifeCounter);
     }
+    #region Update methods
     private void DestroyMe() {
         gameObject.SetActive(false);
-
     }
+    #endregion
 
-    //amplitude = altezza dell'onda.
-    //FUNZIONE DI SENO
-    //float amplitude = 3f;
-    //float pulsation = 10f;
 
-    //float accumulator;
 
     private void FixedUpdate() {
         Move();
     }
+    #region FixedUpdate methods
     private void Move() {
-        //Vector2 direction = Movement.IsFlipped ? -Vector2.right :
-        //                    Vector2.right;
-
-
-        //da pulire
+        #region Variable assignment
         Vector2 direction = !playerIsFlipped ? Vector2.right : -Vector2.right;
-        //myRigidbody.velocity = (direction).normalized * databaseBullet.Speed;
+        #endregion
 
-        //FORMA CORRETTA!
-        myRigidbody.velocity = direction /*Vector2.right*/ * databaseBullet.Speed;
-
-        //FORMA CON FUNZIONE DI SENO
-        //myRigidbody.velocity = (direction * databaseBullet.Speed) /*Vector2.right*/ + (Vector2.up * (Mathf.Sin(Time.time * pulsation) * amplitude));
-
-        //accumulator += Time.deltaTime * 10;
-        //myRigidbody.velocity = new Vector2(myRigidbody.velocity.x,
-        //    (float)Mathf.Cos(accumulator) * 3);
-
-        Debug.Log(myRigidbody.velocity.x);
-    }
+        myRigidbody.velocity = direction.normalized * databaseBullet.Speed;
+    } 
+    #endregion
 }

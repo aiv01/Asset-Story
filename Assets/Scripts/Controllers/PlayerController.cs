@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private DatabaseInput databaseInput = null;
 
+    [SerializeField]
+    private Sprite shield = null;
+
 
     private void Awake() {
         //Questa operazione verrà eseguita nella scena precedente e 
@@ -33,6 +36,11 @@ public class PlayerController : MonoBehaviour {
     private void BuildThePlayer() {
         switch (Save.Instance.skillType) {
             case SkillType.Shield:
+                PlayerWithShieldMovement playerWithShieldMovement = player.AddComponent<PlayerWithShieldMovement>();
+                playerWithShieldMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Shield];
+                playerWithShieldMovement.databaseInput = databaseInput;
+                playerWithShieldMovement.shieldSprite = shield;
+                playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
                 //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
                 //player.AddComponent<> //gli assegnamo all'animator del player (in caso non fosse il tipo standard), il suo override controller.
                 break;

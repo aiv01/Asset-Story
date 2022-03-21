@@ -19,6 +19,10 @@ public class Movement : MonoBehaviour {
     protected SpriteRenderer mySpriteRenderer = null;
     protected Animator myAnimator = null;
     #endregion
+    #region Private attributes
+    private Vector2 shootPosition;
+    private Vector2 shootPositionFlipped;
+    #endregion
     #region Static property
     public static bool IsFlipped {
         get;
@@ -26,6 +30,12 @@ public class Movement : MonoBehaviour {
     } = false;
     #endregion
     #region Protected properties
+    protected bool IsRunning {
+        get;
+        private set;
+    } = false;
+
+
     protected bool IsJumping {
         get;
         private set;
@@ -104,17 +114,19 @@ public class Movement : MonoBehaviour {
     }
     #endregion
 
-    Vector2 shootPosition;
-    Vector2 shootPositionFlip;
+
 
     protected virtual void Update() {
         databaseInput.TakeTheInputs();
+
+        #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
 
         shootPosition = new Vector2(transform.position.x + SHOOTPOSITION_XOFFSET,
                                     transform.position.y + SHOOTPOSITION_YOFFSET);
-        shootPositionFlip = new Vector2(transform.position.x + (-SHOOTPOSITION_XOFFSET),
-                                        transform.position.y + SHOOTPOSITION_YOFFSET); 
+        shootPositionFlipped = new Vector2(transform.position.x + (-SHOOTPOSITION_XOFFSET),
+                                        transform.position.y + SHOOTPOSITION_YOFFSET);  
+        #endregion
         #region Flip
         if (databaseInput.horizontal < 0f) {
             FlipSprite(SnapAxis.X, true);
@@ -131,6 +143,7 @@ public class Movement : MonoBehaviour {
             Run();
         }
         else {
+            IsRunning = false;
             databasePlayer.run = false;
             SetAnimatorParameters("IsRunning", false);
         }
@@ -183,15 +196,31 @@ public class Movement : MonoBehaviour {
             SetAnimatorParameters("IsShooting", false);
         }
         #endregion
+        #region Crouch
+        if (databaseInput.Player.GetButton
+           (databaseInput.CrouchButton) &&
+           !IsRunning) {
+            Crouch();
+        }
+        else {
+            myRigidbody.bodyType = RigidbodyType2D.Dynamic;
+            SetAnimatorParameters("IsCrouching", false);
+        } 
+        #endregion
     }
     #region Update methods
     private void Run() {
         SetAnimatorParameters("IsRunning", true);
         databasePlayer.run = true;
+        IsRunning = true;
     }
     private void Jump() {
         SetAnimatorParameters("IsJumping", true);
         IsJumping = false;
+    }
+    private void Crouch() {
+        SetAnimatorParameters("IsCrouching", true);
+        myRigidbody.bodyType = RigidbodyType2D.Static;
     }
     private void Hit() {
         SetAnimatorParameters("IsHitting", true);
@@ -199,7 +228,7 @@ public class Movement : MonoBehaviour {
     }
     private void Shoot() {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
-                                         shootPositionFlip);
+                                         shootPositionFlipped);
 
         SetAnimatorParameters("IsShooting", true);
         IsShooting = false;

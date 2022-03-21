@@ -1,3 +1,4 @@
+#region Public enums
 public enum MovementType : byte {
     TransformBased,
     RigidbodyBased,
@@ -10,3 +11,12 @@ public enum SkillType : byte {
     Dash,
     Last
 }
+
+
+public enum EnemyType : byte {
+    chomper,
+    Spitter,
+    Gunner,
+    Last
+}
+#endregion
