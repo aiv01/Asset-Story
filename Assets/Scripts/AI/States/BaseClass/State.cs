@@ -16,7 +16,7 @@ public abstract class State : MonoBehaviour {
         TakeTheReferences();
     }
     #region Awake methods
-    protected void TakeTheReferences() {
+    protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();

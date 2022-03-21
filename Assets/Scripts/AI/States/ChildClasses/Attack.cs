@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class Attack : State {
     #region Private attributes
     [SerializeField]
@@ -16,6 +17,8 @@ public class Attack : State {
 
     [SerializeField]
     private State nextState = null;
+
+    private Enemy enemy = null;
     #endregion
 
 
@@ -29,16 +32,20 @@ public class Attack : State {
         base.Awake();
         this.enabled = false;
     }
+    protected override void TakeTheReferences() {
+        base.TakeTheReferences();
+        enemy = GetComponent<Enemy>();
+    }
 
 
 
     protected override void OnEnterState() {
         myAnimator.SetBool("IsAttacking", true);
-        mySpriteRenderer.color = Color.red;
+        //mySpriteRenderer.color = Color.red;
     }
     protected override void OnExitState() {
         myAnimator.SetBool("IsAttacking", false);
-        mySpriteRenderer.color = Color.white;
+        //mySpriteRenderer.color = Color.white;
     }
 
 
@@ -46,7 +53,7 @@ public class Attack : State {
     protected override void Start() {
         //set the counter
         counter = reloadCounter;
-        mySpriteRenderer.color = Color.red;
+        //mySpriteRenderer.color = Color.red;
     }
 
 
@@ -70,12 +77,31 @@ public class Attack : State {
 
 
     public override void FixedUpdate() {
-        Move();
+        switch (enemy.MyEnemyType) {
+            case EnemyType.chomper:
+                Move();
+                break;
+            case EnemyType.Spitter:
+                Shoot();
+                break;
+            case EnemyType.Gunner:
+                break;
+            case EnemyType.Last:
+                break;
+            default:
+                break;
+        }
+
     }
     #region FixedUpdate methods
     private void Move() {
         myRigidbody.velocity = (direction.normalized * AttackSpeed) +
                                Gravity(myRigidbody.velocity.y);
-    } 
+    }
+
+
+    private void Shoot() { 
+        //myRigidbody.bodyType = 
+    }
     #endregion
 }

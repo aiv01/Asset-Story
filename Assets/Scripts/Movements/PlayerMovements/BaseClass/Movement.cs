@@ -106,8 +106,8 @@ public class Movement : MonoBehaviour {
         //BodyCollider
         myBodyCollider.sharedMaterial = databasePlayer.BodyPhysicsMaterial;
         myBodyCollider.isTrigger = databasePlayer.BodyIsTrigger;
-        myBodyCollider.usedByEffector = databasePlayer.BodyUsedByEffector;
-        myBodyCollider.usedByComposite = databasePlayer.BodyUsedByComposite;
+        //myBodyCollider.usedByEffector = databasePlayer.BodyUsedByEffector;
+        //myBodyCollider.usedByComposite = databasePlayer.BodyUsedByComposite;
         myBodyCollider.direction = databasePlayer.CapsuleDirection;
         //StickCollider
         myStickCollider.enabled = false;

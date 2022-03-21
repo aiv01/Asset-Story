@@ -1,7 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class Patrol : State {
     #region Private attributes
+    private Enemy enemy = null;
+
     [SerializeField]
     private float minDist = 0f;
 
@@ -23,10 +26,13 @@ public class Patrol : State {
 
     [SerializeField]
     private float maxPath = 250f;
-
-    private SpriteRenderer spriteRenderer = null; 
     #endregion
 
+
+    protected override void TakeTheReferences() {
+        base.TakeTheReferences();
+        enemy = GetComponent<Enemy>();
+    }
 
 
     protected override void Start() {
@@ -54,7 +60,22 @@ public class Patrol : State {
 
 
     public override void FixedUpdate() {
-        Movement();
+        switch (enemy.MyEnemyType) {
+            case EnemyType.chomper:
+                Movement();
+                break;
+            case EnemyType.Spitter:
+                Movement();
+                break;
+            case EnemyType.Gunner:
+                break;
+            case EnemyType.Last:
+                break;
+            default:
+                break;
+        }
+
+        //Movement();
     }
     #region FixedUpdate methods
     private void Movement() {

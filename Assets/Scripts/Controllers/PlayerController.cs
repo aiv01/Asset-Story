@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         BuildThePlayer();
+        LoadPlayerData();
     }
     private void BuildThePlayer() {
         switch (Save.Instance.skillType) {
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour {
                 playerWithShieldMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Shield];
                 playerWithShieldMovement.databaseInput = databaseInput;
                 playerWithShieldMovement.shieldSprite = shield;
-                playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
+                //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
                 //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
                 //player.AddComponent<> //gli assegnamo all'animator del player (in caso non fosse il tipo standard), il suo override controller.
                 break;
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Update() {
-        
+        SavePlayerData();
     }
     private void SavePlayerData() {
         //IN UN EVENTO QUANDO PREMERò IL TASTO 'SALVA' ESEGUIRò TUTTE QUESTE OPERAZIONI

@@ -11,7 +11,7 @@ public class DatabaseBullet : ScriptableObject {
     #endregion
     #region Attributes and properties
     [SerializeField]
-    [Range(10f, 200f)]
+    [Range(10f, 500f)]
     [Tooltip("Scalar which will be multiplied to the velocity vector of the rigidbody")]
     private float speed = 10f;
     public float Speed {
