@@ -23,13 +23,7 @@ public class Movement : MonoBehaviour {
     private Vector2 shootPosition;
     private Vector2 shootPositionFlipped;
     #endregion
-    #region Static property
-    public static bool IsFlipped {
-        get;
-        private set;
-    } = false;
-    #endregion
-    #region Protected properties
+    #region Protected Properties
     protected bool IsRunning {
         get;
         private set;
@@ -52,12 +46,31 @@ public class Movement : MonoBehaviour {
         get;
         private set;
     } = false;
+
+
+    protected bool IsGrounded {
+        get;
+        private set;
+    } = false;
+
+
+    protected bool IsCrouching {
+        get;
+        private set;
+    } = false;
+    #endregion
+    #region Static property
+    public static bool IsFlipped {
+        get;
+        private set;
+    } = false;
     #endregion
     #region Constant
     private const float STICKCOLLIDER_POSITION_X = 2.46f;
     private const float STICKCOLLIDER_POSITION_Y = 0.84f;
     private const float SHOOTPOSITION_XOFFSET = 1f;
     private const float SHOOTPOSITION_YOFFSET = 1.35f;
+    private const int DEFAULT_LAYER = 0;
     #endregion
 
 
@@ -150,42 +163,29 @@ public class Movement : MonoBehaviour {
         #endregion
         #region Jump
         IsJumping = !IsJumping && databaseInput.Player.GetButtonDown
-                    (databaseInput.JumpButton) ? true : false;
-
-
-        if (IsJumping) {
-            Jump();
-        }
-        else {
-            SetAnimatorParameters("IsJumping", false);
-        }
+                    (databaseInput.JumpButton) ? true : IsJumping;
         #endregion
         #region Hit
         if (databaseInput.Player.GetButtonDown
-           (databaseInput.HitButton)) {
-            Hit();
+           (databaseInput.HitButton) 
+            && IsGrounded
+            && !IsCrouching) {
+            IsHitting = true;
         }
 
-
         if (IsHitting) {
-            myStickCollider.enabled = true;
-            if (IsFlipped) {
-                SetStickColliderPosition(-STICKCOLLIDER_POSITION_X,
-                                          STICKCOLLIDER_POSITION_Y);
-            }
-            else {
-                SetStickColliderPosition(STICKCOLLIDER_POSITION_X,
-                                         STICKCOLLIDER_POSITION_Y);
-            }
-            IsHitting = false;
+            Hit();
         }
         else {
             myStickCollider.enabled = false;
+            SetAnimatorParameters("IsHitting", false);
         }
         #endregion
         #region Shoot
         if (databaseInput.Player.GetButtonDown
-           (databaseInput.ShootButton)) {
+           (databaseInput.ShootButton)
+            && !IsCrouching
+            && IsGrounded) {
             IsShooting = true;
         }
 
@@ -203,8 +203,9 @@ public class Movement : MonoBehaviour {
             Crouch();
         }
         else {
-            myRigidbody.bodyType = RigidbodyType2D.Dynamic;
+            myRigidbody.simulated = true;
             SetAnimatorParameters("IsCrouching", false);
+            IsCrouching = false;
         } 
         #endregion
     }
@@ -214,17 +215,26 @@ public class Movement : MonoBehaviour {
         databasePlayer.run = true;
         IsRunning = true;
     }
-    private void Jump() {
-        SetAnimatorParameters("IsJumping", true);
-        IsJumping = false;
-    }
     private void Crouch() {
+        IsCrouching = true;
         SetAnimatorParameters("IsCrouching", true);
-        myRigidbody.bodyType = RigidbodyType2D.Static;
+        myRigidbody.simulated = false;
     }
     private void Hit() {
+        #region StickCollider positioning
+        if (IsFlipped) {
+            SetStickColliderPosition(-STICKCOLLIDER_POSITION_X,
+                                      STICKCOLLIDER_POSITION_Y);
+        }
+        else {
+            SetStickColliderPosition(STICKCOLLIDER_POSITION_X,
+                                     STICKCOLLIDER_POSITION_Y);
+        } 
+        #endregion
+
         SetAnimatorParameters("IsHitting", true);
-        IsHitting = true;
+        myStickCollider.enabled = true;
+        IsHitting = false;
     }
     private void Shoot() {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
@@ -244,6 +254,14 @@ public class Movement : MonoBehaviour {
 
     protected virtual void FixedUpdate() {
         Move();
+        #region Jump
+        if (IsJumping) {
+            Jump();
+        }
+        else {
+            SetAnimatorParameters("IsJumping", false);
+        } 
+        #endregion
     }
     #region FixedUpdate methods
     private void Move() {
@@ -254,6 +272,27 @@ public class Movement : MonoBehaviour {
         myRigidbody.velocity = (velocity.normalized * databasePlayer.Speed) +
                                databasePlayer.Gravity(myRigidbody.velocity.y);
     }
+
+
+    private void Jump() {
+        if (IsGrounded) {
+            IsGrounded = false;
+            myRigidbody.AddForce(transform.up * databasePlayer.JumpForce,
+                                 ForceMode2D.Impulse);
+            SetAnimatorParameters("IsJumping", true);
+        }
+        IsJumping = false;
+    }
+    #endregion
+
+
+
+    #region OnCollision methods
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.layer == DEFAULT_LAYER) {
+            IsGrounded = true;
+        }
+    } 
     #endregion
 
 

@@ -22,6 +22,12 @@ public class DatabaseInput : ScriptableObject {
 
 
     [SerializeField]
+    [ActionIdProperty(typeof(RewiredConsts.Action))]
+    private int inputA = -1;
+
+
+
+    [SerializeField]
     [Tooltip("Axis name defined in rewired for the movement on the 'Y axis'")]
     private string yAxis = null;
 

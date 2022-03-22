@@ -35,6 +35,15 @@ public class DatabasePlayer : ScriptableObject {
 
     [HideInInspector]
     public bool run = false;
+
+
+    [SerializeField]
+    [Range(0f, 250f)]
+    [Tooltip("Value that will determine the strength of the impulse that will be assigned to the jump")]
+    private float jumpForce = 0f;
+    public float JumpForce {
+        get { return jumpForce; }
+    }
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]
     #region Sprite Renderer attributes and properties

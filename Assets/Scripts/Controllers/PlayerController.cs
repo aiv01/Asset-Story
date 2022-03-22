@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour {
     private void Awake() {
         //Questa operazione verrà eseguita nella scena precedente e 
         //quindi all'interno della variabile sarà già salvato un valore utilizzabile.
-        Save.Instance.skillType = SkillType.Shield;
+
+        //Save.Instance.skillType = SkillType.Shield;
     }
 
 
@@ -46,6 +47,12 @@ public class PlayerController : MonoBehaviour {
                 //player.AddComponent<> //gli assegnamo all'animator del player (in caso non fosse il tipo standard), il suo override controller.
                 break;
             case SkillType.Dash:
+                PlayerWithDashMovement playerWithDashMovement = player.AddComponent<PlayerWithDashMovement>();
+                playerWithDashMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Dash];
+                playerWithDashMovement.databaseInput = databaseInput;
+                playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Dash];
+                //playerWithDashMovement.shieldSprite = shield;
+                //playerWithDashMovement
                 break;
             case SkillType.Last:
                 break;
@@ -70,6 +77,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void SavePlayerData() {
         //IN UN EVENTO QUANDO PREMERò IL TASTO 'SALVA' ESEGUIRò TUTTE QUESTE OPERAZIONI
+        Debug.Log(Save.Instance.playerPosition);
         Save.Instance.playerPosition = player.transform.position;
     }
 

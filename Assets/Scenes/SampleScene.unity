@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 26761452}
   m_Layer: 13
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -390,7 +390,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.7534883, y: 2.8325582}
+  m_Size: {x: 5.2325583, y: 2.5581396}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -423,7 +423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26761444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0.79, z: 0}
+  m_LocalPosition: {x: -10.37, y: 0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -446,8 +446,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.42, y: 0.1}
-    oldSize: {x: 3.7534883, y: 2.8325582}
-    newSize: {x: 3.7534883, y: 2.8325582}
+    oldSize: {x: 5.2325583, y: 2.5581396}
+    newSize: {x: 5.2325583, y: 2.5581396}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -468,8 +468,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0032427907, y: 0.7188847}
-  m_Size: {x: 0.5983006, y: 1.6774082}
+  m_Offset: {x: 0.0032427907, y: 0.7366432}
+  m_Size: {x: 0.5983006, y: 1.6418912}
   m_Direction: 0
 --- !u!50 &26761451
 Rigidbody2D:
@@ -1076,14 +1076,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 26761444}
   overrideControllers:
-  - {fileID: 0}
-  - {fileID: 0}
-  playerAnimator: {fileID: 0}
+  - {fileID: 22100000, guid: 45344ea3361da974e85702384a20e8d4, type: 2}
+  - {fileID: 22100000, guid: 45344ea3361da974e85702384a20e8d4, type: 2}
+  playerAnimator: {fileID: 26761446}
   myDatabasePlayers:
   - {fileID: 11400000, guid: 330ed8477bbcc4f46991899f9445ec76, type: 2}
   - {fileID: 11400000, guid: 330ed8477bbcc4f46991899f9445ec76, type: 2}
   databaseInput: {fileID: 11400000, guid: 38d64aa86c9f9804dbce11eb070c2ba8, type: 2}
-  shield: {fileID: 21300000, guid: aec2b0b271e6a9648b4a2ea581382a26, type: 3}
+  shield: {fileID: 21300000, guid: a77edcd8f8a92824dbb08ca394463841, type: 3}
 --- !u!1001 &590439141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1661325032
 MonoBehaviour:
   m_ObjectHideFlags: 0

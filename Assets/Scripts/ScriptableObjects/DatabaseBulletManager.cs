@@ -6,7 +6,7 @@ public class DatabaseBulletManager : ScriptableObject {
     #region Attributes and properties
     [SerializeField]
     [Range(0, 15)]
-    [Tooltip("Number of bullet in the pool")]
+    [Tooltip("Number of bullets in the pool")]
     private int numOfBullet = 0;
     public int NumOfBullet {
         get { return numOfBullet; }

@@ -6,6 +6,12 @@ public enum MovementType : byte {
 }
 
 
+public enum PlatformMovementType : byte {
+    UpDown,
+    LeftRight
+}
+
+
 public enum SkillType : byte {
     Shield,
     Dash,
