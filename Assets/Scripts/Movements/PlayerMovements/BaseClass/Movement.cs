@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(HealthModule))]
 public class Movement : MonoBehaviour {
     #region Public attributes
     public DatabasePlayer databasePlayer = null;

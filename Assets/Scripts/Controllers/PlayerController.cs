@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void SavePlayerData() {
         //IN UN EVENTO QUANDO PREMERò IL TASTO 'SALVA' ESEGUIRò TUTTE QUESTE OPERAZIONI
-        Debug.Log(Save.Instance.playerPosition);
+        //Debug.Log(Save.Instance.playerPosition);
         Save.Instance.playerPosition = player.transform.position;
     }
 

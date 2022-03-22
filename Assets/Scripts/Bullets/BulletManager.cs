@@ -61,7 +61,7 @@ public class BulletManager : MonoBehaviour {
     //}
 
     public void GetBullet(Vector2 _startPosition) {
-        Debug.Log("SONO DENTRO");
+        //Debug.Log("SONO DENTRO");
         for (int i = 0; i < myBullets.Count; i++) {
             if (!myBullets[i].gameObject.activeSelf) {
                 //rivedibile 

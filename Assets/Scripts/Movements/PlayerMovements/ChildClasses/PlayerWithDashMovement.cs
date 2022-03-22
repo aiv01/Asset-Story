@@ -50,7 +50,7 @@ public class PlayerWithDashMovement : Movement, IDashable {
         if (diff > 10f) {
             isDash = false;
             diff = 0f;
-            Debug.Log(diff);
+            //Debug.Log(diff);
         }
 
         //Debug.Log($"STARTPOSITION {startPosition}");
