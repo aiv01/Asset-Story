@@ -4,15 +4,41 @@ using UnityEngine;
 public class HealthModule : MonoBehaviour {
     #region Attributes
     [SerializeField]
-    private DatabaseHealth databaseHealth = null; 
+    private DatabaseHealth databaseHealth = null;
+    #endregion
+
+
+    private void Awake() {
+        
+    }
+
+    private void Start() {
+        //databaseHealth.LifeAssign();
+        LoadHealthData();
+        Debug.Log($"HEALTH VALUE {databaseHealth.Health}");
+        AddListeners();
+    }
+    #region Start methods
+    private void LoadHealthData() {
+        databaseHealth.Health = Save.Instance.playerHealth;
+    }
+    private void AddListeners() {
+        MessageManager.OnTouchedTheCheckPoint += SaveHealthData;
+        MessageManager.OnNewGame += SaveDefaultHealthData;
+    }
     #endregion
 
 
 
-    private void Start() {
-        databaseHealth.LifeAssign();
+    #region Events methods
+    public void SaveHealthData() {
+        Save.Instance.playerHealth = databaseHealth.Health;
     }
 
+    public void SaveDefaultHealthData() {
+        Save.Instance.playerHealth = databaseHealth.MaxHealth;
+    }
+    #endregion
 
 
     private void Update() {
@@ -21,9 +47,12 @@ public class HealthModule : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.P)) {
-            TakeDamage(3);
+            databaseHealth.TakeDamage(3);
         }
 
+        if (Input.GetKeyDown(KeyCode.L)) {
+            databaseHealth.TakeHealth(2);
+        }
 
         Debug.Log(databaseHealth.Health);
         Debug.Log(databaseHealth.CurrentHealthPercentage);
@@ -45,6 +74,17 @@ public class HealthModule : MonoBehaviour {
     #region Private methods
     private bool Died() {
         return databaseHealth.Health <= 0;
+    }
+    #endregion
+
+
+    private void OnDestroy() {
+        RemoveListeners();
+    }
+    #region OnDestroy methods
+    private void RemoveListeners() {
+        MessageManager.OnTouchedTheCheckPoint -= SaveHealthData;
+        MessageManager.OnNewGame -= SaveDefaultHealthData;
     }
     #endregion
 }

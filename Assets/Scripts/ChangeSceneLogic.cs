@@ -5,12 +5,12 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class ChangeSceneLogic : MonoBehaviour {
     #region Private enum
-    private enum SceneType : byte {
-        StartScene,
-        CharacterChoiceScene,
-        GameScene,
-        Last
-    }
+    //private enum SceneType : byte {
+    //    StartScene,
+    //    CharacterChoiceScene,
+    //    GameScene,
+    //    Last
+    //}
     #endregion
     #region Enum variable
     private SceneType sceneType = SceneType.GameScene;

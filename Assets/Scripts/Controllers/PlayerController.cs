@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private DatabaseInput databaseInput = null;
 
+
+    [SerializeField]
+    private DatabaseKey databaseKey = null;
+
+    [SerializeField]
+    DatabaseHealth databaseHealth = null;
     [SerializeField]
     private Sprite shield = null;
 
@@ -62,6 +68,8 @@ public class PlayerController : MonoBehaviour {
     }
     private void LoadPlayerData() {
         player.transform.position = Save.Instance.playerPosition;
+        databaseKey.numOfKeys = Save.Instance.numOfKeys;
+       // databaseHealth.Health = Save.Instance.playerHealth;
     }
     private void SetPlayerComponents(Movement _movement, DatabasePlayer _databasePlayer,
                                      DatabaseInput _databaseInput,
@@ -73,7 +81,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Update() {
-        SavePlayerData();
+        //SavePlayerData();
     }
     private void SavePlayerData() {
         //IN UN EVENTO QUANDO PREMERò IL TASTO 'SALVA' ESEGUIRò TUTTE QUESTE OPERAZIONI

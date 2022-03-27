@@ -31,5 +31,11 @@ public class DatabaseHealth : ScriptableObject {
     public void LifeAssign() {
         health = maxHealth;
     }
+    public void TakeDamage(float _damage) {
+        Health -= _damage;
+    }
+    public void TakeHealth(float _health) {
+        Health += _health;
+    }
     #endregion
 }

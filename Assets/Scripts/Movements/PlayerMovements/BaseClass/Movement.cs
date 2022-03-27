@@ -95,6 +95,7 @@ public class Movement : MonoBehaviour {
     protected virtual void Start() {
         VariablesAssignment();
         databaseInput.AssignRewiredPlayer();
+        AddListener();
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
@@ -110,6 +111,7 @@ public class Movement : MonoBehaviour {
         myRigidbody.gravityScale = databasePlayer.GravityScale;
         myRigidbody.constraints = databasePlayer.RigidbodyConstraints;
         myRigidbody.sharedMaterial = databasePlayer.PhysicMaterial;
+        myRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
         //HeadCollider
         myHeadCollider.sharedMaterial = databasePlayer.PhysicMaterial;
         myHeadCollider.isTrigger = databasePlayer.HeadIsTrigger;
@@ -126,8 +128,18 @@ public class Movement : MonoBehaviour {
         //StickCollider
         myStickCollider.enabled = false;
     }
+    private void AddListener() {
+        MessageManager.OnTouchedTheCheckPoint += SavePlayerData;
+    }
     #endregion
 
+
+
+    #region Events methods
+    public void SavePlayerData() {
+        Save.Instance.playerPosition = transform.position;
+    }
+    #endregion
 
 
     protected virtual void Update() {
@@ -329,4 +341,13 @@ public class Movement : MonoBehaviour {
         return flatVector;
     }
     #endregion
+
+
+
+    private void OnDestroy() {
+        RemoveListeners();
+    }
+    private void RemoveListeners() {
+        MessageManager.OnTouchedTheCheckPoint -= SavePlayerData;
+    }
 }

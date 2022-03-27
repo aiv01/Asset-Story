@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(HealthModule))]
 public class Enemy : MonoBehaviour {
     #region Attributes and properties
     [SerializeField]
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour {
     //References
     private Rigidbody2D myRigidbody = null;
     private SpriteRenderer mySpriteRenderer = null;
+    private HealthModule myHealthModule = null;
     #endregion
     #region Static property
     public static bool IsFlipped {
@@ -32,6 +34,7 @@ public class Enemy : MonoBehaviour {
     private void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        myHealthModule = GetComponent<HealthModule>();
     } 
     #endregion
 
@@ -54,9 +57,9 @@ public class Enemy : MonoBehaviour {
 
 
 
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.name == "WallTile") {
-            myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.CompareTag("Player")) {
+            myHealthModule.TakeDamage(2);
         }
     }
 }

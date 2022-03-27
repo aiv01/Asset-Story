@@ -8,7 +8,8 @@ public enum MovementType : byte {
 
 public enum PlatformMovementType : byte {
     UpDown,
-    LeftRight
+    LeftRight,
+    Last
 }
 
 
@@ -23,6 +24,37 @@ public enum EnemyType : byte {
     chomper,
     Spitter,
     Gunner,
+    Last
+}
+
+
+public enum EnvironmentSpriteType : byte { 
+    Off,
+    On,
+    Last
+}
+
+
+public enum CheckPointSwitch : byte { 
+    On, 
+    Off,
+    Last
+}
+
+
+public enum DoorSpriteType : byte { 
+    Deactivate,
+    OnePieceActive,
+    TwoPieceActive,
+    Active,
+    Last
+}
+
+
+public enum SceneType : byte {
+    StartScene,
+    CharacterChoiceScene,
+    GameScene,
     Last
 }
 #endregion
