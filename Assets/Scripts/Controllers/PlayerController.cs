@@ -60,9 +60,11 @@ public class PlayerController : MonoBehaviour {
                 //playerWithDashMovement.shieldSprite = shield;
                 //playerWithDashMovement
                 break;
-            case SkillType.Last:
-                break;
-            default:
+            case SkillType.Invincibilty:
+                PlayerWithInvincibility playerWithInvincibility = player.AddComponent<PlayerWithInvincibility>();
+                playerWithInvincibility.databasePlayer = myDatabasePlayers[(int)SkillType.Invincibilty];
+                playerWithInvincibility.databaseInput = databaseInput;
+                playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Invincibilty];
                 break;
         }
     }

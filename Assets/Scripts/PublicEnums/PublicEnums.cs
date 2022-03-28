@@ -16,6 +16,7 @@ public enum PlatformMovementType : byte {
 public enum SkillType : byte {
     Shield,
     Dash,
+    Invincibilty,
     Last
 }
 

@@ -38,6 +38,14 @@ public class ChangeSceneLogic : MonoBehaviour {
         Save.isNewGame = true;
 
     }
+    public void ChangeSceneWithInvincibilityType() {
+        PlayerPrefs.DeleteAll();
+        Save.Instance.skillType = SkillType.Invincibilty;
+
+        SceneManager.LoadScene("SampleScene");
+        Save.isNewGame = true;
+
+    }
 
 
     public void Continue() {

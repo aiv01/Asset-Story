@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3282eabc73b300f498c46b99f865d2f7, type: 3}
+  m_Name: EllenInvincible
+  m_EditorClassIdentifier: 
+  movementType: 1
+  speed: 100
+  runMultiplier: 2
+  run: 0
+  jumpForce: 3
+  startingSprite: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
+  speedAnimationDivider: 100
+  rigidbodyType: 0
+  physicMaterial: {fileID: 0}
+  mass: 1
+  linearDrag: 0
+  angularDrag: 0.05
+  gravityScale: 1
+  rigidbodyConstraints: 4
+  headPhysicsMaterial: {fileID: 0}
+  headIsTrigger: 0
+  headUsedByEffector: 0
+  headUsedByComposite: 0
+  headAutoTiling: 0
+  headEdgeRadius: 0.05
+  bodyPhysicsMaterial: {fileID: 0}
+  bodyIsTrigger: 0
+  bodyUsedByEffector: 0
+  bodyUsedByComposite: 0
+  capsuleDirection: 0
+  reloadSkillCounter: 30
+  skillCounter: 0

@@ -1,62 +1,91 @@
 using UnityEngine;
 
 public class PlayerWithDashMovement : Movement, IDashable {
-    bool isDash = false;
+    #region Private attributes
+    private bool isDash = false;
+    private Vector4 startColor = Vector4.zero;
+    private Vector4 dashColor = Vector4.zero;
 
-    //private Vector2 direction = Vector2.zero;
+    [SerializeField]
+    private float dashForce = 10f;
+
+    [SerializeField]
+    private float dashThreshold = 10f;
     Vector2 startPosition;
+
+    private float diff = 0f;
+    #endregion
+
+
+
+    #region Start methods
+    protected override void VariablesAssignment() {
+        base.VariablesAssignment();
+
+        startColor = mySpriteRenderer.color;
+        dashColor = new Vector4(1f, 1f, 1f, 0.2f);
+        databasePlayer.skillCounter = 0f;
+    } 
+    #endregion
+
+
+
     protected override void Update() {
         base.Update();
-        if (databaseInput.Player.GetButtonDown
-           (databaseInput.SpecialSkillButton)) {
-            isDash = !isDash;
+
+        if (DashConditions()) {
+            isDash = true;
             startPosition = transform.position;
         }
+
+        if (!isDash) {
+            databasePlayer.skillCounter -= Time.deltaTime;
+        }
     }
+    #region Update methods
+    private bool DashConditions() {
+        return databaseInput.Player.GetButtonDown
+               (databaseInput.SpecialSkillButton) &&
+               databasePlayer.skillCounter <= 0;
+    }
+    #endregion
 
 
 
     protected override void FixedUpdate() {
         base.FixedUpdate();
+
         if (isDash) {
             Dash();
         }
         else {
-            SetAnimatorParameters("IsInSpecialSkillMode", false);
-            mySpriteRenderer.color = Color.white;
+            NormalState();
         }
     }
-
-
-
-    float diff;
-
+    #region FixedUpdate methods
     public void Dash() {
-        SetAnimatorParameters("IsInSpecialSkillMode", true);
-        //Vector2 inputDirection = Vector2.SignedAngle(transform.forward, );
+        #region Variables assignment
+        Vector2 force = !mySpriteRenderer.flipX ? transform.right * dashForce :
+                        -transform.right * dashForce;
 
-
-        //float dir = Mathf.DeltaAngle(databaseInput.horizontal,
-        //                             databaseInput.vertical);
-        mySpriteRenderer.color = new Color(1, 1, 1, 0.2f);
-        Vector2 a = !mySpriteRenderer.flipX ? transform.right * 10 :
-                   -transform.right * 10;
-        myRigidbody.AddForce(a, ForceMode2D.Impulse);
         Vector2 flat = FlattenVector(transform.position);
-        //Vector2 diff = flat - startPosition;
-        //float diff = 0;
-        diff += Mathf.Abs(flat.x - startPosition.x);
 
-        if (diff > 10f) {
+        diff += Mathf.Abs(flat.x - startPosition.x);
+        #endregion
+
+        SetAnimatorParameters("IsInSpecialSkillMode", true);
+        mySpriteRenderer.color = dashColor;
+        myRigidbody.AddForce(force, ForceMode2D.Impulse);
+
+        if (diff > dashThreshold) {
             isDash = false;
             diff = 0f;
-            //Debug.Log(diff);
+            databasePlayer.skillCounter = databasePlayer.ReloadSkillCounter;
         }
-
-        //Debug.Log($"STARTPOSITION {startPosition}");
-        //Debug.Log(diff);
-        //if (a.magnitude > 50) {
-        //    isDash = false;
-        //}
     }
+    private void NormalState() {
+        mySpriteRenderer.color = startColor;
+        SetAnimatorParameters("IsInSpecialSkillMode", false);
+    }
+    #endregion
 }

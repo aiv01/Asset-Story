@@ -18,7 +18,7 @@ public class DatabasePlayer : ScriptableObject {
         get {
             return movementType == MovementType.RigidbodyBased ||
                    movementType == MovementType.CharacterControllerBased ?
-                   (speed * Time.fixedDeltaTime) * RunMultiplier : 
+                   (speed * Time.fixedDeltaTime) * RunMultiplier :
                    (speed * Time.deltaTime) * RunMultiplier;
         }
     }
@@ -64,7 +64,7 @@ public class DatabasePlayer : ScriptableObject {
         get {
             return speed / speedAnimationDivider;
         }
-    } 
+    }
     #endregion
     [Header("WRAPPING OF RIGIDBODY PARAMETERS")]
     #region Rigidbody attributes and properties
@@ -223,4 +223,18 @@ public class DatabasePlayer : ScriptableObject {
         return _gravity * Vector2.up;
     }
     #endregion
+
+
+
+    [SerializeField]
+    [Range(5f, 50f)]
+    [Tooltip("Player skill reload time")]
+    private float reloadSkillCounter = 5f;
+    public float ReloadSkillCounter {
+        get { return reloadSkillCounter; }
+    }
+
+
+    [HideInInspector]
+    public float skillCounter = 0f;
 }

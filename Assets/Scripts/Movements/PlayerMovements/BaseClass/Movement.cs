@@ -175,8 +175,14 @@ public class Movement : MonoBehaviour {
         }
         #endregion
         #region Jump
-        IsJumping = !IsJumping && databaseInput.Player.GetButtonDown
-                    (databaseInput.JumpButton) ? true : IsJumping;
+        if (!IsJumping && databaseInput.Player.GetButtonDown
+           (databaseInput.JumpButton)) {
+            IsJumping = true;
+            //SetAnimatorParameters("IsJumping", IsJumping);
+        }
+        //IsJumping = /*!IsJumping && */databaseInput.Player.GetButtonDown
+        //            (databaseInput.JumpButton) ? true : IsJumping;
+
         #endregion
         #region Hit
         if (databaseInput.Player.GetButtonDown
@@ -205,9 +211,9 @@ public class Movement : MonoBehaviour {
         if (IsShooting) {
             Shoot();
         }
-        else {
-            SetAnimatorParameters("IsShooting", false);
-        }
+        //else {
+        //    SetAnimatorParameters("IsShooting", false);
+        //}
         #endregion
         #region Crouch
         if (databaseInput.Player.GetButton
@@ -253,7 +259,7 @@ public class Movement : MonoBehaviour {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
                                          shootPositionFlipped);
 
-        SetAnimatorParameters("IsShooting", true);
+        SetAnimatorParameters("IsShooting");
         IsShooting = false;
     }
 
@@ -273,7 +279,7 @@ public class Movement : MonoBehaviour {
         }
         else {
             SetAnimatorParameters("IsJumping", false);
-        } 
+        }
         #endregion
     }
     #region FixedUpdate methods
@@ -314,6 +320,9 @@ public class Movement : MonoBehaviour {
     protected void SetAnimatorParameters(string _name, bool _value) {
         myAnimator.SetBool(_name, _value);
     }
+    protected void SetAnimatorParameters(string _name) {
+        myAnimator.SetTrigger(_name);
+    }
     protected void SetAnimatorParameters(string _name, float _value) {
         myAnimator.SetFloat(_name, _value);
     }
@@ -347,7 +356,9 @@ public class Movement : MonoBehaviour {
     private void OnDestroy() {
         RemoveListeners();
     }
+    #region OnDestroy methods
     private void RemoveListeners() {
         MessageManager.OnTouchedTheCheckPoint -= SavePlayerData;
-    }
+    } 
+    #endregion
 }

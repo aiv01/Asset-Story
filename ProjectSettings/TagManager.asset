@@ -9,6 +9,7 @@ TagManager:
   - Environment
   - Key
   - KeyOff
+  - Invincible
   layers:
   - Default
   - TransparentFX

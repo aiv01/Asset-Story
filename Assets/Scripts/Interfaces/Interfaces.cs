@@ -11,3 +11,11 @@ public interface IDashable {
     void Dash();
 
 }
+
+
+
+public interface IInvincible {
+
+    void Invincible();
+
+}
