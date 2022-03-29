@@ -550,9 +550,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 358971600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec3f70ef93b98f4e9a3ac45a0571624, type: 3}
+  m_Script: {fileID: 11500000, guid: 982b55655e95ad743b16f223a6aa3946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletDB: {fileID: 11400000, guid: ef5f079c6bed2734781b90522d62af45, type: 2}
   playerDB: {fileID: 11400000, guid: 330ed8477bbcc4f46991899f9445ec76, type: 2}
 --- !u!212 &358971602
 SpriteRenderer:
@@ -1546,6 +1547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   databaseBulletManager: {fileID: 11400000, guid: 454759dff49bae446bc829b60e4c6b73,
     type: 2}
+  numOfBullet: 3
   prefabBullet: {fileID: 920932302197771731, guid: 091f9aeaffe0d6f4bb06dcdd070f52df,
     type: 3}
   IsFree: 0

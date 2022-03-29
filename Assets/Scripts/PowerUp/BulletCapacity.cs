@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletDamagePowerUp : BasePowerUp
+public class BulletCapacity : BasePowerUp
 {
     [SerializeField]
-    DatabaseBullet bulletDB = null;
-    private int bulletDMG = 1;
+    DatabaseBulletManager bulletMGRDB = null;
+    private int bulletCapacity = 2;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,7 +22,7 @@ public class BulletDamagePowerUp : BasePowerUp
 
     protected override void ChangeStats()
     {
-        bulletDB.Damage += bulletDMG;
+        bulletMGRDB.NumOfBullet += bulletCapacity;
     }
 
     protected void TurnMeOff()
@@ -32,6 +32,6 @@ public class BulletDamagePowerUp : BasePowerUp
 
     private void Update()
     {
-        Debug.Log($"Player bullet dmg {bulletDB.Damage}");
+        Debug.Log($"Bullet Capacity {bulletMGRDB.NumOfBullet}");
     }
 }

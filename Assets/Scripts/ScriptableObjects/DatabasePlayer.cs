@@ -22,7 +22,7 @@ public class DatabasePlayer : ScriptableObject {
                    (speed * Time.deltaTime) * RunMultiplier;
         }
 
-        set { speed += value; }
+        set { speed = value; }
     }
 
 
@@ -54,7 +54,7 @@ public class DatabasePlayer : ScriptableObject {
     public float Damage
     {
         get { return damage; }
-        set { damage += value; }
+        set { damage = value; }
     }
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]

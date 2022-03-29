@@ -6,6 +6,7 @@ public class SpeedPowerUp : BasePowerUp
 {
     [SerializeField]
     DatabasePlayer playerDB = null;
+    private int speed = 15;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,7 +19,7 @@ public class SpeedPowerUp : BasePowerUp
 
     protected override void ChangeStats()
     {
-        playerDB.Speed = 5;
+        playerDB.Speed += speed;
         
     }
 

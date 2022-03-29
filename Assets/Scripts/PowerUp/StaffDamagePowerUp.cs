@@ -6,6 +6,7 @@ public class StaffDamagePowerUp : BasePowerUp
 {
     [SerializeField]
     DatabasePlayer playerDB = null;
+    private int damage = 2;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,7 +22,7 @@ public class StaffDamagePowerUp : BasePowerUp
 
     protected override void ChangeStats()
     {
-        playerDB.Damage = 2;
+        playerDB.Damage += damage;
 
     }
 

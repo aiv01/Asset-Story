@@ -47,7 +47,7 @@ public class DatabaseBullet : ScriptableObject {
     public float Damage
     {
         get { return damage; }
-        set { damage += value; }
+        set { damage = value; }
     }
 
     [SerializeField]
