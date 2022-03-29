@@ -215,9 +215,9 @@ public class Save : MonoBehaviour {
         //PlayerPrefs.SetString(PREF_KEYTAGS[1], keytags[1]);
         //PlayerPrefs.SetString(PREF_KEYTAGS[2], keytags[2]);
 
-        PlayerPrefs.SetString(PREF_KEYTAGS_1, keytag_1);
-        PlayerPrefs.SetString(PREF_KEYTAGS_2, keytag_2);
-        PlayerPrefs.SetString(PREF_KEYTAGS_3, keytag_3);
+        //PlayerPrefs.SetString(PREF_KEYTAGS_1, keytag_1);
+        //PlayerPrefs.SetString(PREF_KEYTAGS_2, keytag_2);
+        //PlayerPrefs.SetString(PREF_KEYTAGS_3, keytag_3);
 
 
     }
@@ -277,9 +277,9 @@ public class Save : MonoBehaviour {
             //keytags[1] = PlayerPrefs.GetString(PREF_KEYTAGS[1], DEAFAULT_KEY);
             //keytags[2] = PlayerPrefs.GetString(PREF_KEYTAGS[2], DEAFAULT_KEY);
 
-            keytag_1 = PlayerPrefs.GetString(PREF_KEYTAGS_1, DEAFAULT_KEY);
-            keytag_2 = PlayerPrefs.GetString(PREF_KEYTAGS_2, DEAFAULT_KEY);
-            keytag_3 = PlayerPrefs.GetString(PREF_KEYTAGS_3, DEAFAULT_KEY);
+            //keytag_1 = PlayerPrefs.GetString(PREF_KEYTAGS_1, DEAFAULT_KEY);
+            //keytag_2 = PlayerPrefs.GetString(PREF_KEYTAGS_2, DEAFAULT_KEY);
+            //keytag_3 = PlayerPrefs.GetString(PREF_KEYTAGS_3, DEAFAULT_KEY);
         }
     }
     #endregion

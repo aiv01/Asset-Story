@@ -30,14 +30,4 @@ public class DatabaseKey : ScriptableObject {
         get { return animatorSpeed; }
     }
     #endregion
-
-
-    public int keyID = 0;
-
-    //private void SaveKeyID() {
-    //    if (keyID == 0) {
-    //        Save.Instance.keytag_1 = keyID;
-    //    }
-
-    //}
 }

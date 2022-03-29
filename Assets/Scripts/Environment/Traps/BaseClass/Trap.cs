@@ -3,15 +3,17 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public abstract class Trap : MonoBehaviour {
+public class Trap : MonoBehaviour {
     #region Attributes
     [SerializeField]
-    protected DatabaseHealth playerDatabaseHealth = null;
+    protected DatabaseTrap databaseTrap = null; 
     [SerializeField]
-    protected DatabaseTrap databaseTrap = null;
-
-    protected SpriteRenderer mySpriteRenderer = null;
+    protected DatabaseHealth playerDatabaseHealth = null;
     protected Collider2D myCollider = null;
+    protected SpriteRenderer mySpriteRenderer = null;
+    #endregion
+    #region Constant
+    private const int TRAP_SORTINGORDER = 1;
     #endregion
 
 
@@ -21,9 +23,9 @@ public abstract class Trap : MonoBehaviour {
     }
     #region Awake methods
     protected virtual void TakeTheReferences() {
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
         myCollider = GetComponent<Collider2D>();
-    }
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+    } 
     #endregion
 
 
@@ -33,21 +35,16 @@ public abstract class Trap : MonoBehaviour {
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
-        if (myCollider is BoxCollider2D myBoxCollider) {
-            myBoxCollider.size = mySpriteRenderer.size;
-        }
-    }
+        myCollider.isTrigger = true;
+        mySpriteRenderer.sortingOrder = TRAP_SORTINGORDER;
+    } 
     #endregion
 
 
 
-    protected virtual void Update() {
-
-    }
-
-
-
-    protected virtual void FixedUpdate() {
-
+    protected virtual void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Player")) {
+            playerDatabaseHealth.TakeDamage(databaseTrap.Damage);
+        }
     }
 }
