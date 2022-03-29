@@ -63,8 +63,6 @@ public class Bullet : MonoBehaviour {
     }
     #endregion
 
-
-
     private void FixedUpdate() {
         Move();
     }
@@ -75,6 +73,16 @@ public class Bullet : MonoBehaviour {
         #endregion
 
         myRigidbody.velocity = direction.normalized * databaseBullet.Speed;
-    } 
+    }
     #endregion
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Enemy"))
+        {
+            databaseBullet.HittableEnemies -= 1;
+            if(databaseBullet.HittableEnemies <= 0) 
+            { DestroyMe(); }
+        }
+    }
 }
