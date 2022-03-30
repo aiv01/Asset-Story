@@ -38,6 +38,15 @@ public class DatabaseBullet : ScriptableObject {
     public float ReloadLifeCounter {
         get { return reloadLifeCounter; }
     }
+
+
+    [SerializeField]
+    [Range(1f, 100f)]
+    private float damage = 1f;
+    public float Damage {
+        get { return damage; }
+    }
+
     #endregion
     #region Methods
     #endregion

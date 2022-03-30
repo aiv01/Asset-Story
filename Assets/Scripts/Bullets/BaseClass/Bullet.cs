@@ -9,23 +9,22 @@ public class Bullet : MonoBehaviour {
     public DatabaseBullet databaseBullet = null;
     #endregion
     #region Private attributes
-    private Rigidbody2D myRigidbody = null;
-    private CircleCollider2D myCircleCollider = null;
-    private SpriteRenderer mySpriteRenderer = null;
+    protected Rigidbody2D myRigidbody = null;
+    protected CircleCollider2D myCircleCollider = null;
+    protected SpriteRenderer mySpriteRenderer = null;
 
-
-    private float counter = 0;
-    private float reloadCounter = 5f;
-    private bool playerIsFlipped = false;
+    protected float counter = 0;
+    protected float reloadCounter = 5f;
+    protected bool IsFlipped = false;
     #endregion
 
 
 
-    private void Awake() {
+    protected virtual void Awake() {
         TakeTheReferences();
     }
     #region Awake methods
-    private void TakeTheReferences() {
+    protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
         myCircleCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,14 +33,15 @@ public class Bullet : MonoBehaviour {
 
 
 
-    private void OnEnable() {
+    protected virtual void OnEnable() {
         VariablesAssignment();
     }
     #region OnEnable methods
-    private void VariablesAssignment() {
-        playerIsFlipped = Movement.IsFlipped ? true : false;
-        mySpriteRenderer.sprite = databaseBullet.Sprite;
-        mySpriteRenderer.flipX = playerIsFlipped ? true : false;
+    protected virtual void VariablesAssignment() {
+        //playerIsFlipped = Movement.IsFlipped ? true : false;
+        gameObject.tag = "Bullet";
+        //mySpriteRenderer.sprite = databaseBullet.Sprite;
+        //mySpriteRenderer.flipX = IsFlipped ? true : false;
         reloadCounter = databaseBullet.ReloadLifeCounter;
         counter = reloadCounter;
     } 
@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour {
 
 
 
-    private void Update() {
+    protected virtual void Update() {
         counter -= Time.deltaTime;
 
         if (counter <= 0) {
@@ -58,23 +58,33 @@ public class Bullet : MonoBehaviour {
         }
     }
     #region Update methods
-    private void DestroyMe() {
+    protected virtual void DestroyMe() {
         gameObject.SetActive(false);
     }
     #endregion
 
 
 
-    private void FixedUpdate() {
+    protected virtual void FixedUpdate() {
         Move();
     }
     #region FixedUpdate methods
-    private void Move() {
+    protected virtual void Move() {
         #region Variable assignment
-        Vector2 direction = !playerIsFlipped ? Vector2.right : -Vector2.right;
+        Vector2 direction = !IsFlipped ? Vector2.right : -Vector2.right;
         #endregion
 
         myRigidbody.velocity = direction.normalized * databaseBullet.Speed;
-    } 
+    }
     #endregion
+
+
+
+    //private void OnCollisionEnter2D(Collision2D collision) {
+    //    if (collision.collider.CompareTag("Enemy") ||
+    //      collision.collider.CompareTag("Bullet") ||
+    //      collision.collider.CompareTag("Player")) {
+    //        DestroyMe();
+    //    }
+    //}
 }

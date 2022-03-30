@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))]
-public class Attack : State {
+[RequireComponent(typeof(Chomper))]
+public class ChomperAttack : State {
     #region Private attributes
     [SerializeField]
     private float reloadCounter = 5f;
@@ -13,7 +13,7 @@ public class Attack : State {
         get { return attackSpeed * Time.fixedDeltaTime; }
     }
 
-    private Vector2 direction = Vector2.zero;
+    private float direction = 0;
 
     [SerializeField]
     private State nextState = null;
@@ -21,7 +21,8 @@ public class Attack : State {
     private Enemy enemy = null;
     #endregion
 
-
+    [SerializeField]
+    private DatabaseHealth ChomperDatabaseHealth = null;
 
     protected override void Awake() {
         //startScale = transform.localScale;
@@ -39,15 +40,16 @@ public class Attack : State {
 
 
 
+    #region OnEnable methods
     protected override void OnEnterState() {
         myAnimator.SetBool("IsAttacking", true);
-        //mySpriteRenderer.color = Color.red;
     }
+    #endregion
+    #region OnDisable methods
     protected override void OnExitState() {
         myAnimator.SetBool("IsAttacking", false);
-        //mySpriteRenderer.color = Color.white;
     }
-
+    #endregion
 
 
     protected override void Start() {
@@ -59,8 +61,10 @@ public class Attack : State {
 
 
     public override void Update() {
-        direction = (playerTransform.position - transform.position);
-        counter -= Time.deltaTime;
+        #region Variables assignment
+        direction = (playerTransform.position.x - transform.position.x);
+        counter -= Time.deltaTime; 
+        #endregion
 
         if (ExitCondition()) {
             counter = reloadCounter;
@@ -77,26 +81,13 @@ public class Attack : State {
 
 
     public override void FixedUpdate() {
-        switch (enemy.MyEnemyType) {
-            case EnemyType.chomper:
-                Move();
-                break;
-            case EnemyType.Spitter:
-                Shoot();
-                break;
-            case EnemyType.Gunner:
-                break;
-            case EnemyType.Last:
-                break;
-            default:
-                break;
-        }
+        Move();
 
     }
     #region FixedUpdate methods
     private void Move() {
-        myRigidbody.velocity = (direction.normalized * AttackSpeed) +
-                               Gravity(myRigidbody.velocity.y);
+        myRigidbody.velocity = Vector2.right * (direction * AttackSpeed) /*+
+                               Gravity(myRigidbody.velocity.y)*/;
     }
 
 

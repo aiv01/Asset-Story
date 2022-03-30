@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 263dacfe619327143b61ee48d47c4a1a, type: 3}
-  m_Name: Default
+  m_Name: EnemyBullet
   m_EditorClassIdentifier: 
   movementType: 1
-  speed: 500
-  sprite: {fileID: 21300000, guid: b7c5001f1eb00a447bc82a3bec41453a, type: 3}
-  reloadLifeCounter: 5
+  speed: 327
+  sprite: {fileID: 21300000, guid: 89f413bb94de50745831d20f00d673f7, type: 3}
+  reloadLifeCounter: 3

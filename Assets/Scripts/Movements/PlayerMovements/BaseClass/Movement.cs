@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour {
     } = false;
 
 
-    protected bool IsHitting {
+    public static bool IsHitting {
         get;
         private set;
     } = false;
@@ -75,6 +75,11 @@ public class Movement : MonoBehaviour {
     #endregion
 
 
+    [SerializeField]
+    private BulletManager myBulletManager = null;
+
+    [SerializeField]
+    private DatabaseHealth databaseHealth = null;
 
     protected virtual void Awake() {
         TakeTheReferences();
@@ -139,6 +144,9 @@ public class Movement : MonoBehaviour {
     public void SavePlayerData() {
         Save.Instance.playerPosition = transform.position;
     }
+    //public void DamageFromChomper() { 
+    //    databaseHealth.TakeDamage()
+    //}
     #endregion
 
 
@@ -258,6 +266,9 @@ public class Movement : MonoBehaviour {
     private void Shoot() {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
                                          shootPositionFlipped);
+        //myBulletManager.GetBullet(!IsFlipped ? shootPosition :
+        //                          shootPositionFlipped);
+
 
         SetAnimatorParameters("IsShooting");
         IsShooting = false;
@@ -311,6 +322,11 @@ public class Movement : MonoBehaviour {
         if (collision.gameObject.layer == DEFAULT_LAYER) {
             IsGrounded = true;
         }
+
+        //if (collision.collider.CompareTag("Bullet")) {
+        //    databaseHealth.TakeDamage(2);
+        //}
+        //GESTIONE DANNO COUNTERIZZATA (PER PRENDERE DANNO OGI TOT)(CHOMPER/SPIKES/GUNNER)
     } 
     #endregion
 

@@ -41,5 +41,11 @@ public static class MessageManager {
         OnNewGame?.Invoke();
     }
 
+
+    public delegate void ChomperColllision();
+    public static event ChomperColllision OnChomperCollision;
+    public static void CallOnChomperCollision() {
+        OnChomperCollision?.Invoke();
+    }
     #endregion
 }

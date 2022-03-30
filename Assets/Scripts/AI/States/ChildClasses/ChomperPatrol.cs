@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))]
-public class Patrol : State {
+[RequireComponent(typeof(Chomper))]
+public class ChomperPatrol : State {
     #region Private attributes
     private Enemy enemy = null;
 
@@ -26,13 +26,19 @@ public class Patrol : State {
 
     [SerializeField]
     private float maxPath = 250f;
+
+    [SerializeField]
+    private DatabaseHealth ChomperDatabaseHealth = null;
     #endregion
 
 
+    #region Awake methods
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
         enemy = GetComponent<Enemy>();
-    }
+    } 
+    #endregion
+
 
 
     protected override void Start() {
@@ -60,22 +66,7 @@ public class Patrol : State {
 
 
     public override void FixedUpdate() {
-        switch (enemy.MyEnemyType) {
-            case EnemyType.chomper:
-                Movement();
-                break;
-            case EnemyType.Spitter:
-                Movement();
-                break;
-            case EnemyType.Gunner:
-                break;
-            case EnemyType.Last:
-                break;
-            default:
-                break;
-        }
-
-        //Movement();
+        Movement();
     }
     #region FixedUpdate methods
     private void Movement() {
@@ -86,13 +77,11 @@ public class Patrol : State {
 
         diff += Mathf.Abs(flat.x - startPosition.x);
 
-
         if (diff > maxPath) {
             startPosition = transform.position;
             change = !change;
             diff = 0f;
         }
-
 
         myRigidbody.velocity = (direction.normalized * Speed) + Gravity(myRigidbody.velocity.y);
     } 

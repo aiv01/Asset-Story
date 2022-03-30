@@ -4,7 +4,9 @@ using UnityEngine;
 public class HealthModule : MonoBehaviour {
     #region Attributes
     [SerializeField]
-    private DatabaseHealth databaseHealth = null;
+    public DatabaseHealth databaseHealth = null;
+
+    private float health = 0f;
     #endregion
 
 
@@ -17,6 +19,8 @@ public class HealthModule : MonoBehaviour {
         LoadHealthData();
         Debug.Log($"HEALTH VALUE {databaseHealth.Health}");
         AddListeners();
+
+        health = databaseHealth.Health;
     }
     #region Start methods
     private void LoadHealthData() {
@@ -46,13 +50,13 @@ public class HealthModule : MonoBehaviour {
             gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            databaseHealth.TakeDamage(3);
-        }
+        //if (Input.GetKeyDown(KeyCode.P)) {
+        //    databaseHealth.TakeDamage(3);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.L)) {
-            databaseHealth.TakeHealth(2);
-        }
+        //if (Input.GetKeyDown(KeyCode.L)) {
+        //    databaseHealth.TakeHealth(2);
+        //}
 
         Debug.Log(databaseHealth.Health);
         Debug.Log(databaseHealth.CurrentHealthPercentage);
@@ -61,11 +65,18 @@ public class HealthModule : MonoBehaviour {
 
 
     #region Public methods
+    //public void TakeHealth(float _health) {
+    //    databaseHealth.Health += _health;
+    //}
+    //public void TakeDamage(float _damage) {
+    //    databaseHealth.Health -= _damage;
+    //}
+
     public void TakeHealth(float _health) {
-        databaseHealth.Health += _health;
+        health += _health;
     }
     public void TakeDamage(float _damage) {
-        databaseHealth.Health -= _damage;
+        health -= _damage;
     }
     #endregion
 
