@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestScript : MonoBehaviour {
     private Collider2D myCollider = null;
     private const string DEBUG_STRING = "BAU";
+    private const string DEBUG_STRING = "MIAO";
 
     private void Awake() {
         TakeTheReferences();
