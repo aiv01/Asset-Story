@@ -38,7 +38,6 @@ public class HealthModule : MonoBehaviour {
     public void SaveHealthData() {
         Save.Instance.playerHealth = databaseHealth.Health;
     }
-
     public void SaveDefaultHealthData() {
         Save.Instance.playerHealth = databaseHealth.MaxHealth;
     }

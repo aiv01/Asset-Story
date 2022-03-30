@@ -19,9 +19,10 @@ public class Spitter : Enemy {
     protected override void VariablesAssignment() {
         base.VariablesAssignment();
 
-        myRigidbody.mass = mass;
+        //myRigidbody.mass = mass;
     }
     #endregion
+
 
 
     protected override void Update() {
@@ -31,7 +32,7 @@ public class Spitter : Enemy {
         //    TurnOffMe();
         //}
 
-        Debug.Log($"MY HEALTH {myHealthModule.databaseHealth.Health}");
+        //Debug.Log($"MY HEALTH {myHealthModule.databaseHealth.Health}");
     }
    
 

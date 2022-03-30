@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SpitterBullet : Bullet {
     private bool spitterIsFlipped = false;
-
+    [SerializeField]
+    DatabaseHealth player = null;
 
 
     #region OnEnable methods
@@ -19,8 +20,12 @@ public class SpitterBullet : Bullet {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
+            player.TakeDamage(2);
             DestroyMe();
-            
+        }
+
+        if (collision.collider.CompareTag("Shield")) {
+            DestroyMe();
         }
     }
 }

@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour {
     protected Rigidbody2D myRigidbody = null;
     protected SpriteRenderer mySpriteRenderer = null;
     protected Animator myAnimator = null;
-    protected HealthModule myHealthModule = null;
+    //protected HealthModule myHealthModule = null;
     #endregion
     #region Static property
     public static bool IsFlipped {
@@ -37,7 +37,7 @@ public abstract class Enemy : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
-        myHealthModule = GetComponent<HealthModule>();
+        //myHealthModule = GetComponent<HealthModule>();
     }
     #endregion
 
@@ -48,6 +48,7 @@ public abstract class Enemy : MonoBehaviour {
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
+        myRigidbody.mass = 10f;
     } 
     #endregion
 

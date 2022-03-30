@@ -70,8 +70,14 @@ PrefabInstance:
     - target: {fileID: 4949012434000972555, guid: 831aa8d2e14e137448236878feef12fd,
         type: 3}
       propertyPath: m_TagString
-      value: Bullet
+      value: EnemyBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 5571679624592481983, guid: 831aa8d2e14e137448236878feef12fd,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: d31e53086e572194591d1e32581d91a7,
+        type: 2}
     - target: {fileID: 5571679624592481983, guid: 831aa8d2e14e137448236878feef12fd,
         type: 3}
       propertyPath: spitter

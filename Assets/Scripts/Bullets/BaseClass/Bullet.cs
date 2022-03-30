@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour {
     protected CircleCollider2D myCircleCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;
 
+
     protected float counter = 0;
     protected float reloadCounter = 5f;
     protected bool IsFlipped = false;

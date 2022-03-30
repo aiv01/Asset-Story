@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1502f97977ca84449baae94a7088aad, type: 3}
   m_Name: Spitter
   m_EditorClassIdentifier: 
-  numOfBullet: 1
+  numOfBullet: 5
   prefabBullet: {fileID: 0}

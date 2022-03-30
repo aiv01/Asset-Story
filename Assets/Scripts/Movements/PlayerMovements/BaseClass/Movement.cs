@@ -144,9 +144,6 @@ public class Movement : MonoBehaviour {
     public void SavePlayerData() {
         Save.Instance.playerPosition = transform.position;
     }
-    //public void DamageFromChomper() { 
-    //    databaseHealth.TakeDamage()
-    //}
     #endregion
 
 
@@ -245,7 +242,7 @@ public class Movement : MonoBehaviour {
     private void Crouch() {
         IsCrouching = true;
         SetAnimatorParameters("IsCrouching", true);
-        myRigidbody.simulated = false;
+        databaseInput.horizontal = 0;
     }
     private void Hit() {
         #region StickCollider positioning
@@ -315,14 +312,16 @@ public class Movement : MonoBehaviour {
     }
     #endregion
 
-
+    private HealthModule myHealtModule = null;
 
     #region OnCollision methods
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.layer == DEFAULT_LAYER) {
             IsGrounded = true;
         }
-
+        //if (collision.collider.CompareTag("EnemyBullet")) {
+        //    myHealtModule.TakeDamage(2);
+        //}
         //if (collision.collider.CompareTag("Bullet")) {
         //    databaseHealth.TakeDamage(2);
         //}

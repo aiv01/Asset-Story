@@ -10,24 +10,8 @@ public class BulletManagerNS : MonoBehaviour {
 
     private List<SpitterBullet> myBullets = new List<SpitterBullet>();
     #endregion
-    #region Singleton
-    //public static BulletManager Instance {
-    //    get;
-    //    private set;
-    //} = null;
-    #endregion
 
-    //rivedibile
     public bool IsFree = false;
-
-    private void Awake() {
-        //SetSingleton();
-    }
-    #region Awake methods
-    //private void SetSingleton() {
-    //    Instance = this;
-    //}
-    #endregion
 
 
 
@@ -49,34 +33,12 @@ public class BulletManagerNS : MonoBehaviour {
 
 
     #region Public methods
-    //public void GetBullet(Vector2 startPosition) {
-    //    Debug.Log("SONO DENTRO");
-    //    for (int i = 0; i < myBullets.Count; i++) {
-    //        if (!myBullets[i].gameObject.activeSelf) {
-    //            myBullets[i].gameObject.SetActive(true);
-
-    //            return;
-    //        }
-    //    }
-    //}
-
-    public void GetBullet(Vector2 _startPosition) {
-        //Debug.Log("SONO DENTRO");
+    public void GetBullet(Vector2 _startPosition) { 
         for (int i = 0; i < myBullets.Count; i++) {
             if (!myBullets[i].gameObject.activeSelf) {
-                //rivedibile 
-                IsFree = true;
-                if (i > -1) {
-                    IsFree = true;
-                }
-
                 myBullets[i].gameObject.transform.position = _startPosition;
                 myBullets[i].gameObject.SetActive(true);
-                break;
-            }
-            //rivedibile
-            else {
-                IsFree = false;
+                break; 
             }
         }
     }

@@ -24,8 +24,6 @@ public class SpitterAttack : State {
     private Vector3 bulletFlippedPosition = new Vector3(-1, 1, 0);
     private Vector3 bulletPosition = new Vector3(1, 1, 0);
     #endregion
-    #region Attributes and properties
-    #endregion
 
 
 
@@ -37,6 +35,7 @@ public class SpitterAttack : State {
         base.TakeTheReferences();
         enemy = GetComponent<Enemy>();
     }
+
 
 
     protected override void Start() {
@@ -52,17 +51,16 @@ public class SpitterAttack : State {
 
         counter -= Time.deltaTime;
 
-        Debug.Log($"COUNTER {counter}");
-
         if (ExitCondition()) {
             this.enabled = false;
             nextState.enabled = true;
         }
 
         myAnimator.SetBool("IsAttacking", true);
+
         if (counter <= 0) {
             StartCoroutine(ActivateShoot());
-            //counter = reloadCounter;
+            counter = reloadCounter;
         }
         else {
             myAnimator.SetBool("IsAttacking", false);
@@ -73,20 +71,16 @@ public class SpitterAttack : State {
         return Mathf.Abs(transform.position.x - playerTransform.position.x) >= minDist; 
     }
 
+
     private IEnumerator ActivateShoot() {
-        //counter = reloadCounter;
         yield return new WaitForSeconds(0.8f);
 
         if (Enemy.IsFlipped) {
             bulletManagerNS.GetBullet(transform.position + bulletFlippedPosition);
-            //counter = reloadCounter;
-            //return;
         }
         else {
             bulletManagerNS.GetBullet(transform.position + bulletPosition);
-            //counter = reloadCounter;
         }
-        counter = reloadCounter;
     }
     #endregion
 }
