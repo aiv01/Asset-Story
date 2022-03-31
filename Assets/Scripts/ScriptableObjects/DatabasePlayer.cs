@@ -11,7 +11,7 @@ public class DatabasePlayer : ScriptableObject {
     #endregion
     #region Attributes and properties
     [SerializeField]
-    [Range(15f, 600f)]
+    [Range(15f, 150f)]
     [Tooltip("Scalar which will be multiplied to the velocity vector of the rigidbody")]
     private float speed = 15f;
     public float Speed {
@@ -21,8 +21,6 @@ public class DatabasePlayer : ScriptableObject {
                    (speed * Time.fixedDeltaTime) * RunMultiplier :
                    (speed * Time.deltaTime) * RunMultiplier;
         }
-
-        set { speed = value; }
     }
 
 
@@ -45,16 +43,6 @@ public class DatabasePlayer : ScriptableObject {
     private float jumpForce = 0f;
     public float JumpForce {
         get { return jumpForce; }
-    }
-
-    [SerializeField]
-    [Range(0f, 50f)]
-    [Tooltip("Value that will determine the strength of the attack that you perform with your staff")]
-    private float damage = 4f;
-    public float Damage
-    {
-        get { return damage; }
-        set { damage = value; }
     }
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]

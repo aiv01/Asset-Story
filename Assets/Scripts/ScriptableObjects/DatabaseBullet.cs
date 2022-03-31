@@ -41,24 +41,12 @@ public class DatabaseBullet : ScriptableObject {
 
 
     [SerializeField]
-    [Range(0f, 50f)]
-    [Tooltip("Value that will determine the strength of the attack that you perform with your staff")]
-    private float damage = 2f;
-    public float Damage
-    {
+    [Range(1f, 100f)]
+    private float damage = 1f;
+    public float Damage {
         get { return damage; }
-        set { damage = value; }
     }
 
-    [SerializeField]
-    [Range(0f, 3f)]
-    [Tooltip("Value that will determine the strength of the attack that you perform with your staff")]
-    private float hittableEnemies = 1f;
-    public float HittableEnemies
-    {
-        get { return hittableEnemies; }
-        set { hittableEnemies += value; }
-    }
     #endregion
     #region Methods
     #endregion

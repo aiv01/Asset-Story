@@ -64,7 +64,9 @@ public class Bullet : MonoBehaviour {
     }
     #endregion
 
-    private void FixedUpdate() {
+
+
+    protected virtual void FixedUpdate() {
         Move();
     }
     #region FixedUpdate methods
@@ -77,13 +79,13 @@ public class Bullet : MonoBehaviour {
     }
     #endregion
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.collider.CompareTag("Enemy"))
-        {
-            databaseBullet.HittableEnemies -= 1;
-            if(databaseBullet.HittableEnemies <= 0) 
-            { DestroyMe(); }
-        }
-    }
+
+
+    //private void OnCollisionEnter2D(Collision2D collision) {
+    //    if (collision.collider.CompareTag("Enemy") ||
+    //      collision.collider.CompareTag("Bullet") ||
+    //      collision.collider.CompareTag("Player")) {
+    //        DestroyMe();
+    //    }
+    //}
 }

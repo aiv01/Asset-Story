@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: EllenInvincible
   m_EditorClassIdentifier: 
   movementType: 1
-  speed: 300
+  speed: 100
   runMultiplier: 2
   run: 0
   jumpForce: 3
-  damage: 8
   startingSprite: {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
   speedAnimationDivider: 100
   rigidbodyType: 0
