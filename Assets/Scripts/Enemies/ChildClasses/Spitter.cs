@@ -9,8 +9,7 @@ public class Spitter : Enemy {
     [SerializeField]
     private float damage = 0.5f;
 
-    [SerializeField]
-    private float mass = 10f;
+    private float mass = 100f;
     #endregion
 
 
@@ -19,7 +18,7 @@ public class Spitter : Enemy {
     protected override void VariablesAssignment() {
         base.VariablesAssignment();
 
-        //myRigidbody.mass = mass;
+        myRigidbody.mass = mass;
     }
     #endregion
 
@@ -46,6 +45,7 @@ public class Spitter : Enemy {
         }
         else {
             mySpriteRenderer.flipX = true;
+
         }
     } 
     #endregion

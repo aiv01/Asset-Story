@@ -150,6 +150,9 @@ public class Movement : MonoBehaviour {
     protected virtual void Update() {
         databaseInput.TakeTheInputs();
 
+        Debug.Log("Ground" + IsGrounded);
+        Debug.Log("Jump" + IsJumping);
+
         #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
 
@@ -180,10 +183,14 @@ public class Movement : MonoBehaviour {
         }
         #endregion
         #region Jump
-        if (!IsJumping && databaseInput.Player.GetButtonDown
+        if (IsGrounded && databaseInput.Player.GetButtonDown
            (databaseInput.JumpButton)) {
             IsJumping = true;
             //SetAnimatorParameters("IsJumping", IsJumping);
+        }
+        if (!IsGrounded)
+        {
+            IsJumping = true;
         }
         //IsJumping = /*!IsJumping && */databaseInput.Player.GetButtonDown
         //            (databaseInput.JumpButton) ? true : IsJumping;
