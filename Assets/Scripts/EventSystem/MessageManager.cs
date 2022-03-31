@@ -47,5 +47,27 @@ public static class MessageManager {
     public static void CallOnChomperCollision() {
         OnChomperCollision?.Invoke();
     }
+
+
+
+    public delegate void NpcInteraction();
+    public static event NpcInteraction OnNpcInteraction;
+    public static void CallOnNpcInteraction() {
+        OnNpcInteraction?.Invoke();
+    }
+
+
+    public delegate void TurnOffVignette();
+    public static event TurnOffVignette OnTurnOffVignette;
+    public static void CallOnTurnOffVignette() {
+        OnTurnOffVignette?.Invoke();
+    }
+
+
+    public delegate void EscDialogue();
+    public static event EscDialogue OnEscDialogue;
+    public static void CallOnEscDialogue() {
+        OnEscDialogue?.Invoke();
+    }
     #endregion
 }

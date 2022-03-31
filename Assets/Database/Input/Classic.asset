@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   xAxis: Horizontal
+  inputA: -1
   yAxis: Vertical
   runButton: Run
   crouchButton: Crouch
@@ -21,6 +22,6 @@ MonoBehaviour:
   hitButton: Hit
   shootButton: Shoot
   specialSkillButton: SpecialSkill
+  interactButton: Interact
   horizontal: 0
   vertical: 0
-  jump: 0

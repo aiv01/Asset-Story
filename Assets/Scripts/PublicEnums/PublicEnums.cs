@@ -58,4 +58,27 @@ public enum SceneType : byte {
     GameScene,
     Last
 }
+
+
+public enum NpcSpritesType : byte {
+    OffDialogue,
+    OnDialogue,
+    Last
+}
+
+
+public enum PhrasesType : byte {
+    Plot,
+    Plot_2,
+    Plot_3,
+    Plot_4,
+    Plot_5,
+    Plot_6,
+    Plot_7,
+    Plot_8,
+    Troll,
+    Troll_2,
+    Troll_3,
+    Last
+}
 #endregion
