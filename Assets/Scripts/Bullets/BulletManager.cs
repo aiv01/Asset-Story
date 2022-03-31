@@ -5,8 +5,9 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour {
     #region Attributes
     public DatabaseBulletManager databaseBulletManager = null;
-    private int numOfBullet = 3;
+    public int numOfBullet = 3;
     public Bullet prefabBullet = null;
+
 
     private List<Bullet> myBullets = new List<Bullet>();
     #endregion

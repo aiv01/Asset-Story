@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e27c677d1363054f986c927c755a799, type: 3}
-  m_Name: EllenHealth
+  m_Name: EnemyHealth
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 5
