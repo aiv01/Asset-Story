@@ -21,6 +21,7 @@ public class DatabasePlayer : ScriptableObject {
                    (speed * Time.fixedDeltaTime) * RunMultiplier :
                    (speed * Time.deltaTime) * RunMultiplier;
         }
+        set { speed = value; }
     }
 
 
@@ -43,6 +44,17 @@ public class DatabasePlayer : ScriptableObject {
     private float jumpForce = 0f;
     public float JumpForce {
         get { return jumpForce; }
+    }
+
+    [SerializeField]
+    private float damage = 5;
+    public float Damage
+    {
+        get
+        {
+            return damage;
+        }
+        set { damage = value; }
     }
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]

@@ -45,6 +45,7 @@ public class DatabaseBullet : ScriptableObject {
     private float damage = 1f;
     public float Damage {
         get { return damage; }
+        set { damage = value; }
     }
 
     #endregion

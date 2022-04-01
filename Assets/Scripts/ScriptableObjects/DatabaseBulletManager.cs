@@ -10,6 +10,7 @@ public class DatabaseBulletManager : ScriptableObject {
     private int numOfBullet = 0;
     public int NumOfBullet {
         get { return numOfBullet; }
+        set { numOfBullet = value; }
     }
 
 
