@@ -69,5 +69,26 @@ public static class MessageManager {
     public static void CallOnEscDialogue() {
         OnEscDialogue?.Invoke();
     }
+
+
+    public delegate void OpenTheDoor();
+    public static event OpenTheDoor OnOpenTheDoor;
+    public static void CallOnOpenTheDoor() {
+        OnOpenTheDoor?.Invoke();
+    }
+
+
+    public delegate void TakeTheHealth();
+    public static event TakeTheHealth OnTakeTheHealth;
+    public static void CallOnTakeTheHealth() {
+        OnTakeTheHealth?.Invoke();
+    }
+
+
+    public delegate void ClickCustomButton();
+    public static event ClickCustomButton OnClickCustomButton;
+    public static void CallOnClickCustomButton() {
+        OnClickCustomButton?.Invoke();
+    }
     #endregion
 }

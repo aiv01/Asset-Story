@@ -43,16 +43,22 @@ public class Chomper : Enemy {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
-            playerDatabaseHealth.TakeDamage(damage);
             StartCoroutine(TurnOffMe());
         }
     }
     #region OnCollision methods
     private IEnumerator TurnOffMe() {
+        playerDatabaseHealth.TakeDamage(damage);
         myRigidbody.simulated = false;
         myAnimator.SetBool("IsDead", true);
         yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
     }
     #endregion
+
+
+
+    private void OnDisable() {
+        Ui_Bestiary.numOfChomperKilled += 1;
+    }
 }

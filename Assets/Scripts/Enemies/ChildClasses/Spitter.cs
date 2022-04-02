@@ -68,4 +68,10 @@ public class Spitter : Enemy {
         yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
     }
+
+
+
+    private void OnDisable() {
+        Ui_Bestiary.numOfSpitterKilled += 1;
+    }
 }

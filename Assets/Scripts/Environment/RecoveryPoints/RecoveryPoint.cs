@@ -53,6 +53,7 @@ public class RecoveryPoint : MonoBehaviour {
     private void OnCollisionStay2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             playerDatabaseHealth.TakeHealth(databaseRecoveryPoint.TimedLifeAmount);
+            MessageManager.CallOnTakeTheHealth();
         }
     }
     private void OnCollisionExit2D(Collision2D collision) {

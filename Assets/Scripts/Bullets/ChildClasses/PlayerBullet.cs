@@ -17,6 +17,7 @@ public class PlayerBullet : Bullet {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Enemy")) {
             DestroyMe();
+            collision.collider.gameObject.SetActive(false);
         }
     }
 
