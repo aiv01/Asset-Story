@@ -11,8 +11,8 @@ public class BulletManagerNS : MonoBehaviour {
     private List<SpitterBullet> myBullets = new List<SpitterBullet>();
     #endregion
 
-    public bool IsFree = false;
 
+    public bool IsFree = false;
 
 
     private void Start() {
@@ -33,10 +33,11 @@ public class BulletManagerNS : MonoBehaviour {
 
 
     #region Public methods
-    public void GetBullet(Vector2 _startPosition) { 
+    public void GetBullet(Vector2 _startPosition, Vector2 _direction) { 
         for (int i = 0; i < myBullets.Count; i++) {
             if (!myBullets[i].gameObject.activeSelf) {
                 myBullets[i].gameObject.transform.position = _startPosition;
+                myBullets[i].direction = _direction;
                 myBullets[i].gameObject.SetActive(true);
                 break; 
             }

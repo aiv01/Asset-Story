@@ -46,22 +46,28 @@ public class Gunner : MonoBehaviour {
     #region FixedUpdate methods
     #endregion
 
-    
+
     #region Public methods
     #endregion
 
-     
+
 
     #region Private methods
     #endregion
 
 
-    
+
     #region OnCollision methods
     #endregion
-    
+
 
 
     #region OnTrigger methods
-    #endregion 
+    #endregion
+
+
+
+    private void OnDisable() {
+        Ui_Bestiary.numOfGunnerKilled += 1;
+    }
 }

@@ -78,6 +78,14 @@ public class DatabaseInput : ScriptableObject {
     public string SpecialSkillButton {
         get { return specialSkillButton; }
     }
+
+
+    [SerializeField]
+    [Tooltip("Button name defined in rewired for the 'interact'")]
+    private string interactButton = null;
+    public string InteractButton {
+        get { return interactButton; }
+    }
     #endregion
     #region Attributes
     [HideInInspector]

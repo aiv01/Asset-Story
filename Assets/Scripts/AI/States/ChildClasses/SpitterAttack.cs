@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SpitterAttack : State {
     #region Attributes
-    [SerializeField]
-    private Enemy enemy = null;
+    //[SerializeField]
+    private Spitter enemy = null;
 
     [SerializeField]
     private State nextState = null;
@@ -21,19 +21,20 @@ public class SpitterAttack : State {
     private BulletManagerNS bulletManagerNS = null;
 
 
-    private Vector3 bulletFlippedPosition = new Vector3(-1, 1, 0);
-    private Vector3 bulletPosition = new Vector3(1, 1, 0);
+    private Vector3 bulletFlippedPosition = new Vector3(-1.5f, 1, 0);
+    private Vector3 bulletPosition = new Vector3(1.5f, 1, 0);
     #endregion
 
 
 
     protected override void Awake() {
         base.Awake();
+
         this.enabled = false;
     }
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
-        enemy = GetComponent<Enemy>();
+        enemy = GetComponent<Spitter>();
     }
 
 
@@ -75,11 +76,11 @@ public class SpitterAttack : State {
     private IEnumerator ActivateShoot() {
         yield return new WaitForSeconds(0.8f);
 
-        if (Enemy.IsFlipped) {
-            bulletManagerNS.GetBullet(transform.position + bulletFlippedPosition);
+        if (enemy.IsFlipped) {
+            bulletManagerNS.GetBullet(transform.position + bulletFlippedPosition, -Vector2.right);
         }
         else {
-            bulletManagerNS.GetBullet(transform.position + bulletPosition);
+            bulletManagerNS.GetBullet(transform.position + bulletPosition, Vector2.right);
         }
     }
     #endregion

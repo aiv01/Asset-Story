@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Sprite shield = null;
 
+    [SerializeField]
+    private GameObject club = null;
 
     private void Awake() {
         //Questa operazione verrà eseguita nella scena precedente e 
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour {
                 playerWithShieldMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Shield];
                 playerWithShieldMovement.databaseInput = databaseInput;
                 playerWithShieldMovement.shieldSprite = shield;
+                playerWithShieldMovement.club = club;
                 //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
                 //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
                 //player.AddComponent<> //gli assegnamo all'animator del player (in caso non fosse il tipo standard), il suo override controller.
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour {
                 playerWithDashMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Dash];
                 playerWithDashMovement.databaseInput = databaseInput;
                 playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Dash];
+                playerWithDashMovement.club = club;
                 //playerWithDashMovement.shieldSprite = shield;
                 //playerWithDashMovement
                 break;
@@ -65,6 +69,7 @@ public class PlayerController : MonoBehaviour {
                 playerWithInvincibility.databasePlayer = myDatabasePlayers[(int)SkillType.Invincibilty];
                 playerWithInvincibility.databaseInput = databaseInput;
                 playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Invincibilty];
+                playerWithInvincibility.club = club;
                 break;
         }
     }

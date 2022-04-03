@@ -301,18 +301,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   databaseHealth: {fileID: 0}
   DEFAULT_PLAYERHEALTH: 10
-  keytag_1: Key
-  keytag_2: Key
-  keytag_3: Key
-  keyID_1: 0
-  keyID_2: 0
-  keyID_3: 0
-  keytags: []
   playerName: 
   skillType: 0
   playerPosition: {x: 0, y: 0}
   playerHealth: 0
   numOfKeys: 0
+  numOfChomperKilled: 0
+  numOfSpitterKilled: 0
+  numOfGunnerKilled: 0
   keyTaken: 0
 --- !u!1 &571942829
 GameObject:

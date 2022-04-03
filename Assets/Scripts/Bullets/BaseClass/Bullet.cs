@@ -5,18 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Bullet : MonoBehaviour {
-    #region Public attributes
-    public DatabaseBullet databaseBullet = null;
-    #endregion
-    #region Private attributes
+    #region Protected attributes
     protected Rigidbody2D myRigidbody = null;
-    protected CircleCollider2D myCircleCollider = null;
+    protected CircleCollider2D myCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;
-
 
     protected float counter = 0;
     protected float reloadCounter = 5f;
     protected bool IsFlipped = false;
+    #endregion
+    #region Public attributes
+    public DatabaseBullet databaseBullet = null;
+    [HideInInspector]
+    public Vector2 direction = Vector2.zero;
     #endregion
 
 
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour {
     #region Awake methods
     protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
-        myCircleCollider = GetComponent<CircleCollider2D>();
+        myCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
     #endregion
@@ -53,12 +54,19 @@ public class Bullet : MonoBehaviour {
     protected virtual void Update() {
         counter -= Time.deltaTime;
 
+        FlipMe();
+
         if (counter <= 0) {
             DestroyMe();
             counter = reloadCounter;
         }
     }
     #region Update methods
+    private void FlipMe() {
+        mySpriteRenderer.flipX = IsFlipped;
+    }
+
+
     protected virtual void DestroyMe() {
         gameObject.SetActive(false);
     }
@@ -71,21 +79,13 @@ public class Bullet : MonoBehaviour {
     }
     #region FixedUpdate methods
     protected virtual void Move() {
-        #region Variable assignment
-        Vector2 direction = !IsFlipped ? Vector2.right : -Vector2.right;
-        #endregion
-
         myRigidbody.velocity = direction.normalized * databaseBullet.Speed;
     }
     #endregion
 
 
 
-    //private void OnCollisionEnter2D(Collision2D collision) {
-    //    if (collision.collider.CompareTag("Enemy") ||
-    //      collision.collider.CompareTag("Bullet") ||
-    //      collision.collider.CompareTag("Player")) {
-    //        DestroyMe();
-    //    }
-    //}
+    protected virtual void OnCollisionEnter2D(Collision2D collision) {
+        DestroyMe();
+    }
 }

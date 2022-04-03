@@ -44,15 +44,31 @@ public class Chomper : Enemy {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             playerDatabaseHealth.TakeDamage(damage);
-            StartCoroutine(TurnOffMe());
+            //StartCoroutine(TurnOffMe());
+        }
+        if (collision.collider.CompareTag("Bullet")) {
+            myHealthModule.TakeDamage(1);
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Club")) {
+            myHealthModule.TakeDamage(1);
         }
     }
     #region OnCollision methods
-    private IEnumerator TurnOffMe() {
-        myRigidbody.simulated = false;
-        myAnimator.SetBool("IsDead", true);
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
-    }
+    //private IEnumerator TurnOffMe() {
+    //    myRigidbody.simulated = false;
+    //    myAnimator.SetBool("IsDead", true);
+    //    yield return new WaitForSeconds(0.5f);
+    //    gameObject.SetActive(false);
+    //}
     #endregion
+
+
+
+    private void OnDisable() {
+        Ui_Bestiary.numOfChomperKilled += 1;
+    }
 }

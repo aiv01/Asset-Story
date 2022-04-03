@@ -55,17 +55,35 @@ public class Spitter : Enemy {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             playerDatabaseHealth.TakeDamage(damage);
-            TurnOffMe();
         }
+        //if (collision.collider.CompareTag("Club")) {
+        //    TurnOffMe();
+        //}
         //if (collision.collider.CompareTag("Player") &&
         //    Movement.IsHitting) {
         //    myHealthModule.databaseHealth.TakeDamage(0.8f);
         //}
+
     }
-    private IEnumerator TurnOffMe() {
-        myRigidbody.simulated = false;
-        myAnimator.SetBool("IsDead", true);
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Club")) {
+            myHealthModule.TakeDamage(2);
+            //StartCoroutine(TurnOffMe());
+            //gameObject.SetActive(false);
+        }
+    }
+
+    //private IEnumerator TurnOffMe() {
+    //    myRigidbody.simulated = false;
+    //    myAnimator.SetBool("IsDead", true);
+    //    yield return new WaitForSeconds(0.5f);
+    //    gameObject.SetActive(false);
+    //}
+
+
+
+    private void OnDisable() {
+        Ui_Bestiary.numOfSpitterKilled += 1;
     }
 }

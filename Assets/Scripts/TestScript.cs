@@ -29,16 +29,16 @@ public class TestScript : MonoBehaviour {
 
 
 
-    //private void OnTriggerEnter2D(Collider2D collision) {
-    //    if (collision.CompareTag("Player")) {
-    //        Debug.Log(DEBUG_STRING);
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Player")) {
+            //Debug.Log(DEBUG_STRING);
+        }
+    }
 
 
-    //private void OnCollisionEnter2D(Collision2D collision) {
-    //    if (collision.gameObject.CompareTag("Player")) {
-    //        Debug.Log(DEBUG_STRING);
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            //Debug.Log(DEBUG_STRING);
+        }
+    }
 }

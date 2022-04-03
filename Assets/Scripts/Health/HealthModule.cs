@@ -20,11 +20,16 @@ public class HealthModule : MonoBehaviour {
         Debug.Log($"HEALTH VALUE {databaseHealth.Health}");
         AddListeners();
 
-        health = databaseHealth.Health;
+        //health = databaseHealth.Health;
     }
     #region Start methods
     private void LoadHealthData() {
-        databaseHealth.Health = Save.Instance.playerHealth;
+        if (gameObject.CompareTag("Player")) {
+            databaseHealth.Health = Save.Instance.playerHealth;
+        }
+        else {
+            databaseHealth.Health = databaseHealth.MaxHealth;
+        }
     }
     private void AddListeners() {
         MessageManager.OnTouchedTheCheckPoint += SaveHealthData;
@@ -46,7 +51,7 @@ public class HealthModule : MonoBehaviour {
 
     private void Update() {
         if (Died()) {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         //if (Input.GetKeyDown(KeyCode.P)) {
