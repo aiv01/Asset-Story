@@ -21,6 +21,9 @@ public class FollowTarget : MonoBehaviour {
     private float smoothOffsetX = 1f;
     public float StartPositionY = 0f;
     #endregion
+    #region Constant
+    private const int CAMERA_DEPTH = -5;
+    #endregion
     #region Singleton
     public static FollowTarget Instance {
         get;
@@ -40,6 +43,11 @@ public class FollowTarget : MonoBehaviour {
     }
     #endregion
 
+
+
+    private void Start() {
+        myCamera.depth = CAMERA_DEPTH;
+    }
 
 
     void Update() {

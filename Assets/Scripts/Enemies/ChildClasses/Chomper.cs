@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Chomper : Enemy {
     #region Attributes
@@ -44,9 +43,11 @@ public class Chomper : Enemy {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             playerDatabaseHealth.TakeDamage(damage);
-            //StartCoroutine(TurnOffMe());
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
+            myHealthModule.TakeDamage(myHealthModule.maxHealth);
         }
         if (collision.collider.CompareTag("Bullet")) {
+            myAnimator.SetTrigger("IsHitted");
             myHealthModule.TakeDamage(1);
         }
     }
@@ -54,17 +55,10 @@ public class Chomper : Enemy {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Club")) {
+            myAnimator.SetTrigger("IsHitted");
             myHealthModule.TakeDamage(1);
         }
     }
-    #region OnCollision methods
-    //private IEnumerator TurnOffMe() {
-    //    myRigidbody.simulated = false;
-    //    myAnimator.SetBool("IsDead", true);
-    //    yield return new WaitForSeconds(0.5f);
-    //    gameObject.SetActive(false);
-    //}
-    #endregion
 
 
 

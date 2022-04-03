@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Spitter : Enemy {
     #region Attributes
@@ -24,18 +23,6 @@ public class Spitter : Enemy {
 
 
 
-    protected override void Update() {
-        base.Update();
-
-        //if (myHealthModule.databaseHealth.Health <= 0) {
-        //    TurnOffMe();
-        //}
-
-        //Debug.Log($"MY HEALTH {myHealthModule.databaseHealth.Health}");
-    }
-   
-
-
     #region Update methods
     protected override void FlipMe() {
         base.FlipMe();
@@ -55,31 +42,23 @@ public class Spitter : Enemy {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             playerDatabaseHealth.TakeDamage(damage);
-        }
-        //if (collision.collider.CompareTag("Club")) {
-        //    TurnOffMe();
-        //}
-        //if (collision.collider.CompareTag("Player") &&
-        //    Movement.IsHitting) {
-        //    myHealthModule.databaseHealth.TakeDamage(0.8f);
-        //}
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
 
+        }
+
+
+        if (collision.collider.CompareTag("Bullet")) {
+            myHealthModule.TakeDamage(2);
+            myAnimator.SetTrigger("IsHitted");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Club")) {
             myHealthModule.TakeDamage(2);
-            //StartCoroutine(TurnOffMe());
-            //gameObject.SetActive(false);
+            myAnimator.SetTrigger("IsHitted");
         }
     }
-
-    //private IEnumerator TurnOffMe() {
-    //    myRigidbody.simulated = false;
-    //    myAnimator.SetBool("IsDead", true);
-    //    yield return new WaitForSeconds(0.5f);
-    //    gameObject.SetActive(false);
-    //}
 
 
 

@@ -26,7 +26,7 @@ public class ChangeSceneLogic : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Shield;
 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneType.MapBeta.ToString());
         Save.isNewGame = true;
 
     }
@@ -34,7 +34,7 @@ public class ChangeSceneLogic : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Dash;
 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneType.MapBeta.ToString());
         Save.isNewGame = true;
 
     }
@@ -42,14 +42,14 @@ public class ChangeSceneLogic : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Invincibilty;
 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneType.MapBeta.ToString());
         Save.isNewGame = true;
 
     }
 
 
     public void Continue() {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneType.MapBeta.ToString());
         Save.isNewGame = false;
     }
     #endregion

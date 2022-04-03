@@ -21,7 +21,9 @@ public class DatabasePlayer : ScriptableObject {
                    (speed * Time.fixedDeltaTime) * RunMultiplier :
                    (speed * Time.deltaTime) * RunMultiplier;
         }
-        set { speed = value; }
+        set { 
+            speed = value; 
+        }
     }
 
 

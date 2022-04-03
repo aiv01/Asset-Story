@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -101,7 +102,7 @@ public class Movement : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
         myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
-        myStickCollider = GetComponent<CircleCollider2D>();
+        //myStickCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
         //clubCollider = club.GetComponent<CircleCollider2D>();
@@ -144,7 +145,7 @@ public class Movement : MonoBehaviour {
         //myBodyCollider.usedByComposite = databasePlayer.BodyUsedByComposite;
         myBodyCollider.direction = databasePlayer.CapsuleDirection;
         //StickCollider
-        myStickCollider.enabled = false;
+        //myStickCollider.enabled = false;
 
         //club
         //clubCollider.isTrigger = true;
@@ -164,12 +165,24 @@ public class Movement : MonoBehaviour {
     #endregion
 
 
+    public IEnumerator Death() {
+        SetAnimatorParameters("IsDead", true);
+        myRigidbody.simulated = false;
+        yield return new WaitForSeconds(1.05f);
+        ///SetAnimatorParameters("IsDead", false);
+        yield return new WaitForSeconds(0.5f);
+        if (!myAnimator.GetBool("IsDead")) {
+            gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneType.PlayerSelectionScene.ToString());
+        }
+        //yield return new WaitForSeconds(0.f);
+        //gameObject.SetActive(false);
+        //SceneManager.LoadScene(SceneType.PlayerSelectionScene.ToString());
+    }
+
 
     protected virtual void Update() {
         databaseInput.TakeTheInputs();
-
-        Debug.Log("Ground" + IsGrounded);
-        Debug.Log("Jump" + IsJumping);
 
         #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
@@ -214,8 +227,6 @@ public class Movement : MonoBehaviour {
             && !IsHitting) {
             IsHitting = true;
         }
-
-        club.SetActive(IsHitting);
     
         if (IsHitting) {
             Hit();
@@ -280,11 +291,16 @@ public class Movement : MonoBehaviour {
         }
         #endregion
 
+        StartCoroutine(ActiveClub());
         SetAnimatorParameters("Hit", true);
         StartCoroutine(UnsetHitting());
     }
     private void SetClubPosition(float _posX, float _posY) {
         club.transform.position = transform.position + new Vector3(_posX, _posY, 0);
+    }
+    private IEnumerator ActiveClub() {
+        yield return new WaitForSeconds(0.2f);
+        club.SetActive(IsHitting);
     }
     private IEnumerator UnsetHitting() {
         yield return new WaitForSeconds(0.35f);
@@ -331,6 +347,7 @@ public class Movement : MonoBehaviour {
         IsJumping = false;
     }
     #endregion
+
 
 
     #region OnCollision methods

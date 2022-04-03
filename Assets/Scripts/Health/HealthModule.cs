@@ -51,7 +51,9 @@ public class HealthModule : MonoBehaviour {
 
     private void Update() {
         if (Died()) {
+            //Movement.Instance.myAnimator.SetTrigger("IsDead");
             //gameObject.SetActive(false);
+            StartCoroutine(Movement.Instance.Death());
         }
 
         //if (Input.GetKeyDown(KeyCode.P)) {

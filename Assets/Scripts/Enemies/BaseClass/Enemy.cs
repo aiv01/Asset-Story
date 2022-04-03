@@ -44,7 +44,6 @@ public abstract class Enemy : MonoBehaviour {
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
-        //myRigidbody.mass = 10f;
     } 
     #endregion
 

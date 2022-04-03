@@ -3,8 +3,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyHealthModule : MonoBehaviour {
     #region Private attributes
-    [SerializeField]
-    private float maxHealth = 0f;
+    //[SerializeField]
+    public float maxHealth = 0f;
     private float health = 0f;
     private Animator myAnimator = null;
     private Enemy owner = null;

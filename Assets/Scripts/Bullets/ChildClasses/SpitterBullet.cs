@@ -22,6 +22,8 @@ public class SpitterBullet : Bullet {
 
         if (collision.collider.CompareTag("Player")) {
             player.TakeDamage(2);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
+
         }
     }
 }
