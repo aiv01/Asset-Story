@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 public class Teleporter : MonoBehaviour {
-    #region Attributes
+    #region Private attributes
     private BoxCollider2D myCollider = null;
     private SpriteRenderer mySpriteRenderer = null;
     private Animator myAnimator = null;
+
+    [SerializeField]
+    private SceneType nextScene = SceneType.Last;
     #endregion
     #region Constant
     private const int TELEPORTER_SORTINGORDER = -1;
@@ -43,42 +46,14 @@ public class Teleporter : MonoBehaviour {
 
 
 
-    void Update() {
-
-    }
-    #region Update methods
-    #endregion
-
-   
-    
-    void FixedUpdate() {
-
-    }
-    #region FixedUpdate methods
-    #endregion
-
-
-
-    #region Public methods
-    #endregion
-
-
-
-    #region Private methods
-    #endregion
-
-
-
-    #region OnCollision methods
-    #endregion
-
-
-
-    #region OnTrigger methods
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
-            SceneManager.LoadScene(SceneType.StartScene.ToString());
+            LoadNextScene();
         }
+    }
+    #region OnTrigger methods
+    private void LoadNextScene() { 
+        SceneManager.LoadScene(nextScene.ToString());
     }
     #endregion 
 }

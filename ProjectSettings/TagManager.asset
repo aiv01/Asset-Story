@@ -12,6 +12,7 @@ TagManager:
   - Invincible
   - Bullet
   - EnemyBullet
+  - Club
   layers:
   - Default
   - TransparentFX

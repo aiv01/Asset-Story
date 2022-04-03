@@ -54,7 +54,7 @@ public enum DoorSpriteType : byte {
 
 public enum SceneType : byte {
     StartScene,
-    CharacterChoiceScene,
+    PlayerSelectionScene,
     GameScene,
     Last
 }
@@ -79,6 +79,16 @@ public enum PhrasesType : byte {
     Troll,
     Troll_2,
     Troll_3,
+    Last
+}
+
+
+public enum AchievementType : byte { 
+    ChomperKiller,
+    SpitterKiller,
+    GunnerKiller,
+    LoverOfInformation,
+    Immortal,
     Last
 }
 #endregion

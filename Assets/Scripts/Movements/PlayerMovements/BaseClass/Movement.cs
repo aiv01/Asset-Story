@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,6 +12,7 @@ public class Movement : MonoBehaviour {
     #region Public attributes
     public DatabasePlayer databasePlayer = null;
     public DatabaseInput databaseInput = null;
+    public GameObject club = null;
     #endregion
     #region Protected attributes
     protected Rigidbody2D myRigidbody = null;
@@ -18,9 +20,11 @@ public class Movement : MonoBehaviour {
     protected CapsuleCollider2D myBodyCollider = null;
     protected CircleCollider2D myStickCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;
-    protected Animator myAnimator = null;
+    [HideInInspector]
+    public Animator myAnimator = null;
     #endregion
     #region Private attributes
+    private CircleCollider2D clubCollider = null;
     private Vector2 shootPosition;
     private Vector2 shootPositionFlipped;
     #endregion
@@ -31,7 +35,7 @@ public class Movement : MonoBehaviour {
     } = false;
 
 
-    protected bool IsJumping {
+    public bool IsJumping {
         get;
         private set;
     } = false;
@@ -49,7 +53,7 @@ public class Movement : MonoBehaviour {
     } = false;
 
 
-    protected bool IsGrounded {
+    public static bool IsGrounded {
         get;
         private set;
     } = false;
@@ -67,13 +71,20 @@ public class Movement : MonoBehaviour {
     } = false;
     #endregion
     #region Constant
-    private const float STICKCOLLIDER_POSITION_X = 2.46f;
-    private const float STICKCOLLIDER_POSITION_Y = 0.84f;
+    private const float CLUB_POSITION_X = 2.46f;
+    private const float CLUB_POSITION_Y = 0.84f;
     private const float SHOOTPOSITION_XOFFSET = 1f;
     private const float SHOOTPOSITION_YOFFSET = 1.35f;
     private const int DEFAULT_LAYER = 0;
     #endregion
+    #region Singleton
+    public static Movement Instance {
+        get;
+        private set;
+    } = null;
+    #endregion
 
+    private HealthModule myHealtModule = null;
 
     [SerializeField]
     private BulletManager myBulletManager = null;
@@ -83,6 +94,7 @@ public class Movement : MonoBehaviour {
 
     protected virtual void Awake() {
         TakeTheReferences();
+        Instance = this;
     }
     #region Awake methods
     protected virtual void TakeTheReferences() {
@@ -92,6 +104,7 @@ public class Movement : MonoBehaviour {
         myStickCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
+        //clubCollider = club.GetComponent<CircleCollider2D>();
     }
     #endregion
 
@@ -132,6 +145,10 @@ public class Movement : MonoBehaviour {
         myBodyCollider.direction = databasePlayer.CapsuleDirection;
         //StickCollider
         myStickCollider.enabled = false;
+
+        //club
+        //clubCollider.isTrigger = true;
+        club.SetActive(false);
     }
     private void AddListener() {
         MessageManager.OnTouchedTheCheckPoint += SavePlayerData;
@@ -147,11 +164,13 @@ public class Movement : MonoBehaviour {
     #endregion
 
 
+
     protected virtual void Update() {
         databaseInput.TakeTheInputs();
 
         #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
+        SetAnimatorParameters("JumpSpeed", myRigidbody.velocity.y);
 
         shootPosition = new Vector2(transform.position.x + SHOOTPOSITION_XOFFSET,
                                     transform.position.y + SHOOTPOSITION_YOFFSET);
@@ -174,35 +193,29 @@ public class Movement : MonoBehaviour {
             Run();
         }
         else {
-            IsRunning = false;
-            databasePlayer.run = false;
-            SetAnimatorParameters("IsRunning", false);
+            NotRun();
         }
         #endregion
         #region Jump
-        if (!IsJumping && databaseInput.Player.GetButtonDown
+        if (databaseInput.Player.GetButtonDown
            (databaseInput.JumpButton)) {
+            SetAnimatorParameters("IsJumping", true);
             IsJumping = true;
-            //SetAnimatorParameters("IsJumping", IsJumping);
         }
-        //IsJumping = /*!IsJumping && */databaseInput.Player.GetButtonDown
-        //            (databaseInput.JumpButton) ? true : IsJumping;
-
         #endregion
         #region Hit
         if (databaseInput.Player.GetButtonDown
            (databaseInput.HitButton) 
             && IsGrounded
-            && !IsCrouching) {
+            && !IsCrouching 
+            && !IsHitting) {
             IsHitting = true;
         }
 
+        club.SetActive(IsHitting);
+    
         if (IsHitting) {
             Hit();
-        }
-        else {
-            myStickCollider.enabled = false;
-            SetAnimatorParameters("IsHitting", false);
         }
         #endregion
         #region Shoot
@@ -211,14 +224,12 @@ public class Movement : MonoBehaviour {
             && !IsCrouching
             && IsGrounded) {
             IsShooting = true;
+
         }
 
         if (IsShooting) {
             Shoot();
         }
-        //else {
-        //    SetAnimatorParameters("IsShooting", false);
-        //}
         #endregion
         #region Crouch
         if (databaseInput.Player.GetButton
@@ -227,9 +238,7 @@ public class Movement : MonoBehaviour {
             Crouch();
         }
         else {
-            myRigidbody.simulated = true;
-            SetAnimatorParameters("IsCrouching", false);
-            IsCrouching = false;
+            NotCrouch();
         } 
         #endregion
     }
@@ -239,41 +248,53 @@ public class Movement : MonoBehaviour {
         databasePlayer.run = true;
         IsRunning = true;
     }
+    private void NotRun() {
+        IsRunning = false;
+        databasePlayer.run = false;
+        SetAnimatorParameters("IsRunning", false);
+    }
+
+
     private void Crouch() {
         IsCrouching = true;
         SetAnimatorParameters("IsCrouching", true);
         databaseInput.horizontal = 0;
     }
+    private void NotCrouch() {
+        myRigidbody.simulated = true;
+        SetAnimatorParameters("IsCrouching", false);
+        IsCrouching = false;
+    }
+
+
     private void Hit() {
-        #region StickCollider positioning
+        #region Club positioning
         if (IsFlipped) {
-            SetStickColliderPosition(-STICKCOLLIDER_POSITION_X,
-                                      STICKCOLLIDER_POSITION_Y);
+            SetClubPosition(-CLUB_POSITION_X, CLUB_POSITION_Y);
         }
         else {
-            SetStickColliderPosition(STICKCOLLIDER_POSITION_X,
-                                     STICKCOLLIDER_POSITION_Y);
-        } 
+            SetClubPosition(CLUB_POSITION_X, CLUB_POSITION_Y);
+        }
         #endregion
 
-        SetAnimatorParameters("IsHitting", true);
-        myStickCollider.enabled = true;
-        IsHitting = false;
+        SetAnimatorParameters("Hit", true);
+        StartCoroutine(UnsetHitting());
     }
+    private void SetClubPosition(float _posX, float _posY) {
+        club.transform.position = transform.position + new Vector3(_posX, _posY, 0);
+    }
+    private IEnumerator UnsetHitting() {
+        yield return new WaitForSeconds(0.35f);
+        IsHitting = false;
+        SetAnimatorParameters("Hit", false);
+    }
+
+
     private void Shoot() {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
                                          shootPositionFlipped);
-        //myBulletManager.GetBullet(!IsFlipped ? shootPosition :
-        //                          shootPositionFlipped);
-
-
         SetAnimatorParameters("IsShooting");
         IsShooting = false;
-    }
-
-
-    private void SetStickColliderPosition(float _posX, float _posY) {
-        myStickCollider.offset = new Vector2(_posX, _posY);
     }
     #endregion
 
@@ -284,9 +305,6 @@ public class Movement : MonoBehaviour {
         #region Jump
         if (IsJumping) {
             Jump();
-        }
-        else {
-            SetAnimatorParameters("IsJumping", false);
         }
         #endregion
     }
@@ -306,26 +324,31 @@ public class Movement : MonoBehaviour {
             IsGrounded = false;
             myRigidbody.AddForce(transform.up * databasePlayer.JumpForce,
                                  ForceMode2D.Impulse);
-            SetAnimatorParameters("IsJumping", true);
         }
         IsJumping = false;
     }
     #endregion
 
-    private HealthModule myHealtModule = null;
 
     #region OnCollision methods
     private void OnCollisionEnter2D(Collision2D collision) {
+        IsGrounded = false;
         if (collision.gameObject.layer == DEFAULT_LAYER) {
             IsGrounded = true;
+            SetAnimatorParameters("IsJumping", !IsGrounded);
         }
+
+        //if (collision.collider.CompareTag("Finish")) {
+        //    FollowTarget.Instance.StartPositionY = Camera.main.transform.position.y;
+
+        //}
         //if (collision.collider.CompareTag("EnemyBullet")) {
         //    myHealtModule.TakeDamage(2);
         //}
         //if (collision.collider.CompareTag("Bullet")) {
         //    databaseHealth.TakeDamage(2);
         //}
-        //GESTIONE DANNO COUNTERIZZATA (PER PRENDERE DANNO OGI TOT)(CHOMPER/SPIKES/GUNNER)
+        //GESTIONE DANNO COUNTERIZZATA (PER PRENDERE DANNO OGNI TOT)(CHOMPER/SPIKES/GUNNER)
     } 
     #endregion
 
