@@ -163,7 +163,8 @@ public class Movement : MonoBehaviour {
 
     public IEnumerator Death() {
         SetAnimatorParameters("IsDead", true);
-        myRigidbody.simulated = false;
+        //myRigidbody.simulated = false;
+        myRigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(1.05f);
         if (myAnimator.GetBool("IsDead")) {
             gameObject.SetActive(false);

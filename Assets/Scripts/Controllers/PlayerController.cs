@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
     private void LoadPlayerData() {
         player.transform.position = Save.Instance.playerPosition;
         databaseKey.numOfKeys = Save.Instance.numOfKeys;
-       // databaseHealth.Health = Save.Instance.playerHealth;
+        databaseHealth.Health = Save.Instance.playerHealth;
     }
     private void SetPlayerComponents(Movement _movement, DatabasePlayer _databasePlayer,
                                      DatabaseInput _databaseInput,
