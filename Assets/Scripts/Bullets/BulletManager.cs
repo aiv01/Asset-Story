@@ -17,8 +17,7 @@ public class BulletManager : MonoBehaviour {
     } = null;
     #endregion
 
-    //rivedibile
-    public bool IsFree = false;
+
 
     private void Awake() {
         SetSingleton();
@@ -49,34 +48,12 @@ public class BulletManager : MonoBehaviour {
 
 
     #region Public methods
-    //public void GetBullet(Vector2 startPosition) {
-    //    Debug.Log("SONO DENTRO");
-    //    for (int i = 0; i < myBullets.Count; i++) {
-    //        if (!myBullets[i].gameObject.activeSelf) {
-    //            myBullets[i].gameObject.SetActive(true);
-
-    //            return;
-    //        }
-    //    }
-    //}
-
     public void GetBullet(Vector2 _startPosition) {
-        //Debug.Log("SONO DENTRO");
         for (int i = 0; i < myBullets.Count; i++) {
             if (!myBullets[i].gameObject.activeSelf) {
-                //rivedibile 
-                IsFree = true;
-                if (i > -1) {
-                    IsFree = true;
-                }
-
                 myBullets[i].gameObject.transform.position = _startPosition;
                 myBullets[i].gameObject.SetActive(true);
                 break;
-            }
-            //rivedibile
-            else {
-                IsFree = false;
             }
         }
     }

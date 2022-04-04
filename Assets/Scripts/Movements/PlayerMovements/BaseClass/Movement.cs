@@ -93,6 +93,8 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private DatabaseHealth databaseHealth = null;
 
+
+
     protected virtual void Awake() {
         TakeTheReferences();
         Instance = this;
@@ -102,10 +104,8 @@ public class Movement : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
         myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
-        //myStickCollider = GetComponent<CircleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
-        //clubCollider = club.GetComponent<CircleCollider2D>();
     }
     #endregion
 
@@ -141,14 +141,10 @@ public class Movement : MonoBehaviour {
         //BodyCollider
         myBodyCollider.sharedMaterial = databasePlayer.BodyPhysicsMaterial;
         myBodyCollider.isTrigger = databasePlayer.BodyIsTrigger;
-        //myBodyCollider.usedByEffector = databasePlayer.BodyUsedByEffector;
-        //myBodyCollider.usedByComposite = databasePlayer.BodyUsedByComposite;
         myBodyCollider.direction = databasePlayer.CapsuleDirection;
         //StickCollider
-        //myStickCollider.enabled = false;
 
         //club
-        //clubCollider.isTrigger = true;
         club.SetActive(false);
     }
     private void AddListener() {
@@ -169,15 +165,10 @@ public class Movement : MonoBehaviour {
         SetAnimatorParameters("IsDead", true);
         myRigidbody.simulated = false;
         yield return new WaitForSeconds(1.05f);
-        ///SetAnimatorParameters("IsDead", false);
-        yield return new WaitForSeconds(0.5f);
-        if (!myAnimator.GetBool("IsDead")) {
+        if (myAnimator.GetBool("IsDead")) {
             gameObject.SetActive(false);
             SceneManager.LoadScene(SceneType.PlayerSelectionScene.ToString());
         }
-        //yield return new WaitForSeconds(0.f);
-        //gameObject.SetActive(false);
-        //SceneManager.LoadScene(SceneType.PlayerSelectionScene.ToString());
     }
 
 

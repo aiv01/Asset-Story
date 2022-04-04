@@ -58,6 +58,19 @@ public class DatabasePlayer : ScriptableObject {
         }
         set { damage = value; }
     }
+
+
+    [SerializeField]
+    [Range(5f, 50f)]
+    [Tooltip("Player skill reload time")]
+    private float reloadSkillCounter = 5f;
+    public float ReloadSkillCounter {
+        get { return reloadSkillCounter; }
+    }
+
+
+    [HideInInspector]
+    public float skillCounter = 0f;
     #endregion
     [Header("WRAPPING OF SPRITE RENDERER PARAMETERS")]
     #region Sprite Renderer attributes and properties
@@ -237,18 +250,4 @@ public class DatabasePlayer : ScriptableObject {
         return _gravity * Vector2.up;
     }
     #endregion
-
-
-
-    [SerializeField]
-    [Range(5f, 50f)]
-    [Tooltip("Player skill reload time")]
-    private float reloadSkillCounter = 5f;
-    public float ReloadSkillCounter {
-        get { return reloadSkillCounter; }
-    }
-
-
-    [HideInInspector]
-    public float skillCounter = 0f;
 }

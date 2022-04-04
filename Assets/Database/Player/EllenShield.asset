@@ -16,7 +16,10 @@ MonoBehaviour:
   speed: 120
   runMultiplier: 2
   run: 0
-  jumpForce: 8
+  jumpForce: 6
+  damage: 5
+  reloadSkillCounter: 10
+  skillCounter: -35.123707
   startingSprite: {fileID: 0}
   speedAnimationDivider: 100
   rigidbodyType: 0
@@ -37,5 +40,3 @@ MonoBehaviour:
   bodyUsedByEffector: 0
   bodyUsedByComposite: 0
   capsuleDirection: 0
-  reloadSkillCounter: 10
-  skillCounter: -35.123707

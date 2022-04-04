@@ -10,26 +10,14 @@ public class HealthModule : MonoBehaviour {
     #endregion
 
 
-    private void Awake() {
-        
-    }
 
     private void Start() {
-        //databaseHealth.LifeAssign();
         LoadHealthData();
-        Debug.Log($"HEALTH VALUE {databaseHealth.Health}");
         AddListeners();
-
-        //health = databaseHealth.Health;
     }
     #region Start methods
     private void LoadHealthData() {
-        if (gameObject.CompareTag("Player")) {
-            databaseHealth.Health = Save.Instance.playerHealth;
-        }
-        else {
-            databaseHealth.Health = databaseHealth.MaxHealth;
-        }
+        databaseHealth.Health = Save.Instance.playerHealth;
     }
     private void AddListeners() {
         MessageManager.OnTouchedTheCheckPoint += SaveHealthData;
@@ -47,25 +35,13 @@ public class HealthModule : MonoBehaviour {
         Save.Instance.playerHealth = databaseHealth.MaxHealth;
     }
     #endregion
+    
 
 
     private void Update() {
         if (Died()) {
-            //Movement.Instance.myAnimator.SetTrigger("IsDead");
-            //gameObject.SetActive(false);
             StartCoroutine(Movement.Instance.Death());
         }
-
-        //if (Input.GetKeyDown(KeyCode.P)) {
-        //    databaseHealth.TakeDamage(3);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.L)) {
-        //    databaseHealth.TakeHealth(2);
-        //}
-
-        Debug.Log(databaseHealth.Health);
-        Debug.Log(databaseHealth.CurrentHealthPercentage);
     }
 
 
@@ -93,6 +69,7 @@ public class HealthModule : MonoBehaviour {
         return databaseHealth.Health <= 0;
     }
     #endregion
+
 
 
     private void OnDestroy() {

@@ -61,8 +61,6 @@ public class PlayerController : MonoBehaviour {
                 playerWithDashMovement.databaseInput = databaseInput;
                 playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Dash];
                 playerWithDashMovement.club = club;
-                //playerWithDashMovement.shieldSprite = shield;
-                //playerWithDashMovement
                 break;
             case SkillType.Invincibilty:
                 PlayerWithInvincibility playerWithInvincibility = player.AddComponent<PlayerWithInvincibility>();

@@ -20,7 +20,7 @@ public class Key : MonoBehaviour {
 
 
 
-    void Awake() {
+    private void Awake() {
         TakeTheReferences();
     }
     #region Awake methods
@@ -33,7 +33,7 @@ public class Key : MonoBehaviour {
 
 
 
-    void Start() {
+    private void Start() {
         VariablesAssignment();
         LoadKeyData();
         gameObject.tag = KEYON_TAG;

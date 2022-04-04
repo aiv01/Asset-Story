@@ -26,10 +26,8 @@ public class ChomperPatrol : State {
 
     [SerializeField]
     private float maxPath = 250f;
-
-    [SerializeField]
-    private DatabaseHealth ChomperDatabaseHealth = null;
     #endregion
+
 
 
     #region Awake methods
