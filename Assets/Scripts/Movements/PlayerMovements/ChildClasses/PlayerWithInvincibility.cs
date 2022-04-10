@@ -1,20 +1,17 @@
 using UnityEngine;
 
 public class PlayerWithInvincibility : Movement, IInvincible {
-    #region Private attributes
-    private bool isInvincible = false;
-    private float invincibilityCounter = 0f;
+    #region Serialized attributes
     [SerializeField]
     private float invincibilityThreshold = 20f;
-    private Vector4 startColor = Vector4.zero;
-    private Vector4 invincibilityColor = Vector4.zero;
     [SerializeField]
     [Range(0f, 1f)]
     private float invincibilityOffset = 0f;
     #endregion
-    #region Constant
-    private const string INVINCIBILITY_TAG = "Invincible";
-    private const string PLAYER_TAG = "Player";
+    #region Private attributes
+    private float invincibilityCounter = 0f;
+    private Vector4 startColor = Vector4.zero;
+    private Vector4 invincibilityColor = Vector4.zero;
     #endregion
 
 
@@ -26,6 +23,7 @@ public class PlayerWithInvincibility : Movement, IInvincible {
         startColor = mySpriteRenderer.color;
         invincibilityColor = new Vector4(mySpriteRenderer.color.r, invincibilityOffset,
                                          mySpriteRenderer.color.b, mySpriteRenderer.color.a);
+        IsInvincible = false;
     }
     #endregion
 
@@ -34,20 +32,20 @@ public class PlayerWithInvincibility : Movement, IInvincible {
     protected override void Update() {
         base.Update();
 
-        databasePlayer.skillCounter -= Time.deltaTime;
+        databasePlayer.skillCounter += Time.deltaTime;
 
         if (InvincibleConditions()) {
-            isInvincible = true;
+            IsInvincible = true;
         }
 
-        if (isInvincible) {
+        if (IsInvincible) {
             invincibilityCounter += Time.deltaTime;
             Invincible();
 
             if (invincibilityCounter >= invincibilityThreshold) {
-                isInvincible = false;
+                IsInvincible = false;
                 NormalState();
-                SetCounters(0f, databasePlayer.ReloadSkillCounter);
+                SetCounters(0f, 0f);
             }
         }
     }
@@ -55,16 +53,14 @@ public class PlayerWithInvincibility : Movement, IInvincible {
     private bool InvincibleConditions() {
         return databaseInput.Player.GetButtonDown
                (databaseInput.SpecialSkillButton) &&
-               !isInvincible && databasePlayer.skillCounter <= 0f;
+               !IsInvincible && databasePlayer.skillCounter >= databasePlayer.ReloadSkillCounter;
     }
 
 
     public void Invincible() {
         mySpriteRenderer.color = invincibilityColor;
-        gameObject.tag = INVINCIBILITY_TAG;
     }
     private void NormalState() {
-        gameObject.tag = PLAYER_TAG;
         mySpriteRenderer.color = startColor;
     }
     #endregion

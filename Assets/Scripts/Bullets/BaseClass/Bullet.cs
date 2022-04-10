@@ -13,6 +13,9 @@ public class Bullet : MonoBehaviour {
     protected float counter = 0;
     protected float reloadCounter = 5f;
     protected bool IsFlipped = false;
+
+    [SerializeField]
+    public HealthModule playerHealth = null;
     #endregion
     #region Public attributes
     public DatabaseBullet databaseBullet = null;
@@ -42,6 +45,7 @@ public class Bullet : MonoBehaviour {
     protected virtual void VariablesAssignment() {
         //playerIsFlipped = Movement.IsFlipped ? true : false;
         gameObject.tag = "Bullet";
+        //myCollider.isTrigger = true;
         //mySpriteRenderer.sprite = databaseBullet.Sprite;
         //mySpriteRenderer.flipX = IsFlipped ? true : false;
         reloadCounter = databaseBullet.ReloadLifeCounter;
@@ -87,5 +91,12 @@ public class Bullet : MonoBehaviour {
 
     protected virtual void OnCollisionEnter2D(Collision2D collision) {
         DestroyMe();
+    }
+
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Shield")) {
+            DestroyMe();
+        }
     }
 }

@@ -8,7 +8,9 @@ public class BulletManager : MonoBehaviour {
     private int numOfBullet = 3;
     public Bullet prefabBullet = null;
 
-    private List<Bullet> myBullets = new List<Bullet>();
+    public List<Bullet> myBullets = new List<Bullet>();
+
+    public bool finishedBullets = false;
     #endregion
     #region Singleton
     public static BulletManager Instance {
@@ -53,8 +55,18 @@ public class BulletManager : MonoBehaviour {
             if (!myBullets[i].gameObject.activeSelf) {
                 myBullets[i].gameObject.transform.position = _startPosition;
                 myBullets[i].gameObject.SetActive(true);
+                finishedBullets = false;
+                //Movement.Instance.myAnimator.SetBool("IsShoot", true);
                 break;
             }
+            else {
+                finishedBullets = true;
+
+            }
+            //else {
+            //    Movement.Instance.myAnimator.SetBool("IsShoot", false);
+            //}
+                //Movement.Instance.myAnimator.SetBool("IsShoot", false);
         }
     }
     #endregion

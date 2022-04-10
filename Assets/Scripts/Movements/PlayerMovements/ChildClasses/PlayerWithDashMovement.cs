@@ -35,18 +35,19 @@ public class PlayerWithDashMovement : Movement, IDashable {
 
         if (DashConditions()) {
             isDash = true;
+            IsDashing = true;
             startPosition = transform.position;
         }
 
         if (!isDash) {
-            databasePlayer.skillCounter -= Time.deltaTime;
+            databasePlayer.skillCounter += Time.deltaTime;
         }
     }
     #region Update methods
     private bool DashConditions() {
         return databaseInput.Player.GetButtonDown
                (databaseInput.SpecialSkillButton) &&
-               databasePlayer.skillCounter <= 0;
+               databasePlayer.skillCounter >= databasePlayer.ReloadSkillCounter;
     }
     #endregion
 
@@ -79,8 +80,10 @@ public class PlayerWithDashMovement : Movement, IDashable {
 
         if (diff > dashThreshold) {
             isDash = false;
+            IsDashing = false;
+
             diff = 0f;
-            databasePlayer.skillCounter = databasePlayer.ReloadSkillCounter;
+            databasePlayer.skillCounter = 0;
         }
     }
     private void NormalState() {

@@ -41,22 +41,31 @@ public class Chomper : Enemy {
 
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Player")) {
-            playerDatabaseHealth.TakeDamage(damage);
+        if (collision.collider.CompareTag("Player") &&
+            Movement.Instance.IsInvincible) {
+            myHealthModule.TakeDamage(myHealthModule.maxHealth);
+        }
+        if (collision.collider.CompareTag("Player") &&
+            Movement.Instance.IsDashing) {
+            myHealthModule.TakeDamage(myHealthModule.maxHealth);
+        }
+        if (collision.collider.CompareTag("Player") &&
+            !Movement.Instance.IsDashing && !Movement.Instance.IsInvincible) {
+            playerHealth.TakeDamage(damage);
             Movement.Instance.myAnimator.SetTrigger("IsHitted");
             myHealthModule.TakeDamage(myHealthModule.maxHealth);
         }
         if (collision.collider.CompareTag("Bullet")) {
             myAnimator.SetTrigger("IsHitted");
             myHealthModule.TakeDamage(1);
+            MessageManager.CallOnChomperHitted();
         }
     }
-
-
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Club")) {
             myAnimator.SetTrigger("IsHitted");
             myHealthModule.TakeDamage(1);
+            MessageManager.CallOnChomperHitted();
         }
     }
 

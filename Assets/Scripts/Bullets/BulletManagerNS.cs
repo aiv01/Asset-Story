@@ -6,9 +6,9 @@ public class BulletManagerNS : MonoBehaviour {
     #region Attributes
     public DatabaseBulletManager databaseBulletManager = null;
     private int numOfBullet = 3;
-    public SpitterBullet prefabBullet = null;
+    public Bullet prefabBullet = null;
 
-    private List<SpitterBullet> myBullets = new List<SpitterBullet>();
+    public List<Bullet> myBullets = new List<Bullet>();
     #endregion
 
 
@@ -21,8 +21,8 @@ public class BulletManagerNS : MonoBehaviour {
         }
     }
     #region Start methods
-    private SpitterBullet CreateBullet() {
-        SpitterBullet instance = Instantiate<SpitterBullet>(prefabBullet);
+    private Bullet CreateBullet() {
+        Bullet instance = Instantiate<Bullet>(prefabBullet);
         instance.transform.SetParent(transform);
         instance.gameObject.SetActive(false);
         myBullets.Add(instance);

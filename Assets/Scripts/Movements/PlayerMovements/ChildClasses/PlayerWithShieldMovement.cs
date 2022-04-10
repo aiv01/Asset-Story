@@ -1,6 +1,10 @@
 using UnityEngine;
 
 public class PlayerWithShieldMovement : Movement, IDefensible {
+    #region Serialized attributes
+    [SerializeField]
+    private int shieldHp = 3;
+    #endregion
     #region Public attributes
     public Sprite shieldSprite = null;
     #endregion
@@ -8,14 +12,21 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
     private bool isDefence = false;
     private GameObject shield = null;
     private Vector2 shieldPositionOffset = Vector2.zero;
+    [HideInInspector]
+    public int shieldLife = 0;
+    private float tempJumpForce = 0f;
     #endregion
     #region Constant
     private const string SHIELD_TAG = "Shield";
-    private const int SHIELD_SORTINGORDER = 1;
+    private const int SHIELD_SORTINGORDER = 2;
     private const int SHIELD_OFFSETX = 0;
     private const int SHIELD_OFFSETY = 1;
     #endregion
 
+
+    private void OnEnable() {
+        shieldHp = shieldLife;
+    }
 
 
     protected override void Start() {
@@ -28,6 +39,7 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
         base.VariablesAssignment();
         shieldPositionOffset = new Vector2(SHIELD_OFFSETX, SHIELD_OFFSETY);
         databasePlayer.skillCounter = 0f;
+        tempJumpForce = databasePlayer.JumpForce;
     }
     private GameObject CreateShieldObject() {
         GameObject shield = new GameObject(SHIELD_TAG);
@@ -37,7 +49,11 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
         SpriteRenderer spriteRenderer = shield.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = shieldSprite;
         spriteRenderer.sortingOrder = SHIELD_SORTINGORDER;
-        shield.AddComponent<CircleCollider2D>();
+        CircleCollider2D myCollider = shield.AddComponent<CircleCollider2D>();
+        myCollider.offset = new Vector2(0, 0.2911924f);
+        myCollider.radius = 1.648142f;
+        //myCollider.isTrigger = true;
+        //shield.AddComponent<Shield>();
         shield.SetActive(false);
         return shield;
     } 
@@ -48,21 +64,25 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
     protected override void Update() {
         base.Update();
 
-        databasePlayer.skillCounter -= Time.deltaTime;
+        databasePlayer.skillCounter += Time.deltaTime;
 
         if (DefenceConditions()) {
             isDefence = !isDefence;
 
             if (!isDefence) {
-                databasePlayer.skillCounter = databasePlayer.ReloadSkillCounter;
+                databasePlayer.skillCounter = 0f;
             }
+
+            //if (isDefence) {
+            //    databaseInput.horizontal = 0f;
+            //}
         }
     }
     #region Update methods
     private bool DefenceConditions() {
         return databaseInput.Player.GetButtonDown
                (databaseInput.SpecialSkillButton) &&
-               databasePlayer.skillCounter <= 0f;
+               databasePlayer.skillCounter >= databasePlayer.ReloadSkillCounter;
     }
     #endregion
 
@@ -82,10 +102,13 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
     public void Defence() {
         SetAnimatorParameters("IsInSpecialSkill", true);
         shield.SetActive(true);
-        myRigidbody.bodyType = RigidbodyType2D.Static;
+        myRigidbody.mass = 200f;
+        myRigidbody.velocity = new Vector2(0, myRigidbody.velocity.y);
+        databasePlayer.JumpForce = 0;
     }
     private void NormalState() {
-        myRigidbody.bodyType = RigidbodyType2D.Dynamic;
+        myRigidbody.mass = 1f;
+        databasePlayer.JumpForce = tempJumpForce;
         shield.SetActive(false);
         SetAnimatorParameters("IsInSpecialSkill", false);
     }

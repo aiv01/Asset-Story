@@ -6,9 +6,28 @@ public class HealthModule : MonoBehaviour {
     [SerializeField]
     public DatabaseHealth databaseHealth = null;
 
+    public float maxHealth = 10f;
     private float health = 0f;
+
+
+    public float Health {
+        get { return health; }
+        set {
+            health = value > maxHealth ? health = maxHealth :
+                     value < 0 ? health = 0 : health = value;
+        }
+    }
+
+
+    public float CurrentHealthPercentage {
+        get { return Health / maxHealth; }
+    }
     #endregion
 
+
+    private void Awake() {
+        health = maxHealth;
+    }
 
 
     private void Start() {
@@ -17,11 +36,10 @@ public class HealthModule : MonoBehaviour {
     }
     #region Start methods
     private void LoadHealthData() {
-        databaseHealth.Health = Save.Instance.playerHealth;
+        Health = Save.Instance.playerHealth;
     }
     private void AddListeners() {
         MessageManager.OnTouchedTheCheckPoint += SaveHealthData;
-        MessageManager.OnNewGame += SaveDefaultHealthData;
     }
     #endregion
 
@@ -29,36 +47,34 @@ public class HealthModule : MonoBehaviour {
 
     #region Events methods
     public void SaveHealthData() {
-        Save.Instance.playerHealth = databaseHealth.Health;
-    }
-    public void SaveDefaultHealthData() {
-        Save.Instance.playerHealth = databaseHealth.MaxHealth;
+        Save.Instance.playerHealth = Health;
     }
     #endregion
     
 
 
     private void Update() {
-        if (Died()) {
-            StartCoroutine(Movement.Instance.Death());
-        }
+        //if (Died()) {
+        //    StartCoroutine(Movement.Instance.Death());
+        //}
+        //if (Health < 0) {
+        //    Health = 0;
+        //}
+        //else if (Health > maxHealth) {
+        //    Health = maxHealth;
+        //}
+
+        Debug.Log($"VITA {Health}");
     }
 
 
 
     #region Public methods
-    //public void TakeHealth(float _health) {
-    //    databaseHealth.Health += _health;
-    //}
-    //public void TakeDamage(float _damage) {
-    //    databaseHealth.Health -= _damage;
-    //}
-
     public void TakeHealth(float _health) {
-        health += _health;
+        Health += _health;
     }
     public void TakeDamage(float _damage) {
-        health -= _damage;
+        Health -= _damage;
     }
     #endregion
 
@@ -66,7 +82,7 @@ public class HealthModule : MonoBehaviour {
 
     #region Private methods
     private bool Died() {
-        return databaseHealth.Health <= 0;
+        return Health <= 0;
     }
     #endregion
 
@@ -78,7 +94,6 @@ public class HealthModule : MonoBehaviour {
     #region OnDestroy methods
     private void RemoveListeners() {
         MessageManager.OnTouchedTheCheckPoint -= SaveHealthData;
-        MessageManager.OnNewGame -= SaveDefaultHealthData;
     }
     #endregion
 }

@@ -6,8 +6,8 @@ public abstract class State : MonoBehaviour {
     protected SpriteRenderer mySpriteRenderer = null;
     protected Animator myAnimator = null;
 
-    [SerializeField]
-    protected Transform playerTransform = null;
+    [HideInInspector]
+    public Transform playerTransform = null;
     #endregion
 
 

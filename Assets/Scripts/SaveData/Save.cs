@@ -12,8 +12,13 @@ public class Save : MonoBehaviour {
     private const float DEFAULT_PLAYERPOSITION_X = 0f;
     private const float DEFAULT_PLAYERPOSITION_Y = 0f;
 
+    private const string PREF_CAMERAPOSITION_X = "Camera_Position_X";
+    private const string PREF_CAMERAPOSITION_Y = "Camera_Position_Y";
+    private const float DEFAULT_CAMERAPOSITION_X = 0f;
+    private const float DEFAULT_CAMERAPOSITION_Y = 0f;
+
     private const string PREF_PLAYERHEALTH = "Player_Health";
-    public float DEFAULT_PLAYERHEALTH = 10;
+    private const float DEFAULT_PLAYERHEALTH = 10f;
 
     private const string PREF_PLAYERNAME = "Player_PlayerName";
     private const string DEFAULT_PLAYERNAME = "Ellen";
@@ -60,6 +65,9 @@ public class Save : MonoBehaviour {
 
     [HideInInspector]
     public bool keyTaken = false;
+
+    [HideInInspector]
+    public Vector2 cameraPosition;
     #endregion
     #region Singleton
     public static Save Instance {
@@ -87,11 +95,14 @@ public class Save : MonoBehaviour {
     }
 
 
+
     #region Public methods
     public void SaveData() {
         PlayerPrefs.SetInt(PREF_SKILLTYPE, (int)skillType);
         PlayerPrefs.SetFloat(PREF_PLAYERPOSITION_X, playerPosition.x);
         PlayerPrefs.SetFloat(PREF_PLAYERPOSITION_Y, playerPosition.y);
+        PlayerPrefs.SetFloat(PREF_CAMERAPOSITION_X, cameraPosition.x);
+        PlayerPrefs.SetFloat(PREF_CAMERAPOSITION_Y, cameraPosition.y);
         PlayerPrefs.SetFloat(PREF_PLAYERHEALTH, playerHealth);
         PlayerPrefs.SetString(PREF_PLAYERNAME, playerName);
         PlayerPrefs.SetInt(PREF_NUMOFKEYS, numOfKeys);
@@ -104,13 +115,15 @@ public class Save : MonoBehaviour {
     public void LoadData() {
         if (isNewGame) {
             skillType = (SkillType)PlayerPrefs.GetInt(PREF_SKILLTYPE, (int)DEFAULT_SKILLTYPE);
-            playerHealth = databaseHealth.MaxHealth;
+            playerHealth = databaseHealth.maxHealth;
             PlayerPrefs.DeleteAll();
         }
         else {
             skillType = (SkillType)PlayerPrefs.GetInt(PREF_SKILLTYPE, (int)DEFAULT_SKILLTYPE);
             playerPosition = new Vector2(PlayerPrefs.GetFloat(PREF_PLAYERPOSITION_X, DEFAULT_PLAYERPOSITION_X),
                                          PlayerPrefs.GetFloat(PREF_PLAYERPOSITION_Y, DEFAULT_PLAYERPOSITION_Y));
+            cameraPosition = new Vector2(PlayerPrefs.GetFloat(PREF_CAMERAPOSITION_X, DEFAULT_CAMERAPOSITION_X),
+                                         PlayerPrefs.GetFloat(PREF_CAMERAPOSITION_Y, DEFAULT_CAMERAPOSITION_Y));
             playerHealth = PlayerPrefs.GetFloat(PREF_PLAYERHEALTH, DEFAULT_PLAYERHEALTH);
             playerName = PlayerPrefs.GetString(PREF_PLAYERNAME, DEFAULT_PLAYERNAME);
             numOfKeys = PlayerPrefs.GetInt(PREF_NUMOFKEYS, DEFAULT_NUMOFKEYS);

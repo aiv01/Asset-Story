@@ -13,6 +13,14 @@ public class SfxManager : MonoBehaviour {
         TakeTheHealth,
         TouchedTheSpikes,
         PlatformMovement,
+        ChomperHitted,
+        SpitterHitted,
+        GunnerHitted,
+        ChomperDead,
+        SpitterDead,
+        PlayerShoot,
+        PlayerHit,
+        PlayerWalk,
         Last
     }
     #endregion
@@ -29,9 +37,15 @@ public class SfxManager : MonoBehaviour {
 
 
     void Start() {
+        SetVolume();
         AddListeners();
     }
     #region Start methods
+    private void SetVolume() {
+        for (int i = 0; i < audioSources.Length; i++) {
+            audioSources[i].volume = 0.3f;
+        }
+    }
     private void AddListeners() {
         MessageManager.OnTakeTheKey += PlayTakeTheKey;
         MessageManager.OnNpcInteraction += PlayNpcInteract;
@@ -40,6 +54,15 @@ public class SfxManager : MonoBehaviour {
         MessageManager.OnOpenTheDoor += PlayOpenTheDoor;
         MessageManager.OnTakeTheHealth += PlayTakeTheHealth;
         MessageManager.OnTouchedTheTrap += PlayTouchedTheSpikes;
+        MessageManager.OnChomperHitted += PlayChomperHitted;
+        MessageManager.OnSpitterHitted += PlaySpitterHitted;
+        MessageManager.OnChomperDead += PlayChomperDead;
+        MessageManager.OnSpitterDead += PlaySpitterDead;
+        MessageManager.OnGunnerHitted += PlayGunnerHitted;
+        MessageManager.OnPlayerShoot += PlayPlayerShoot;
+        MessageManager.OnPlayerHit += PlayPlayerHit;
+        MessageManager.OnPlayerWalk += PlayPlayerWalk;
+
     }
     #endregion
 
@@ -67,6 +90,33 @@ public class SfxManager : MonoBehaviour {
     private void PlayTouchedTheSpikes() {
         audioSources[(int)SfxType.TouchedTheSpikes].PlayOneShot(audioClips[(int)SfxType.TouchedTheSpikes]);
     }
+    private void PlayChomperHitted() {
+        audioSources[(int)SfxType.ChomperHitted].PlayOneShot(audioClips[(int)SfxType.ChomperHitted]);
+    }
+    private void PlaySpitterHitted() {
+        audioSources[(int)SfxType.SpitterHitted].PlayOneShot(audioClips[(int)SfxType.SpitterHitted]);
+    }
+
+    private void PlayGunnerHitted() {
+        audioSources[(int)SfxType.GunnerHitted].PlayOneShot(audioClips[(int)SfxType.GunnerHitted]);
+    }
+
+    private void PlayChomperDead() {
+        audioSources[(int)SfxType.ChomperDead].PlayOneShot(audioClips[(int)SfxType.ChomperDead]);
+    }
+    private void PlaySpitterDead() {
+        audioSources[(int)SfxType.SpitterDead].PlayOneShot(audioClips[(int)SfxType.SpitterDead]);
+    }
+    private void PlayPlayerShoot() {
+        audioSources[(int)SfxType.PlayerShoot].PlayOneShot(audioClips[(int)SfxType.PlayerShoot]);
+    }
+    private void PlayPlayerHit() {
+        audioSources[(int)SfxType.PlayerHit].PlayOneShot(audioClips[(int)SfxType.PlayerHit]);
+    }
+    private void PlayPlayerWalk() {
+        //audioSources[(int)SfxType.PlayerWalk].velocityUpdateMode = AudioVelocityUpdateMode.Fixed;
+        audioSources[(int)SfxType.PlayerWalk].PlayOneShot(audioClips[(int)SfxType.PlayerWalk]);
+    }
     #endregion
 
 
@@ -83,6 +133,14 @@ public class SfxManager : MonoBehaviour {
         MessageManager.OnOpenTheDoor -= PlayOpenTheDoor;
         MessageManager.OnTakeTheHealth -= PlayTakeTheHealth;
         MessageManager.OnTouchedTheTrap -= PlayTouchedTheSpikes;
-    } 
+        MessageManager.OnChomperHitted -= PlayChomperHitted;
+        MessageManager.OnSpitterHitted -= PlaySpitterHitted;
+        MessageManager.OnChomperDead -= PlayChomperDead;
+        MessageManager.OnSpitterDead -= PlaySpitterDead;
+        MessageManager.OnGunnerHitted -= PlayGunnerHitted;
+        MessageManager.OnPlayerShoot -= PlayPlayerShoot;
+        MessageManager.OnPlayerHit -= PlayPlayerHit;
+        MessageManager.OnPlayerWalk -= PlayPlayerWalk;
+    }
     #endregion
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class SpitterPatrol : State {
     #region Private attributes
-    private Enemy enemy = null;
+    private Spitter owner = null;
 
     [SerializeField]
     private float minDist = 0f;
@@ -32,7 +32,7 @@ public class SpitterPatrol : State {
     #region Awake methods
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
-        enemy = GetComponent<Enemy>();
+        owner = GetComponent<Spitter>();
     }
     #endregion
 
@@ -49,7 +49,7 @@ public class SpitterPatrol : State {
     #region Update methods
     protected override bool ExitCondition() {
         #region Variable assignment
-        float distFromPlayer = (transform.position - playerTransform.position).magnitude;
+        float distFromPlayer = (transform.position - owner.playerTransform.position).magnitude;
         #endregion
 
         return distFromPlayer <= minDist;

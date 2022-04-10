@@ -104,25 +104,25 @@ public class Ui_Vignette : MonoBehaviour {
 
 
 
-    void Update() {
-        VignetteActivationStatus();
-    }
-    #region Update methods
-    private void VignetteActivationStatus() {
-        if (vignette.activeSelf) {
-            counter -= Time.deltaTime;
-        }
-        else {
-            SetCounter(databaseVignette.ReloadCounter);
-        }
+    //void Update() {
+    //    //VignetteActivationStatus();
+    //}
+    //#region Update methods
+    //private void VignetteActivationStatus() {
+    //    if (vignette.activeSelf) {
+    //        counter -= Time.deltaTime;
+    //    }
+    //    else {
+    //        SetCounter(databaseVignette.ReloadCounter);
+    //    }
 
-        if (counter <= 0) {
-            ObjectSwitch(false);
-            MessageManager.CallOnTurnOffVignette();
-            SetCounter(databaseVignette.ReloadCounter);
-        }
-    } 
-    #endregion
+    //    if (counter <= 0) {
+    //        ObjectSwitch(false);
+    //        MessageManager.CallOnTurnOffVignette();
+    //        SetCounter(databaseVignette.ReloadCounter);
+    //    }
+    //} 
+    //#endregion
 
 
 

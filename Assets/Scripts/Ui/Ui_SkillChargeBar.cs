@@ -1,50 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ui_SkillChargeBar : MonoBehaviour {
-    #region Private enum
+    #region Serialized attributes
     [SerializeField]
-    private DatabasePlayer databasePlayer = null;
+    private DatabasePlayer[] databasesPlayer = new DatabasePlayer[(int)SkillType.Last];
+
+    [SerializeField]
+    private Sprite[] iconSprites = new Sprite[(int)SkillType.Last];
+
+    [SerializeField]
+    private Image iconImage = null;
 
     [SerializeField]
     private GameObject skillChargeBar = null;
+    #endregion
+    #region Private attributes
+    private DatabasePlayer databasePlayer = null;
+    private float startScaleX = 0f;
+    #endregion
+    #region Properties
+    private float BarLimit {
+        get { return databasePlayer.skillCounter; }
+        set {
+            databasePlayer.skillCounter = value > databasePlayer.ReloadSkillCounter ?
+                                          databasePlayer.ReloadSkillCounter : value < 0 ? 0 : value;
+        }
+    }
 
-
-    //private float BarLimit {
-    //    get { return BarLimit; }
-    //    set {
-    //        BarLimit = value > databasePlayer.ReloadSkillCounter ? 
-    //                  databasePlayer.ReloadSkillCounter : value < 0 ? 0 : BarLimit;
-    //    }
-    //}
 
     private float CurrentCharge {
-        get { return databasePlayer.skillCounter; }
+        get { return BarLimit / databasePlayer.ReloadSkillCounter; }
     }
-    #endregion 
-    #region Enum variable
-    #endregion
-    #region Attributes
-    #endregion
-    #region Attributes and properties
-    #endregion
-
-
-
-    void Awake() {
-
-    }
-    #region Awake methods
     #endregion
 
 
 
     void Start() {
-
-
+        VariablesAssignment();
+        SetSkillChargeBar();
     }
     #region Start methods
+    private void VariablesAssignment() { 
+        startScaleX = skillChargeBar.transform.localScale.x;
+
+        if (Movement.Instance is PlayerWithShieldMovement) {
+            databasePlayer = databasesPlayer[(int)SkillType.Shield];
+            iconImage.sprite = iconSprites[(int)SkillType.Shield];
+        }
+        else if (Movement.Instance is PlayerWithDashMovement) {
+            databasePlayer = databasesPlayer[(int)SkillType.Dash];
+            iconImage.sprite = iconSprites[(int)SkillType.Dash];
+        }
+        else {
+            databasePlayer = databasesPlayer[(int)SkillType.Invincibilty];
+            iconImage.sprite = iconSprites[(int)SkillType.Invincibilty];
+        }
+    }
     #endregion
 
 
@@ -54,34 +66,25 @@ public class Ui_SkillChargeBar : MonoBehaviour {
     }
     #region Update methods
     private void SetSkillChargeBar() {
-        skillChargeBar.transform.localScale = new Vector2(CurrentCharge * -1, skillChargeBar.transform.localScale.y);
+        SetBar(CurrentCharge);
+
+        if (BarLimit <= 0) {
+            SetBar(0);
+        }
+        else if (BarLimit >= databasePlayer.ReloadSkillCounter) {
+            SetBar(startScaleX);
+
+            if (ResetBarConditions()) {
+                SetBar(0);
+            }
+        }
+    }
+    private bool ResetBarConditions() {
+        return Movement.Instance.myAnimator.GetBool("IsInSpecialSkill") ||
+               Movement.Instance.IsInvincible; 
+    }
+    private void SetBar(float _value) {
+        skillChargeBar.transform.localScale = new Vector2(_value, skillChargeBar.transform.localScale.y);
     }
     #endregion
-
-   
-    
-    void FixedUpdate() {
-
-    }
-    #region FixedUpdate methods
-    #endregion
-
-    
-    #region Public methods
-    #endregion
-
-     
-
-    #region Private methods
-    #endregion
-
-
-    
-    #region OnCollision methods
-    #endregion
-    
-
-
-    #region OnTrigger methods
-    #endregion 
 }

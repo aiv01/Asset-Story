@@ -33,21 +33,46 @@ public class FollowTarget : MonoBehaviour {
 
 
 
-    void Awake() {
+    private void Awake() {
         TakeTheReferences();
-        Instance = this;
+        SetSingleton();
     }
     #region Awake methods
     private void TakeTheReferences() {
         myCamera = GetComponent<Camera>();
+    }
+    private void SetSingleton() { 
+        Instance = this;
     }
     #endregion
 
 
 
     private void Start() {
+        VariablesAssignment();
+        LoadCameraPosition();
+        AddListeners();
+    }
+    #region Start methods
+    private void VariablesAssignment() { 
         myCamera.depth = CAMERA_DEPTH;
     }
+    private void LoadCameraPosition() {
+        transform.position = Save.Instance.cameraPosition;
+    }
+    private void AddListeners() {
+        MessageManager.OnTouchedTheCheckPoint += SaveCameraPosition;
+    }
+    #endregion
+
+
+
+    #region Events methods
+    private void SaveCameraPosition() {
+        Save.Instance.cameraPosition = transform.position;
+    }
+    #endregion
+
 
 
     void Update() {
@@ -68,6 +93,17 @@ public class FollowTarget : MonoBehaviour {
         else { 
             transform.position = new Vector3(positionX, positionY, myCamera.depth);
         }
+    }
+    #endregion
+
+    
+
+    private void OnDestroy() {
+        RemoveListeners();
+    }
+    #region OnDestroy methods
+    private void RemoveListeners() { 
+        MessageManager.OnTouchedTheCheckPoint -= SaveCameraPosition;
     }
     #endregion
 }

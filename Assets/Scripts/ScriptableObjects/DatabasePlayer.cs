@@ -46,6 +46,7 @@ public class DatabasePlayer : ScriptableObject {
     private float jumpForce = 0f;
     public float JumpForce {
         get { return jumpForce; }
+        set { jumpForce = value; }
     }
 
     [SerializeField]

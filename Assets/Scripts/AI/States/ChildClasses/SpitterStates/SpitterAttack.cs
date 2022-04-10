@@ -4,7 +4,7 @@ using System.Collections;
 public class SpitterAttack : State {
     #region Attributes
     //[SerializeField]
-    private Spitter enemy = null;
+    private Spitter owner = null;
 
     [SerializeField]
     private State nextState = null;
@@ -34,7 +34,7 @@ public class SpitterAttack : State {
     }
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
-        enemy = GetComponent<Spitter>();
+        owner = GetComponent<Spitter>();
     }
 
 
@@ -69,14 +69,14 @@ public class SpitterAttack : State {
     }
     #region Update methods
     protected override bool ExitCondition() {
-        return Mathf.Abs(transform.position.x - playerTransform.position.x) >= minDist; 
+        return Mathf.Abs(transform.position.x - owner.playerTransform.position.x) >= minDist; 
     }
 
 
     private IEnumerator ActivateShoot() {
         yield return new WaitForSeconds(0.8f);
 
-        if (enemy.IsFlipped) {
+        if (owner.IsFlipped) {
             bulletManagerNS.GetBullet(transform.position + bulletFlippedPosition, -Vector2.right);
         }
         else {

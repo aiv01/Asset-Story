@@ -7,8 +7,8 @@ public class Trap : MonoBehaviour {
     #region Attributes
     [SerializeField]
     protected DatabaseTrap databaseTrap = null; 
-    [SerializeField]
-    protected DatabaseHealth playerDatabaseHealth = null;
+    //[SerializeField]
+    public HealthModule playerHealth = null;
     protected Collider2D myCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;
     #endregion
@@ -43,8 +43,9 @@ public class Trap : MonoBehaviour {
 
 
     protected virtual void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
-            playerDatabaseHealth.TakeDamage(databaseTrap.Damage);
+        if (collision.CompareTag("Player") && !Movement.Instance.IsInvincible) {
+            playerHealth.TakeDamage(databaseTrap.Damage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
             MessageManager.CallOnTouchedTheTrap();
         }
     }

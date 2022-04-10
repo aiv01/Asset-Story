@@ -141,7 +141,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bb6a891737c56e6438e808fb4e716321, type: 3}
   - {fileID: 21300000, guid: 9528c4275cc1a114f9e755b4d9084936, type: 3}
   - {fileID: 21300000, guid: 881250471e7213f42819ba1d7bb1d4e0, type: 3}
-  - {fileID: 21300000, guid: c4d7d6470acd7bf45971042161c6e018, type: 3}
   - {fileID: 21300000, guid: f3e9585781fa62242a3018cd3dd529dd, type: 3}
   - {fileID: 21300000, guid: c6b584771aee7a148bcf2885a6f347ba, type: 3}
   - {fileID: 21300000, guid: 49594577334bdee479b8dd58aedf1d60, type: 3}
@@ -342,7 +341,6 @@ SpriteAtlas:
   - Anim_JUMP_06
   - Anim_PUSH_00023
   - Anim_PUSH_00027
-  - Anim_IDLE_00001
   - Ellen_WALK_023
   - Anim_IDLE_00011
   - Anim_JUMPwithGUN_12

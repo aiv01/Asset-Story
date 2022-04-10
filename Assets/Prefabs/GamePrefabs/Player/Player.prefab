@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databaseHealth: {fileID: 11400000, guid: d31e53086e572194591d1e32581d91a7, type: 2}
+  maxHealth: 10
 --- !u!50 &4674142922203003608
 Rigidbody2D:
   serializedVersion: 4
@@ -192,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4674142922777610045}
-  - component: {fileID: 4674142922777610046}
+  - component: {fileID: 4669372242012702032}
   m_Layer: 0
   m_Name: Club
   m_TagString: Club
@@ -208,14 +209,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4674142922777610044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.03, y: 0.78, z: 0}
+  m_LocalPosition: {x: 1.12, y: 0.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4674142922203003607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &4674142922777610046
-CircleCollider2D:
+--- !u!70 &4669372242012702032
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -227,6 +228,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Offset: {x: 0.47175545, y: -0.0686192}
+  m_Size: {x: 1.9435525, y: 0.6569375}
+  m_Direction: 1

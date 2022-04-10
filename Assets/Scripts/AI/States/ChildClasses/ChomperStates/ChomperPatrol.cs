@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Chomper))]
 public class ChomperPatrol : State {
     #region Private attributes
-    private Enemy enemy = null;
+    private Chomper owner = null;
 
     [SerializeField]
     private float minDist = 0f;
@@ -33,7 +33,7 @@ public class ChomperPatrol : State {
     #region Awake methods
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
-        enemy = GetComponent<Enemy>();
+        owner = GetComponent<Chomper>();
     } 
     #endregion
 
@@ -54,7 +54,7 @@ public class ChomperPatrol : State {
     #region Update methods
     protected override bool ExitCondition() {
         #region Variable assignment
-        float distFromPlayer = (transform.position - playerTransform.position).magnitude;
+        float distFromPlayer = (transform.position - owner.playerTransform.position).magnitude;
         #endregion
 
         return distFromPlayer <= minDist;

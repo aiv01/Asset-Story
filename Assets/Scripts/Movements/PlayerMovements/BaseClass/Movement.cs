@@ -4,23 +4,24 @@ using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
+//[RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(HealthModule))]
 public class Movement : MonoBehaviour {
     #region Public attributes
+    public LayerMask collideMask;
     public DatabasePlayer databasePlayer = null;
     public DatabaseInput databaseInput = null;
     public GameObject club = null;
     #endregion
     #region Protected attributes
     protected Rigidbody2D myRigidbody = null;
-    protected BoxCollider2D myHeadCollider = null;
+    //protected BoxCollider2D myHeadCollider = null;
     protected CapsuleCollider2D myBodyCollider = null;
     protected CircleCollider2D myStickCollider = null;
-    protected SpriteRenderer mySpriteRenderer = null;
+    public SpriteRenderer mySpriteRenderer = null;
     [HideInInspector]
     public Animator myAnimator = null;
     #endregion
@@ -28,9 +29,16 @@ public class Movement : MonoBehaviour {
     private CircleCollider2D clubCollider = null;
     private Vector2 shootPosition;
     private Vector2 shootPositionFlipped;
+
+    public bool invincible = false;
     #endregion
     #region Protected Properties
-    protected bool IsRunning {
+    public bool IsWalkiing {
+        get;
+        private set;
+    } = false;
+
+    public bool IsRunning {
         get;
         private set;
     } = false;
@@ -64,6 +72,14 @@ public class Movement : MonoBehaviour {
         get;
         private set;
     } = false;
+
+    public bool IsDashing = false;
+
+
+    public bool IsInvincible {
+        get;
+        protected set;
+    } = false;
     #endregion
     #region Static property
     public static bool IsFlipped {
@@ -72,8 +88,9 @@ public class Movement : MonoBehaviour {
     } = false;
     #endregion
     #region Constant
-    private const float CLUB_POSITION_X = 2.46f;
+    private const float CLUB_POSITION_X = 1.44f;
     private const float CLUB_POSITION_Y = 0.84f;
+    private const float CLUB_FLIPPEDPOSITION_X = -2.46f;
     private const float SHOOTPOSITION_XOFFSET = 1f;
     private const float SHOOTPOSITION_YOFFSET = 1.35f;
     private const int DEFAULT_LAYER = 0;
@@ -85,7 +102,8 @@ public class Movement : MonoBehaviour {
     } = null;
     #endregion
 
-    private HealthModule myHealtModule = null;
+    [HideInInspector]
+    public HealthModule myHealtModule = null;
 
     [SerializeField]
     private BulletManager myBulletManager = null;
@@ -102,10 +120,11 @@ public class Movement : MonoBehaviour {
     #region Awake methods
     protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
-        myHeadCollider = GetComponent<BoxCollider2D>();
+        //myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
+        myHealtModule = GetComponent<HealthModule>();
     }
     #endregion
 
@@ -115,6 +134,7 @@ public class Movement : MonoBehaviour {
         VariablesAssignment();
         databaseInput.AssignRewiredPlayer();
         AddListener();
+        mySpriteRenderer.sortingOrder = 1;
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
@@ -132,12 +152,12 @@ public class Movement : MonoBehaviour {
         myRigidbody.sharedMaterial = databasePlayer.PhysicMaterial;
         myRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
         //HeadCollider
-        myHeadCollider.sharedMaterial = databasePlayer.PhysicMaterial;
-        myHeadCollider.isTrigger = databasePlayer.HeadIsTrigger;
-        myHeadCollider.usedByEffector = databasePlayer.HeadUsedByEffector;
-        myHeadCollider.usedByComposite = databasePlayer.HeadUsedByComposite;
-        myHeadCollider.autoTiling = databasePlayer.HeadAutoTiling;
-        myHeadCollider.edgeRadius = databasePlayer.HeadEdgeRadius;
+        //myHeadCollider.sharedMaterial = databasePlayer.PhysicMaterial;
+        //myHeadCollider.isTrigger = databasePlayer.HeadIsTrigger;
+        //myHeadCollider.usedByEffector = databasePlayer.HeadUsedByEffector;
+        //myHeadCollider.usedByComposite = databasePlayer.HeadUsedByComposite;
+        //myHeadCollider.autoTiling = databasePlayer.HeadAutoTiling;
+        //myHeadCollider.edgeRadius = databasePlayer.HeadEdgeRadius;
         //BodyCollider
         myBodyCollider.sharedMaterial = databasePlayer.BodyPhysicsMaterial;
         myBodyCollider.isTrigger = databasePlayer.BodyIsTrigger;
@@ -149,6 +169,7 @@ public class Movement : MonoBehaviour {
     }
     private void AddListener() {
         MessageManager.OnTouchedTheCheckPoint += SavePlayerData;
+        //MessageManager.OnNpcInteraction += StopInput;
     }
     #endregion
 
@@ -157,6 +178,13 @@ public class Movement : MonoBehaviour {
     #region Events methods
     public void SavePlayerData() {
         Save.Instance.playerPosition = transform.position;
+    }
+    private void StopInput() {
+        //mySpriteRenderer.flipX = IsFlipped;
+        //float axis = databaseInput.Player.GetAxis("Horizontal");
+        //axis = 0f;
+        //databaseInput.horizontal = axis;
+        //mySpriteRenderer.flipX = true;
     }
     #endregion
 
@@ -176,6 +204,18 @@ public class Movement : MonoBehaviour {
     protected virtual void Update() {
         databaseInput.TakeTheInputs();
 
+        if (myAnimator.GetFloat("Speed") > 0.01f && !IsRunning) {
+            IsWalkiing = true;
+            //MessageManager.CallOnPlayerWalk();
+        }
+        else { 
+            IsWalkiing = false;
+        }
+
+        //if () {
+
+        //}
+
         #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
         SetAnimatorParameters("JumpSpeed", myRigidbody.velocity.y);
@@ -183,7 +223,7 @@ public class Movement : MonoBehaviour {
         shootPosition = new Vector2(transform.position.x + SHOOTPOSITION_XOFFSET,
                                     transform.position.y + SHOOTPOSITION_YOFFSET);
         shootPositionFlipped = new Vector2(transform.position.x + (-SHOOTPOSITION_XOFFSET),
-                                        transform.position.y + SHOOTPOSITION_YOFFSET);  
+                                        transform.position.y + SHOOTPOSITION_YOFFSET);
         #endregion
         #region Flip
         if (databaseInput.horizontal < 0f) {
@@ -193,7 +233,7 @@ public class Movement : MonoBehaviour {
         else if (databaseInput.horizontal > 0f) {
             FlipSprite(SnapAxis.X, false);
             IsFlipped = false;
-        } 
+        }
         #endregion
         #region Run
         if (databaseInput.Player.GetButton
@@ -213,14 +253,16 @@ public class Movement : MonoBehaviour {
         #endregion
         #region Hit
         if (databaseInput.Player.GetButtonDown
-           (databaseInput.HitButton) 
+           (databaseInput.HitButton) /*&& !databaseInput.Player.GetButtonDoublePressDown*/
+           //(databaseInput.HitButton)
             && IsGrounded
-            && !IsCrouching 
+            && !IsCrouching
             && !IsHitting) {
             IsHitting = true;
         }
-    
-        if (IsHitting) {
+
+        if (IsHitting && !databaseInput.Player.GetButtonDown
+           (databaseInput.HitButton)) {
             Hit();
         }
         #endregion
@@ -229,12 +271,10 @@ public class Movement : MonoBehaviour {
            (databaseInput.ShootButton)
             && !IsCrouching
             && IsGrounded) {
-            IsShooting = true;
-
-        }
-
-        if (IsShooting) {
             Shoot();
+        }
+        else {
+            SetAnimatorParameters("IsShoot", false);
         }
         #endregion
         #region Crouch
@@ -248,6 +288,11 @@ public class Movement : MonoBehaviour {
         } 
         #endregion
     }
+    //private IEnumerator DisableAnimation() {
+    //    yield return new WaitForSeconds(1f);
+    //    IsShooting = false;
+    //}
+
     #region Update methods
     private void Run() {
         SetAnimatorParameters("IsRunning", true);
@@ -276,36 +321,55 @@ public class Movement : MonoBehaviour {
     private void Hit() {
         #region Club positioning
         if (IsFlipped) {
-            SetClubPosition(-CLUB_POSITION_X, CLUB_POSITION_Y);
+            SetClubPosition(CLUB_FLIPPEDPOSITION_X, CLUB_POSITION_Y);
         }
         else {
             SetClubPosition(CLUB_POSITION_X, CLUB_POSITION_Y);
         }
         #endregion
 
-        StartCoroutine(ActiveClub());
-        SetAnimatorParameters("Hit", true);
-        StartCoroutine(UnsetHitting());
-    }
+        //StartCoroutine(ActiveClub());
+        //club.SetActive(true);
+
+        if (!myAnimator.GetBool("Hit")) {
+            club.SetActive(true);
+            StartCoroutine(ActiveClub());
+
+
+            SetAnimatorParameters("Hit", true);
+            StartCoroutine(UnsetHitting());
+        }
+}
     private void SetClubPosition(float _posX, float _posY) {
         club.transform.position = transform.position + new Vector3(_posX, _posY, 0);
     }
     private IEnumerator ActiveClub() {
-        yield return new WaitForSeconds(0.2f);
-        club.SetActive(IsHitting);
+        yield return new WaitForSeconds(0.15f);
+        //club.SetActive(IsHitting);
+            MessageManager.CallOnPlayerHit();
+        yield return new WaitForSeconds(0.3f);
+
+        club.SetActive(true);
     }
     private IEnumerator UnsetHitting() {
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.55f);
         IsHitting = false;
         SetAnimatorParameters("Hit", false);
+        club.SetActive(false);
+
     }
 
 
     private void Shoot() {
         BulletManager.Instance.GetBullet(!IsFlipped ? shootPosition :
                                          shootPositionFlipped);
-        SetAnimatorParameters("IsShooting");
-        IsShooting = false;
+        if (!BulletManager.Instance.finishedBullets) {
+            SetAnimatorParameters("IsShoot", true);
+            MessageManager.CallOnPlayerShoot();
+        }
+        else { 
+            SetAnimatorParameters("IsShoot", false);
+        }
     }
     #endregion
 
@@ -325,7 +389,14 @@ public class Movement : MonoBehaviour {
         Vector2 velocity = new Vector2(databaseInput.horizontal, 0);
         #endregion
 
-        myRigidbody.velocity = (velocity.normalized * databasePlayer.Speed) +
+
+        //var hit=Physics2D.CapsuleCast(this.transform.TransformPoint(myBodyCollider.offset), myBodyCollider.size, myBodyCollider.direction,0, velocity.normalized,velocity.magnitude, collideMask);
+
+        //if (hit.collider == null) myRigidbody.velocity = (velocity.normalized * databasePlayer.Speed) +
+        //                         databasePlayer.Gravity(myRigidbody.velocity.y);
+        //else Debug.Log(hit.collider.gameObject.name);
+
+        myRigidbody.velocity = velocity * databasePlayer.Speed + 
                                databasePlayer.Gravity(myRigidbody.velocity.y);
     }
 
@@ -409,6 +480,7 @@ public class Movement : MonoBehaviour {
     #region OnDestroy methods
     private void RemoveListeners() {
         MessageManager.OnTouchedTheCheckPoint -= SavePlayerData;
+        //MessageManager.OnNpcInteraction -= StopInput;
     } 
     #endregion
 }

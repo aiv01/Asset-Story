@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [DisallowMultipleComponent]
 public class EnemyHealthModule : MonoBehaviour {
@@ -18,7 +19,11 @@ public class EnemyHealthModule : MonoBehaviour {
         }
     }
     #endregion
-
+    #region Public properties
+    public float CurrentHealthPercentage {
+        get { return Health / maxHealth; }
+    }
+    #endregion
 
 
     void Awake() {
@@ -46,12 +51,55 @@ public class EnemyHealthModule : MonoBehaviour {
 
     void Update() {
         if (Died()) {
-            StartCoroutine(owner.TurnOffMe());
+            //if (owner is PlatinumSun ownerPlatinumSun) {
+            //    Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.x, 0.2f, Time.deltaTime);
+            //    Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.y, 0.2f, Time.deltaTime);
+
+            //}
+            StartCoroutine(EnemyDeath());
         }
+
+        Debug.Log($"SunPlatinumHealth {Health}");
     }
     #region Update methods
-    private bool Died() {
-        return health <= 0;
+    public bool Died() {
+        return Health <= 0f;
+    }
+
+
+    private IEnumerator EnemyDeath() {
+        if (owner is Gunner ownerGunner) {
+            ownerGunner.myAnimator.SetBool("IsDead", true);
+            yield return new WaitForSeconds(2.3f);
+            gameObject.SetActive(false);
+        }
+        else if (owner is Spitter ownerSpitter) {
+            ownerSpitter.myRigidbody.simulated = false;
+            myAnimator.SetBool("IsDead", true);
+            MessageManager.CallOnSpitterDead();
+            yield return new WaitForSeconds(0.5f);
+            gameObject.SetActive(false);
+        }
+        else if (owner is Chomper ownerChomper) {
+            ownerChomper.myRigidbody.simulated = false;
+            myAnimator.SetBool("IsDead", true);
+            MessageManager.CallOnChomperDead();
+            yield return new WaitForSeconds(0.5f);
+            gameObject.SetActive(false);
+        }
+        else if (owner is Ghosty ownerGhosty) {
+            ownerGhosty.mySpriteRenderer.color = ownerGhosty.newColor;
+            ownerGhosty.myCollider.enabled = false;
+            yield return new WaitForSeconds(2f);
+            gameObject.SetActive(false);
+        }
+        else if (owner is PlatinumSun ownerPlatinumSun) {
+            ownerPlatinumSun.mySpriteRenderer.color = new Vector4(0f, 0f, 0f, 1f);
+            Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.x, 0.2f, Time.deltaTime);
+            Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.y, 0.2f, Time.deltaTime);
+            yield return new WaitForSeconds(5f);
+            gameObject.SetActive(false);
+        }
     }
     #endregion
 
@@ -59,10 +107,10 @@ public class EnemyHealthModule : MonoBehaviour {
 
     #region Public methods
     public void TakeDamage(float _damage) {
-        health -= _damage;
+        Health -= _damage;
     }
     public void TakeHealth(float _health) {
-        health += _health;
+        Health += _health;
     }
     #endregion
 }

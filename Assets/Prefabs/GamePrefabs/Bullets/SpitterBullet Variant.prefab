@@ -83,5 +83,11 @@ PrefabInstance:
       propertyPath: spitter
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5571679624592481983, guid: 831aa8d2e14e137448236878feef12fd,
+        type: 3}
+      propertyPath: spitterDamage
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d15d753b6679d242a6a878864d23ae7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 831aa8d2e14e137448236878feef12fd, type: 3}

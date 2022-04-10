@@ -8,19 +8,29 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyHealthModule))]
 public abstract class Enemy : MonoBehaviour {
-    #region Protected attributes
-    [SerializeField]
-    protected DatabaseHealth playerDatabaseHealth = null;
-    protected Rigidbody2D myRigidbody = null;
-    protected SpriteRenderer mySpriteRenderer = null;
-    protected Animator myAnimator = null;
-    protected EnemyHealthModule myHealthModule = null;
+    #region Public attributes
+    [HideInInspector]
+    public BoxCollider2D myCollider = null;
+    public HealthModule playerHealth = null;
+    [HideInInspector]
+    public Rigidbody2D myRigidbody = null;
+    [HideInInspector]
+    public SpriteRenderer mySpriteRenderer = null;
+    [HideInInspector]
+    public Animator myAnimator = null;
+    [HideInInspector]
+    public EnemyHealthModule myHealthModule = null;
+    [HideInInspector]
+    public Transform playerTransform = null;
     #endregion
     #region Public property
     public bool IsFlipped {
         get;
-        private set;
+        set;
     } = false;
+    #endregion
+    #region Constant
+    private const int ENEMY_SORTINGORDER = 1;
     #endregion
 
 
@@ -31,6 +41,7 @@ public abstract class Enemy : MonoBehaviour {
     #region Awake methods
     protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<BoxCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myAnimator = GetComponent<Animator>();
         myHealthModule = GetComponent<EnemyHealthModule>();
@@ -44,6 +55,7 @@ public abstract class Enemy : MonoBehaviour {
     }
     #region Start methods
     protected virtual void VariablesAssignment() {
+        mySpriteRenderer.sortingOrder = ENEMY_SORTINGORDER;
     } 
     #endregion
 
@@ -55,17 +67,6 @@ public abstract class Enemy : MonoBehaviour {
     }
     #region Update methods
     protected virtual void FlipMe() { 
-    }
-    #endregion
-
-
-
-    #region Public methods
-    public IEnumerator TurnOffMe() {
-        myRigidbody.simulated = false;
-        myAnimator.SetBool("IsDead", true);
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
     }
     #endregion
 }

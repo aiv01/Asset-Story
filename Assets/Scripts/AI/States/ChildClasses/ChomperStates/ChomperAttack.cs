@@ -18,7 +18,7 @@ public class ChomperAttack : State {
     [SerializeField]
     private State nextState = null;
 
-    private Enemy enemy = null;
+    private Chomper owner = null;
     #endregion
 
     [SerializeField]
@@ -35,7 +35,7 @@ public class ChomperAttack : State {
     }
     protected override void TakeTheReferences() {
         base.TakeTheReferences();
-        enemy = GetComponent<Enemy>();
+        owner = GetComponent<Chomper>();
     }
 
 
@@ -62,7 +62,7 @@ public class ChomperAttack : State {
 
     public override void Update() {
         #region Variables assignment
-        direction = (playerTransform.position.x - transform.position.x);
+        direction = (owner.playerTransform.position.x - transform.position.x);
         counter -= Time.deltaTime; 
         #endregion
 

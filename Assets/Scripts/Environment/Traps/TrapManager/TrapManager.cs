@@ -3,8 +3,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class TrapManager : MonoBehaviour {
     #region Attributes
-    [SerializeField]
-    private GameObject[] myTraps = null;
+    public GameObject[] myTraps = null;
     #endregion
 
 

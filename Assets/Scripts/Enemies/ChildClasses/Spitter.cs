@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class Spitter : Enemy {
     #region Attributes
+    //[SerializeField]
+    //private Transform playerTransform = null;
     [SerializeField]
-    private Transform playerTransform = null;
+    private DatabaseDamage playerDamage = null;
 
     [SerializeField]
     private float damage = 0.5f;
+
+    [SerializeField]
+    private DatabaseDamage spitterDamage = null;
 
     private float mass = 100f;
     #endregion
@@ -40,23 +45,33 @@ public class Spitter : Enemy {
 
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Player")) {
-            playerDatabaseHealth.TakeDamage(damage);
+        if (collision.collider.CompareTag("Player") &&
+            Movement.Instance.IsInvincible) {
+            myHealthModule.TakeDamage(myHealthModule.maxHealth);
+        }
+        if (collision.collider.CompareTag("Player") &&
+            Movement.Instance.IsDashing) {
+            myHealthModule.TakeDamage(myHealthModule.maxHealth * 0.5f);
+        }
+        if (collision.collider.CompareTag("Player") &&
+            !Movement.Instance.IsDashing && !Movement.Instance.IsInvincible) {
+            playerHealth.TakeDamage(spitterDamage.contactDamage);
             Movement.Instance.myAnimator.SetTrigger("IsHitted");
-
         }
 
 
         if (collision.collider.CompareTag("Bullet")) {
-            myHealthModule.TakeDamage(2);
+            myHealthModule.TakeDamage(playerDamage.bulletDamage);
             myAnimator.SetTrigger("IsHitted");
+            MessageManager.CallOnSpitterHitted();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Club")) {
-            myHealthModule.TakeDamage(2);
+            myHealthModule.TakeDamage(playerDamage.meleeDamage);
             myAnimator.SetTrigger("IsHitted");
+            MessageManager.CallOnSpitterHitted();
         }
     }
 

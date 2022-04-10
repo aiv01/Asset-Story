@@ -3,8 +3,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Ui_LifeBar : MonoBehaviour {
     #region Attributes
-    [SerializeField]
-    private DatabaseHealth databaseHealth = null;
+    [HideInInspector]
+    public HealthModule healthModule = null;
     [SerializeField]
     private GameObject bar = null;
     [SerializeField]
@@ -13,7 +13,7 @@ public class Ui_LifeBar : MonoBehaviour {
     private Sprite[] playerFaceSprites = null;
     #endregion
 
-
+ 
 
     void Awake() {
 
@@ -23,27 +23,21 @@ public class Ui_LifeBar : MonoBehaviour {
 
 
 
-    void Start() {
-        //InitHealthBar();
+    private void Start() {
+        InitHealthBar();
     }
     #region Start methods
     #endregion
 
 
-
-    void Update() {
-
+    private void Update() {
         InitHealthBar();
     }
-    #region Update methods
-    #endregion
-
-
 
 
     #region Reusable methods
     private void InitHealthBar() {
-        lifeBar.transform.localScale = new Vector2(databaseHealth.CurrentHealthPercentage, transform.localScale.y);
+        lifeBar.transform.localScale = new Vector2(healthModule.CurrentHealthPercentage, transform.localScale.y);
     }
     #endregion
 }

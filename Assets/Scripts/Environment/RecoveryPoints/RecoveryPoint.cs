@@ -7,8 +7,8 @@ public class RecoveryPoint : MonoBehaviour {
     #region Attributes
     [SerializeField]
     private DatabaseRecoveryPoint databaseRecoveryPoint = null;
-    [SerializeField]
-    private DatabaseHealth playerDatabaseHealth = null;
+    [HideInInspector]
+    public HealthModule playerHealth = null;
 
 
     private BoxCollider2D myCollider = null;
@@ -52,7 +52,7 @@ public class RecoveryPoint : MonoBehaviour {
     }
     private void OnCollisionStay2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
-            playerDatabaseHealth.TakeHealth(databaseRecoveryPoint.TimedLifeAmount);
+            playerHealth.TakeHealth(databaseRecoveryPoint.TimedLifeAmount);
             MessageManager.CallOnTakeTheHealth();
         }
     }

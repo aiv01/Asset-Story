@@ -1,9 +1,10 @@
 using UnityEngine;
 
 public class SpitterBullet : Bullet {
+    //[SerializeField]
+    //public HealthModule playerHealth = null;
     [SerializeField]
-    DatabaseHealth player = null;
-
+    private DatabaseDamage spitterDamage = null;
 
 
     #region OnEnable methods
@@ -20,8 +21,9 @@ public class SpitterBullet : Bullet {
     protected override void OnCollisionEnter2D(Collision2D collision) {
         base.OnCollisionEnter2D(collision);
 
-        if (collision.collider.CompareTag("Player")) {
-            player.TakeDamage(2);
+        if (collision.collider.CompareTag("Player") &&
+            !Movement.Instance.IsDashing && !Movement.Instance.IsInvincible) {
+            playerHealth.TakeDamage(spitterDamage.bulletDamage);
             Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
     }

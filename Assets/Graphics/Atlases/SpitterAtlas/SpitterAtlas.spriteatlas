@@ -71,7 +71,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bdebbaf48377ad346a0dad337aceea94, type: 3}
   - {fileID: 21300000, guid: 914c7ff4b2e03254f8fca375221689a5, type: 3}
   - {fileID: 21300000, guid: 850fcf2571df67c4ea7f94f407d1a42c, type: 3}
-  - {fileID: 21300000, guid: 10871335f574c994891877ebab0be6ac, type: 3}
   - {fileID: 21300000, guid: ddcad965dfaadd94393dcc3cec52b3ce, type: 3}
   - {fileID: 21300000, guid: 6016bca53a5cef1449c5464da0fd040c, type: 3}
   - {fileID: 21300000, guid: d090c51669b3435449d4a2d4819b4261, type: 3}
@@ -125,7 +124,6 @@ SpriteAtlas:
   - SpitterWalk_13
   - SpitterIdle_01
   - SpitterDeath_05
-  - SpitterIdle_03
   - SpitterIdle_23
   - SpitterAttack_26
   - SpitterAttack_30

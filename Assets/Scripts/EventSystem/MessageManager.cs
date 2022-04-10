@@ -90,5 +90,61 @@ public static class MessageManager {
     public static void CallOnClickCustomButton() {
         OnClickCustomButton?.Invoke();
     }
+
+
+    public delegate void ChomperHitted();
+    public static event ChomperHitted OnChomperHitted;
+    public static void CallOnChomperHitted() {
+        OnChomperHitted?.Invoke();
+    }
+
+
+    public delegate void SpitterHitted();
+    public static event SpitterHitted OnSpitterHitted;
+    public static void CallOnSpitterHitted() {
+        OnSpitterHitted?.Invoke();
+    }
+
+
+    public delegate void GunnerHitted();
+    public static event GunnerHitted OnGunnerHitted;
+    public static void CallOnGunnerHitted() {
+        OnGunnerHitted?.Invoke();
+    }
+
+
+    public delegate void SpitterDead();
+    public static event SpitterDead OnSpitterDead;
+    public static void CallOnSpitterDead() {
+        OnSpitterDead?.Invoke();
+    }
+
+
+    public delegate void ChomperDead();
+    public static event ChomperDead OnChomperDead;
+    public static void CallOnChomperDead() {
+        OnChomperDead?.Invoke();
+    }
+
+
+    public delegate void PlayerShoot();
+    public static event PlayerShoot OnPlayerShoot;
+    public static void CallOnPlayerShoot() {
+        OnPlayerShoot?.Invoke();
+    }
+
+
+    public delegate void PlayerHit();
+    public static event PlayerHit OnPlayerHit;
+    public static void CallOnPlayerHit() {
+        OnPlayerHit?.Invoke();
+    }
+
+
+    public delegate void PlayerWalk();
+    public static event PlayerWalk OnPlayerWalk;
+    public static void CallOnPlayerWalk() {
+        OnPlayerWalk?.Invoke();
+    }
     #endregion
 }
