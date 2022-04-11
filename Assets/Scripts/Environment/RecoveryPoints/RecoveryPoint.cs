@@ -4,18 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class RecoveryPoint : MonoBehaviour {
-    #region Attributes
+    #region Serialized attributes
     [SerializeField]
     private DatabaseRecoveryPoint databaseRecoveryPoint = null;
     [HideInInspector]
     public HealthModule playerHealth = null;
-
-
+    #endregion
+    #region Private attributes
     private BoxCollider2D myCollider = null;
     private SpriteRenderer mySpriteRenderer = null;
     #endregion
     #region Constant
-    private const int RECOVERYPOINT_SORTINGORDER = -1;
+    private const int RECOVERYPOINT_SORTINGORDER = 1;
     #endregion
 
 

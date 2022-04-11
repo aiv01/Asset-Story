@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NPC_Statue
   m_EditorClassIdentifier: 
   npcsPhrases:
-  - "Quando ti dico s\xEC, \xE8 s\xEC!"
+  - ' ATTENTION! those strange animals could hurt you a lot ...'
   - aaaaaaaaaaaa
   - ddddddddddddddd
   - ssssssssssssss

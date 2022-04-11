@@ -57,6 +57,10 @@ public enum SceneType : byte {
     PlayerSelectionScene,
     GameScene,
     MapBeta,
+    Map1,
+    Map2,
+    Map3,
+    Null,
     Last
 }
 

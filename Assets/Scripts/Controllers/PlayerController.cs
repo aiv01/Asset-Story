@@ -2,8 +2,8 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour {
-    [SerializeField]
-    [Tooltip("Object that represents the player")]
+    //[SerializeField]
+    //[Tooltip("Object that represents the player")]
     private GameObject player = null;
 
     [SerializeField]
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithShieldMovement.myHealtModule;
                 playerWithShieldMovement.transform.position = transform.position;
                 player = playerWithShieldMovement.gameObject;
+                player.transform.position = startPosition.position;
 
                 //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
                 //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
@@ -95,6 +96,8 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithDashMovement.myHealtModule;
                 playerWithDashMovement.transform.position = transform.position;
                 player = playerWithDashMovement.gameObject;
+                player.transform.position = startPosition.position;
+
 
 
                 //playerWithDashMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Dash];
@@ -114,6 +117,8 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithInvincibility.myHealtModule;
                 playerWithInvincibility.transform.position = transform.position;
                 player = playerWithInvincibility.gameObject;
+                player.transform.position = startPosition.position;
+
 
                 //playerWithInvincibility.databasePlayer = myDatabasePlayers[(int)SkillType.Invincibilty];
                 //playerWithInvincibility.databaseInput = databaseInput;

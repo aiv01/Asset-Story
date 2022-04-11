@@ -1,22 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class ChangeSceneLogic : MonoBehaviour {
-    #region Private enum
-    //private enum SceneType : byte {
-    //    StartScene,
-    //    CharacterChoiceScene,
-    //    GameScene,
-    //    Last
-    //}
-    #endregion
     #region Enum variable
     private SceneType sceneType = SceneType.GameScene;
     #endregion
-    #region Attributes
-    private Button[] buttons = new Button[3];
+    #region Serialized attributes
+    [SerializeField]
+    private SceneType nextScene = SceneType.Last;
     #endregion
 
 
@@ -25,32 +17,39 @@ public class ChangeSceneLogic : MonoBehaviour {
     public void ChangeSceneWithShieldType() {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Shield;
-
-        SceneManager.LoadScene(SceneType.MapBeta.ToString());
+        SceneManager.LoadScene(SceneType.Map1.ToString());
         Save.isNewGame = true;
 
     }
     public void ChangeSceneWithDashType() {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Dash;
-
-        SceneManager.LoadScene(SceneType.MapBeta.ToString());
+        SceneManager.LoadScene(SceneType.Map1.ToString());
         Save.isNewGame = true;
 
     }
     public void ChangeSceneWithInvincibilityType() {
         PlayerPrefs.DeleteAll();
         Save.Instance.skillType = SkillType.Invincibilty;
-
-        SceneManager.LoadScene(SceneType.MapBeta.ToString());
+        SceneManager.LoadScene(SceneType.Map1.ToString());
         Save.isNewGame = true;
 
     }
 
 
     public void Continue() {
-        SceneManager.LoadScene(SceneType.MapBeta.ToString());
+        SceneManager.LoadScene(SceneType.Map1.ToString());
         Save.isNewGame = false;
+    }
+
+
+    public void ChangeSceneNextScene() {
+        SceneManager.LoadScene(nextScene.ToString().ToLower());
+    }
+
+
+    public void ChangeSceneNullScene() {
+        SceneManager.LoadScene(SceneType.Null.ToString().ToLower());
     }
     #endregion
 }

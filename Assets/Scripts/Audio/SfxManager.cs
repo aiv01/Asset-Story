@@ -12,7 +12,6 @@ public class SfxManager : MonoBehaviour {
         OpenTheDoor,
         TakeTheHealth,
         TouchedTheSpikes,
-        PlatformMovement,
         ChomperHitted,
         SpitterHitted,
         GunnerHitted,
@@ -43,7 +42,7 @@ public class SfxManager : MonoBehaviour {
     #region Start methods
     private void SetVolume() {
         for (int i = 0; i < audioSources.Length; i++) {
-            audioSources[i].volume = 0.3f;
+            audioSources[i].volume = 1f;
         }
     }
     private void AddListeners() {
@@ -67,13 +66,24 @@ public class SfxManager : MonoBehaviour {
     #endregion
 
 
+    private void Play(SfxType _type) {
+        var source = audioSources[(int)_type];
+
+        if (!source.isPlaying) {
+            source.clip = audioClips[(int)_type];
+            source.Play();
+        }
+    }
+
 
     #region Event methods
     private void PlayTakeTheKey() {
-        audioSources[(int)SfxType.TakeTheKey].PlayOneShot(audioClips[(int)SfxType.TakeTheKey]);
+        //audioSources[(int)SfxType.TakeTheKey].PlayOneShot(audioClips[(int)SfxType.TakeTheKey]);
+        Play(SfxType.TakeTheKey);
     }
     private void PlayNpcInteract() {
         audioSources[(int)SfxType.NpcInteract].PlayOneShot(audioClips[(int)SfxType.NpcInteract]);
+        //audioSources[(int)SfxType.NpcInteract].Play();
     }
     private void PlayTurnOffVignette() {
         audioSources[(int)SfxType.TurnOffVignette].PlayOneShot(audioClips[(int)SfxType.TurnOffVignette]);
@@ -96,11 +106,9 @@ public class SfxManager : MonoBehaviour {
     private void PlaySpitterHitted() {
         audioSources[(int)SfxType.SpitterHitted].PlayOneShot(audioClips[(int)SfxType.SpitterHitted]);
     }
-
     private void PlayGunnerHitted() {
         audioSources[(int)SfxType.GunnerHitted].PlayOneShot(audioClips[(int)SfxType.GunnerHitted]);
     }
-
     private void PlayChomperDead() {
         audioSources[(int)SfxType.ChomperDead].PlayOneShot(audioClips[(int)SfxType.ChomperDead]);
     }

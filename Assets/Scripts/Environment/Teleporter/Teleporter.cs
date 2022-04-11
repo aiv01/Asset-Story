@@ -48,10 +48,14 @@ public class Teleporter : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
+            ResetGameData();
             LoadNextScene();
         }
     }
     #region OnTrigger methods
+    private void ResetGameData() {
+        Save.Instance.numOfKeys = 0;
+    }
     private void LoadNextScene() { 
         SceneManager.LoadScene(nextScene.ToString());
     }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbfb48e8f020ac74cb5ec2176100ccef, type: 3}
-  m_Name: Left&Right_Default
+  m_Name: Up&Down_Map3
   m_EditorClassIdentifier: 
-  movementType: 1
-  speed: 1
-  distance: 2.5
+  movementType: 0
+  speed: 0.8
+  distance: 8.5
   sinMultiplier: 1
