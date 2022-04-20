@@ -3,7 +3,7 @@ using UnityEngine;
 public class GhostyAttack : State {
     #region Serialized attributes
     [SerializeField]
-    private float reloadLifeCounter = 5f;
+    private float reloadLifeCounter = 10f;
     [SerializeField]
     private float attackSpeed = 20f;
     [SerializeField]
@@ -64,17 +64,15 @@ public class GhostyAttack : State {
     public override void FixedUpdate() {
         base.FixedUpdate();
 
-        Movement();
+        Move();
     }
     #region FixedUpdate methods
-    private void Movement() {
+    private void Move() {
         #region Variable assignment
-        Vector2 direction = ((owner.playerTransform.position + playerPosOffset) - transform.position).normalized;
-        float rotation = Vector2.Angle(playerTransform.position, transform.position);
+        Vector2 direction = ((/*owner.playerTransform*/Movement.Instance.transform.position + playerPosOffset) - transform.position).normalized;
         #endregion
 
         myRigidbody.velocity = (direction * AttackSpeed) + (Vector2.up * (Mathf.Sin(Time.time * pulsation) * amplitude));
-        //myRigidbody.rotation = rotation;
     }
     #endregion
 }

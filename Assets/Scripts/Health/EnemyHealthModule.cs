@@ -4,7 +4,6 @@ using System.Collections;
 [DisallowMultipleComponent]
 public class EnemyHealthModule : MonoBehaviour {
     #region Private attributes
-    //[SerializeField]
     public float maxHealth = 0f;
     private float health = 0f;
     private Animator myAnimator = null;
@@ -18,12 +17,13 @@ public class EnemyHealthModule : MonoBehaviour {
                      value < 0 ? health = 0 : health = value;
         }
     }
-    #endregion
-    #region Public properties
+
+
     public float CurrentHealthPercentage {
         get { return Health / maxHealth; }
     }
     #endregion
+
 
 
     void Awake() {
@@ -51,15 +51,8 @@ public class EnemyHealthModule : MonoBehaviour {
 
     void Update() {
         if (Died()) {
-            //if (owner is PlatinumSun ownerPlatinumSun) {
-            //    Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.x, 0.2f, Time.deltaTime);
-            //    Mathf.Lerp(ownerPlatinumSun.gameObject.transform.localScale.y, 0.2f, Time.deltaTime);
-
-            //}
             StartCoroutine(EnemyDeath());
         }
-
-        Debug.Log($"SunPlatinumHealth {Health}");
     }
     #region Update methods
     public bool Died() {
@@ -69,8 +62,10 @@ public class EnemyHealthModule : MonoBehaviour {
 
     private IEnumerator EnemyDeath() {
         if (owner is Gunner ownerGunner) {
+            MessageManager.CallOnGunnerDead();
+            ownerGunner.myAnimator.speed = 0.5f;
             ownerGunner.myAnimator.SetBool("IsDead", true);
-            yield return new WaitForSeconds(2.3f);
+            yield return new WaitForSeconds(4.8f);
             gameObject.SetActive(false);
         }
         else if (owner is Spitter ownerSpitter) {

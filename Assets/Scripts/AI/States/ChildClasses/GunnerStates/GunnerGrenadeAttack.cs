@@ -59,6 +59,12 @@ public class GunnerGrenadeAttack : State {
         base.Start();
 
         counter = reloadCounter;
+        AssignPlayerHealth();
+    }
+    private void AssignPlayerHealth() { 
+        for (int i = 0; i < bulletManagerNS.myBullets.Count; i++) {
+            bulletManagerNS.myBullets[i].playerHealth = owner.playerHealth;
+        }
     }
 
 
@@ -89,6 +95,7 @@ public class GunnerGrenadeAttack : State {
     #region Attack methods
     private IEnumerator Attack() {
         yield return new WaitForSeconds(0.25f);
+        MessageManager.CallOnGunnerShoot();
         GrenadeAttack();
     }
 

@@ -32,6 +32,7 @@ public class GunnerBullet : Bullet {
 
         if (collision.collider.CompareTag("Player")) {
             playerHealth.TakeDamage(databaseDamage.bulletDamage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
     }
 }

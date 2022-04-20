@@ -3,12 +3,25 @@ using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 public class EnemyManager : MonoBehaviour {
+    [SerializeField]
+    private Enemy owner = null;
+
     public List<Enemy> myEnemies = new List<Enemy>();
     [SerializeField]
     public Enemy enemyPrefab = null;
 
     [SerializeField]
     private int numOfEnemies = 5;
+
+
+    //[SerializeField]
+    //private Transform spawnPoints = null;
+
+    //[SerializeField]
+    //private SpriteRenderer platinumSunSpriteRenderer = null;
+
+    //[SerializeField]
+    //private State platinumSunAttack = null;
 
     #region Singleton
     public static EnemyManager Instance {
@@ -24,6 +37,7 @@ public class EnemyManager : MonoBehaviour {
     }
     #region Awake methods
     private void TakeTheReferences() {
+        //platinumSunSpriteRenderer = owner.mySpriteRenderer;
         Instance = this;
     } 
     #endregion
@@ -37,6 +51,11 @@ public class EnemyManager : MonoBehaviour {
     private void VariablesAssignment() {
         for (int i = 0; i < numOfEnemies; i++) {
             myEnemies[i] = CreateEnemy();
+        }
+
+        for (int i = 0; i < myEnemies.Count; i++) {
+            myEnemies[i].playerTransform = owner.playerTransform;
+            myEnemies[i].playerHealth = owner.playerHealth;
         }
     }
     private Enemy CreateEnemy() {

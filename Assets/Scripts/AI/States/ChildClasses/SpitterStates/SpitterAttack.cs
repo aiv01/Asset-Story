@@ -43,6 +43,12 @@ public class SpitterAttack : State {
         base.Start();
 
         counter = 0;
+        VariablesAssignment();
+    }
+    private void VariablesAssignment() {
+        for (int i = 0; i < bulletManagerNS.myBullets.Count; i++) {
+            bulletManagerNS.myBullets[i].playerHealth = owner.playerHealth;
+        }
     }
 
 

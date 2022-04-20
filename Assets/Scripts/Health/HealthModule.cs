@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public class HealthModule : MonoBehaviour {
@@ -22,6 +23,12 @@ public class HealthModule : MonoBehaviour {
     public float CurrentHealthPercentage {
         get { return Health / maxHealth; }
     }
+
+
+    public static bool IsDead {
+        get;
+        private set;
+    } = false;
     #endregion
 
 
@@ -54,9 +61,11 @@ public class HealthModule : MonoBehaviour {
 
 
     private void Update() {
-        //if (Died()) {
-        //    StartCoroutine(Movement.Instance.Death());
-        //}
+        if (Died()) {
+            IsDead = true;
+            StartCoroutine(Movement.Instance.Death());
+            SceneManager.LoadScene(SceneType.DeathScene.ToString());
+        }
         //if (Health < 0) {
         //    Health = 0;
         //}

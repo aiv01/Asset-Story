@@ -56,6 +56,7 @@ public class Door : MonoBehaviour {
         if (OpenCondition()) {
             Open();
             MessageManager.CallOnOpenTheDoor();
+            //TRIGGER CUTSCENE
         }
 
         ChangeSprite();

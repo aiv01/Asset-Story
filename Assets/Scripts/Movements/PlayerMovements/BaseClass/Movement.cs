@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour {
     public bool invincible = false;
     #endregion
     #region Protected Properties
-    public bool IsWalkiing {
+    public bool IsWalking {
         get;
         private set;
     } = false;
@@ -123,8 +123,9 @@ public class Movement : MonoBehaviour {
         //myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-        myAnimator = GetComponent<Animator>();
         myHealtModule = GetComponent<HealthModule>();
+        myAnimator = GetComponent<Animator>();
+        transform.position = new Vector3(0, 5, 0);
     }
     #endregion
 
@@ -205,11 +206,11 @@ public class Movement : MonoBehaviour {
         databaseInput.TakeTheInputs();
 
         if (myAnimator.GetFloat("Speed") > 0.01f && !IsRunning) {
-            IsWalkiing = true;
+            IsWalking = true;
             //MessageManager.CallOnPlayerWalk();
         }
         else { 
-            IsWalkiing = false;
+            IsWalking = false;
         }
 
         //if () {
@@ -346,7 +347,7 @@ public class Movement : MonoBehaviour {
     private IEnumerator ActiveClub() {
         yield return new WaitForSeconds(0.15f);
         //club.SetActive(IsHitting);
-            MessageManager.CallOnPlayerHit();
+        MessageManager.CallOnPlayerHit();
         yield return new WaitForSeconds(0.3f);
 
         club.SetActive(true);

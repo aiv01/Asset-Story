@@ -87,12 +87,12 @@ public class FollowTarget : MonoBehaviour {
         bool playerIsJumping = Movement.Instance.myAnimator.GetBool("IsJumping");
         #endregion
 
-        if (playerIsJumping) {
-            transform.position = new Vector3(positionX, myCamera.transform.position.y, myCamera.depth);
-        }
-        else { 
+        //if (playerIsJumping) {
+        //    transform.position = new Vector3(positionX, myCamera.transform.position.y, myCamera.depth);
+        //}
+        //else { 
+        //}
             transform.position = new Vector3(positionX, positionY, myCamera.depth);
-        }
     }
     #endregion
 

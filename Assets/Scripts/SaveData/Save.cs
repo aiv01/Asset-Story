@@ -10,7 +10,7 @@ public class Save : MonoBehaviour {
     private const string PREF_PLAYERPOSITION_X = "Player_Position_X";
     private const string PREF_PLAYERPOSITION_Y = "Player_Position_Y";
     private const float DEFAULT_PLAYERPOSITION_X = 0f;
-    private const float DEFAULT_PLAYERPOSITION_Y = 0f;
+    private const float DEFAULT_PLAYERPOSITION_Y = 5f;
 
     private const string PREF_CAMERAPOSITION_X = "Camera_Position_X";
     private const string PREF_CAMERAPOSITION_Y = "Camera_Position_Y";
@@ -34,6 +34,9 @@ public class Save : MonoBehaviour {
 
     private const string PREF_NUMOFGUNNERKILLED = "Bestiary2_NumOfGunnerKilled";
     private const int DEFAULT_NUMOFGUNNERKILLED = 0;
+
+    private const string PREF_CURRENTSCENE = "Player_CurrentScene";
+    private const SceneType DEFAULT_CURRENTSCENE = SceneType.StartScene;
     #endregion
     #region Attributes and properties
     [HideInInspector]
@@ -68,6 +71,9 @@ public class Save : MonoBehaviour {
 
     [HideInInspector]
     public Vector2 cameraPosition;
+
+    [HideInInspector]
+    public string currentScene;
     #endregion
     #region Singleton
     public static Save Instance {
@@ -109,6 +115,7 @@ public class Save : MonoBehaviour {
         PlayerPrefs.SetInt(PREF_NUMOFCHOMPERKILLED, numOfChomperKilled);
         PlayerPrefs.SetInt(PREF_NUMOFSPITTERKILLED, numOfSpitterKilled);
         PlayerPrefs.SetInt(PREF_NUMOFGUNNERKILLED, numOfGunnerKilled);
+        PlayerPrefs.SetString(PREF_CURRENTSCENE, currentScene);
     }
 
 
@@ -130,7 +137,14 @@ public class Save : MonoBehaviour {
             numOfChomperKilled = PlayerPrefs.GetInt(PREF_NUMOFCHOMPERKILLED, DEFAULT_NUMOFCHOMPERKILLED);
             numOfSpitterKilled = PlayerPrefs.GetInt(PREF_NUMOFSPITTERKILLED, DEFAULT_NUMOFSPITTERKILLED);
             numOfGunnerKilled = PlayerPrefs.GetInt(PREF_NUMOFGUNNERKILLED, DEFAULT_NUMOFGUNNERKILLED);
+            currentScene = PlayerPrefs.GetString(PREF_CURRENTSCENE, DEFAULT_CURRENTSCENE.ToString());
         }
     }
+
+
+    //public void DeleteChangeSceneData() {
+    //    numOfKeys = 0;
+    
+    //}
     #endregion
 }

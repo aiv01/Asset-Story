@@ -12,7 +12,6 @@ public class ChangeSceneLogic : MonoBehaviour {
     #endregion
 
 
-
     #region Public methods
     public void ChangeSceneWithShieldType() {
         PlayerPrefs.DeleteAll();
@@ -38,7 +37,7 @@ public class ChangeSceneLogic : MonoBehaviour {
 
 
     public void Continue() {
-        SceneManager.LoadScene(SceneType.Map1.ToString());
+        SceneManager.LoadScene(Save.Instance.currentScene);
         Save.isNewGame = false;
     }
 
@@ -49,7 +48,8 @@ public class ChangeSceneLogic : MonoBehaviour {
 
 
     public void ChangeSceneNullScene() {
-        SceneManager.LoadScene(SceneType.Null.ToString().ToLower());
+        //SceneManager.LoadScene(SceneType.Null.ToString().ToLower());
+        Application.Quit();
     }
     #endregion
 }

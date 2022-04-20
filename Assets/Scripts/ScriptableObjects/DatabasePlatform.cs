@@ -22,7 +22,7 @@ public class DatabasePlatform : ScriptableObject {
 
 
     [SerializeField]
-    [Range(0f, 10f)]
+    [Range(0f, 50f)]
     [Tooltip("Space traveled by the platform")]
     private float distance = 0f;
     public float Distance {

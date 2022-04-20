@@ -45,8 +45,15 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameLogic gameLogic = null;
 
-    [SerializeField]
-    private Transform startPosition = null;
+    //[SerializeField]
+    public Transform startPosition = null;
+
+
+    public static PlayerController Instance {
+        get;
+        private set;
+    } = null;
+
 
     private void Awake() {
         //Questa operazione verrà eseguita nella scena precedente e 
@@ -59,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         BuildThePlayer();
+        Movement.Instance.transform.position = startPosition.position;
         LoadPlayerData();
     }
     private void BuildThePlayer() {
@@ -74,12 +82,14 @@ public class PlayerController : MonoBehaviour {
                 playerCamera.playerTransform = playerWithShieldMovement.transform;
                 playerCamera.playerSpriteRenderer = playerWithShieldMovement.mySpriteRenderer;
                 playerLifeBar.healthModule = playerWithShieldMovement.myHealtModule;
-                npcManager.playerTransform = playerWithShieldMovement.transform;
+                if (npcManager != null) {
+                    npcManager.playerTransform = playerWithShieldMovement.transform;
+                }
                 gameLogic.playerPosition = playerWithShieldMovement.transform;
                 gameLogic.healthModule = playerWithShieldMovement.myHealtModule;
                 playerWithShieldMovement.transform.position = transform.position;
                 player = playerWithShieldMovement.gameObject;
-                player.transform.position = startPosition.position;
+                //player.transform.position = startPosition.position;
 
                 //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
                 //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
@@ -91,12 +101,14 @@ public class PlayerController : MonoBehaviour {
                 playerCamera.playerTransform = playerWithDashMovement.transform;
                 playerCamera.playerSpriteRenderer = playerWithDashMovement.mySpriteRenderer;
                 playerLifeBar.healthModule = playerWithDashMovement.myHealtModule;
-                npcManager.playerTransform = playerWithDashMovement.transform;
+                if (npcManager != null) {
+                    npcManager.playerTransform = playerWithDashMovement.transform;
+                }
                 gameLogic.playerPosition = playerWithDashMovement.transform;
                 gameLogic.healthModule = playerWithDashMovement.myHealtModule;
                 playerWithDashMovement.transform.position = transform.position;
                 player = playerWithDashMovement.gameObject;
-                player.transform.position = startPosition.position;
+                //player.transform.position = startPosition.position;
 
 
 
@@ -112,12 +124,14 @@ public class PlayerController : MonoBehaviour {
                 playerCamera.playerTransform = playerWithInvincibility.transform;
                 playerCamera.playerSpriteRenderer = playerWithInvincibility.mySpriteRenderer;
                 playerLifeBar.healthModule = playerWithInvincibility.myHealtModule;
-                npcManager.playerTransform = playerWithInvincibility.transform;
+                if (npcManager != null) {
+                    npcManager.playerTransform = playerWithInvincibility.transform;
+                }
                 gameLogic.playerPosition = playerWithInvincibility.transform;
                 gameLogic.healthModule = playerWithInvincibility.myHealtModule;
                 playerWithInvincibility.transform.position = transform.position;
                 player = playerWithInvincibility.gameObject;
-                player.transform.position = startPosition.position;
+                //player.transform.position = startPosition.position;
 
 
                 //playerWithInvincibility.databasePlayer = myDatabasePlayers[(int)SkillType.Invincibilty];

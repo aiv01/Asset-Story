@@ -7,6 +7,11 @@ public class SpitterBullet : Bullet {
     private DatabaseDamage spitterDamage = null;
 
 
+    private void Start() {
+
+    }
+
+
     #region OnEnable methods
     protected override void VariablesAssignment() {
         base.VariablesAssignment();
@@ -23,6 +28,7 @@ public class SpitterBullet : Bullet {
 
         if (collision.collider.CompareTag("Player") &&
             !Movement.Instance.IsDashing && !Movement.Instance.IsInvincible) {
+            //playerHealth = GameLogic.Instance.healthModule;
             playerHealth.TakeDamage(spitterDamage.bulletDamage);
             Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }

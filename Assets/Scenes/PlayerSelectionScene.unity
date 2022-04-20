@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ae45a6370c24942bfedec5c6d17086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  databaseHealth: {fileID: 0}
+  databaseHealth: {fileID: 11400000, guid: d31e53086e572194591d1e32581d91a7, type: 2}
   playerName: 
   skillType: 0
   playerPosition: {x: 0, y: 0}
@@ -673,6 +673,7 @@ MonoBehaviour:
   numOfGunnerKilled: 0
   keyTaken: 0
   cameraPosition: {x: 0, y: 0}
+  currentScene: 
 --- !u!1 &571942829
 GameObject:
   m_ObjectHideFlags: 0

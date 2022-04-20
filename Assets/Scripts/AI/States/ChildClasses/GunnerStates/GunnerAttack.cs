@@ -84,6 +84,10 @@ public class GunnerAttack : State {
         startPosition = transform.position;
         attacks[(int)AttackType.DashAttack] = true;
         isDash = attacks[(int)AttackType.DashAttack];
+
+        for (int i = 0; i < bulletManagerNS.myBullets.Count; i++) {
+            bulletManagerNS.myBullets[i].playerHealth = owner.playerHealth;
+        }
     }
 
 

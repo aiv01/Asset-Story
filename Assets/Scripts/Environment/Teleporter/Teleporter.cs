@@ -12,7 +12,13 @@ public class Teleporter : MonoBehaviour {
     private Animator myAnimator = null;
 
     [SerializeField]
+    private DatabaseKey databaseKey = null;
+
+    [SerializeField]
     private SceneType nextScene = SceneType.Last;
+
+    [SerializeField]
+    private SceneType currentScene = SceneType.Last;
     #endregion
     #region Constant
     private const int TELEPORTER_SORTINGORDER = -1;
@@ -41,20 +47,28 @@ public class Teleporter : MonoBehaviour {
         myCollider.isTrigger = true;
         mySpriteRenderer.sortingOrder = TELEPORTER_SORTINGORDER;
         myAnimator.speed = 1;
+        Save.Instance.currentScene = currentScene.ToString();
     }
     #endregion
 
+
+    private void Update() {
+        Debug.Log("Valore scena corrente" + currentScene);
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
             ResetGameData();
             LoadNextScene();
+            Save.Instance.numOfKeys = 0;
         }
     }
     #region OnTrigger methods
     private void ResetGameData() {
-        Save.Instance.numOfKeys = 0;
+        //Save.Instance.DeleteChangeSceneData();
+        Save.Instance.playerPosition = new Vector2(0, 5);
+        //Save.Instance.playerHealth = 
     }
     private void LoadNextScene() { 
         SceneManager.LoadScene(nextScene.ToString());

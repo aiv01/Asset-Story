@@ -60,6 +60,9 @@ public enum SceneType : byte {
     Map1,
     Map2,
     Map3,
+    Arena1,
+    Arena2,
+    DeathScene,
     Null,
     Last
 }

@@ -4,8 +4,8 @@ public class GameLogic : MonoBehaviour {
     //[SerializeField]
     //private BulletManager bulletManager = null;
 
-    [SerializeField]
-    private BulletManagerNS bulletManagerNS = null;
+    //[SerializeField]
+    //private BulletManagerNS bulletManagerNS = null;
 
     //[SerializeField]
     //private BulletManagerNS bulletManagerNS_2 = null;
@@ -32,9 +32,16 @@ public class GameLogic : MonoBehaviour {
     //[SerializeField]
     //private State[] states = null;
 
+    //[SerializeField]
+    //PlayerController playerController = null;
+
 
     private Trap[] traps = null;
 
+    public static GameLogic Instance {
+        get;
+        set;
+    } = null;
 
     private void Start() {
         VariablesAssignement();
@@ -46,34 +53,31 @@ public class GameLogic : MonoBehaviour {
         //}
 
         for (int i = 0; i < enemies.Length; i++) {
-            enemies[i].playerHealth = healthModule;
             enemies[i].playerTransform = playerPosition;
+            enemies[i].playerHealth = healthModule;
         }
 
-        for (int i = 0; i < bulletManagerNS.myBullets.Count; i++) {
-            bulletManagerNS.myBullets[i].playerHealth = healthModule;
-        }
-        //for (int i = 0; i < ghostyManager.myEnemies.Count; i++) {
-        //    ghostyManager.myEnemies[i].playerHealth = healthModule;
+        //for (int i = 0; i < ghostyManager.; i++) {
+
         //}
 
         for (int i = 0; i < recoveryPoints.Length; i++) {
             recoveryPoints[i].playerHealth = healthModule;
         }
 
+        //for (int i = 0; i < bulletManagerNS.myBullets.Count; i++) {
 
-        for (int i = 0; i < spikes.Length; i++) {
-            for (int j = 0; j < spikes[i].myTraps.Length; j++) {
-                spikes[i].myTraps[j].GetComponent<Trap>().playerHealth = healthModule;
+        //    bulletManagerNS.myBullets[i].playerHealth = healthModule;
+
+
+        //}
+        if (spikes != null) {
+            for (int i = 0; i < spikes.Length; i++) {
+                for (int j = 0; j < spikes[i].myTraps.Length; j++) {
+                    spikes[i].myTraps[j].GetComponent<Trap>().playerHealth = healthModule;
+                }
             }
         }
-    }
 
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha7)) {
-
-            //Camera.main.
-        }
     }
 }

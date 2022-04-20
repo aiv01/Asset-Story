@@ -55,8 +55,6 @@ public class Gunner : Enemy {
 
         myRigidbody.isKinematic = IsConfuse;
         myCollider.isTrigger = IsConfuse;
-
-        Debug.Log($"LIFE {myHealthModule.Health}");
     }
     #region Update methods
     protected override void FlipMe() {
@@ -78,20 +76,24 @@ public class Gunner : Enemy {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (myAnimator.GetBool("IsWalking") && collision.collider.CompareTag("Player")) {
             playerHealth.TakeDamage(myDatabaseDamage.contactDamage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
 
         if (myAnimator.GetBool("IsDashAttack") && collision.collider.CompareTag("Player")) {
             playerHealth.TakeDamage(myDatabaseDamage.meleeDamage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
         if (myAnimator.GetBool("IsWalking") && collision.collider.CompareTag("Player")) {
             playerHealth.TakeDamage(myDatabaseDamage.TimedDamage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
 
         if (myAnimator.GetBool("IsDashAttack") && collision.collider.CompareTag("Player")) {
             playerHealth.TakeDamage(myDatabaseDamage.TimedDamage);
+            Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }
     }
     #endregion
@@ -99,11 +101,13 @@ public class Gunner : Enemy {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Bullet")) {
             myHealthModule.TakeDamage(playerDatabaseDamage.bulletDamage);
+            MessageManager.CallOnGunnerHitted();
             collision.gameObject.SetActive(false);
         }
 
-        if (collision.CompareTag("Club")) {
+        if (myAnimator.GetBool("IsConfuse") && collision.CompareTag("Club")) {
             myHealthModule.TakeDamage(playerDatabaseDamage.meleeDamage);
+            MessageManager.CallOnGunnerHitted();
         }
     } 
     #endregion

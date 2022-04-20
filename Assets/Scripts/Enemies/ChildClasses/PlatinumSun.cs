@@ -20,7 +20,7 @@ public class PlatinumSun : Enemy {
         mySpriteRenderer.color = new Vector4(redOffset, greenOffset, blueOffset, 1);
         bar.SetActive(false);
         myCollider.enabled = false;
-
+        //playerTransform = Movement.Instance.transform;
     }
     protected override void VariablesAssignment() {
         base.VariablesAssignment();
@@ -35,6 +35,9 @@ public class PlatinumSun : Enemy {
         if (mySpriteRenderer.color.r >= redThreshold) {
             bar.SetActive(true);
         }
+
+        //playerTransform = Movement.Instance.transform;
+
     }
 
 

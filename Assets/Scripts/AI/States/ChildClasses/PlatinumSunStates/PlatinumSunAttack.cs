@@ -55,19 +55,19 @@ public class PlatinumSunAttack : State {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.layer == 0) {
-            Vector2 newDirection = (Vector2.right * 0.5f) + Vector2.up;
-            if (newDirection == direction) {
-                direction = newDirection * -1;
-                Debug.Log("STO CAMBIANDO DIREZIONE");
-            }
-            //else {
-            //    direction = newDirection;
+            //Vector2 newDirection = (Vector2.right * 0.5f) + Vector2.up;
+            //if (newDirection == direction) {
+            //    direction = newDirection * -1;
+            //    Debug.Log("STO CAMBIANDO DIREZIONE");
             //}
-            direction = newDirection;
+            ////else {
+            ////    direction = newDirection;
+            ////}
+            //direction = newDirection;
 
             //direction = newDirection * -1;
 
-
+            direction = Random.insideUnitCircle;
         }
     }
 }

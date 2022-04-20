@@ -127,6 +127,35 @@ public static class MessageManager {
     }
 
 
+    public delegate void GunnerDead();
+    public static event GunnerDead OnGunnerDead;
+    public static void CallOnGunnerDead() {
+        OnGunnerDead?.Invoke();
+    }
+
+
+
+    public delegate void GunnerShoot();
+    public static event GunnerShoot OnGunnerShoot;
+    public static void CallOnGunnerShoot() {
+        OnGunnerShoot?.Invoke();
+    }
+
+
+    public delegate void GunnerWalk();
+    public static event GunnerWalk OnGunnerWalk;
+    public static void CallOnGunnerWalk() {
+        OnGunnerWalk?.Invoke();
+    }
+
+
+    public delegate void GunnerDash();
+    public static event GunnerDash OnGunnerDash;
+    public static void CallOnGunnerDash() {
+        OnGunnerDash?.Invoke();
+    }
+
+
     public delegate void PlayerShoot();
     public static event PlayerShoot OnPlayerShoot;
     public static void CallOnPlayerShoot() {

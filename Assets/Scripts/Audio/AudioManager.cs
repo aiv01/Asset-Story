@@ -58,4 +58,8 @@ public class AudioManager : MonoBehaviour {
         //    runAudioSource.Stop();
         //}
     }
+
+    private void OnDisable() {
+        myAudioSource.Stop();
+    }
 }

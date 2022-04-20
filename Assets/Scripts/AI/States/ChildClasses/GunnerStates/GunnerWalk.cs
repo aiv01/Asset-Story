@@ -42,6 +42,7 @@ public class GunnerWalk : State {
         base.OnEnterState();
 
         myAnimator.SetBool("IsWalking", true);
+        MessageManager.CallOnGunnerWalk();
     }
     #endregion
     #region OnDisable methods

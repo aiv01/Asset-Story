@@ -24,7 +24,7 @@ public class Ui_LifeBar : MonoBehaviour {
 
 
     private void Start() {
-        InitHealthBar();
+        //InitHealthBar();
     }
     #region Start methods
     #endregion

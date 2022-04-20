@@ -15,7 +15,11 @@ public class PlatinumSunSpawnAttack : State {
     private float reloadAttackCounter = 10f;
 
     [SerializeField]
-    private float randomSpawnPosOffset = 3f;
+    private float randomSpawnPosOffset = 5f;
+
+
+    //[SerializeField]
+    //private Ghosty myGhosties = null;
 
     #region Awake methods
     protected override void TakeTheReferences() {
@@ -33,6 +37,7 @@ public class PlatinumSunSpawnAttack : State {
         attackCounter = reloadAttackCounter;
 
         for (int i = 0; i < enemyManager.myEnemies.Count; i++) {
+            enemyManager.myEnemies[i].playerTransform = owner.playerTransform;
             enemyManager.myEnemies[i].playerHealth = owner.playerHealth;
 
         }
@@ -83,6 +88,4 @@ public class PlatinumSunSpawnAttack : State {
         attackCounter = reloadAttackCounter;
     }
     #endregion
-
-
 }

@@ -48,6 +48,7 @@ public class GunnerDashAttack : State {
         isDash = true;
         //mySpriteRenderer.color = dashColor;
         myAnimator.SetBool("IsDashAttack", true);
+        MessageManager.CallOnGunnerDash();
     }
     #endregion
     #region OnDisable methods

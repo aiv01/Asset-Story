@@ -15,17 +15,26 @@ EditorBuildSettings:
     path: Assets/Scenes/Map1.unity
     guid: acec37f55087b134cb4cebff6acadb08
   - enabled: 1
-    path: Assets/Scenes/Map2.unity
-    guid: 9218917189382ba419a6a7f1b38551d0
-  - enabled: 1
     path: Assets/Scenes/Map3.unity
     guid: 47c8eb8ce3046f84fa058adfe33ac8ea
+  - enabled: 1
+    path: Assets/Scenes/Arena1.unity
+    guid: 1371c556bdb8abe43a9fa95287ea99b5
+  - enabled: 1
+    path: Assets/Scenes/Arena2.unity
+    guid: 3896683909d704c42a02b0a9d9fad57d
+  - enabled: 1
+    path: Assets/Scenes/Map2.unity
+    guid: 9218917189382ba419a6a7f1b38551d0
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/MapBeta.unity
     guid: 639295d67a6ea3a4b89297487b05e3fb
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: 440838062b1b5e8408380a098726865d
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

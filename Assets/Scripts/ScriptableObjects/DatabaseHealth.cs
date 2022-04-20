@@ -7,7 +7,7 @@ public class DatabaseHealth : ScriptableObject {
     //[SerializeField]
     //[Range(1f, 100f)]
     //[Tooltip("Maximum value of life")]
-    [HideInInspector]
+    //[HideInInspector]
     public float maxHealth = 1f;
     //public float MaxHealth {
     //    get { return maxHealth; }
