@@ -101,26 +101,6 @@ public class GunnerAttack : State {
 
 
     public override void Update() {
-        //if (attacks[(int)AttackType.GrenadeAttack]) {
-        //    counter -= Time.deltaTime;
-        //}
-
-
-        //ATTACK
-        //myAnimator.SetBool("IsGunnerGrenadeAttack", true);
-        //counter -= Time.deltaTime;
-
-        //if (counter <= 0) {
-        //    GrenadeAttack();
-        //    counter = reloadCounter;
-        //    index += 1;
-        //}
-
-        //if (index == attackedTimes) {
-        //    this.enabled = false;
-        //    nextState.enabled = true;
-        //}
-
 
         //DASH
         if (isDash) {
@@ -129,20 +109,8 @@ public class GunnerAttack : State {
         }
         else {
 
-            //this.enabled = false;
-            //nextState.enabled = true;
             StartCoroutine(GoToTheNextState());
         }
-
-        //if (diff >= dashThreshold) {
-        //    isDash = false;
-        //}
-        //else {
-        //    this.enabled = false;
-        //    nextState.enabled = true;
-        //}
-
-
 
     }
     #region Update methods
@@ -196,7 +164,6 @@ public class GunnerAttack : State {
         if (diff >= dashThreshold) {
             isDash = false;
             diff = 0f;
-            //databasePlayer.skillCounter = databasePlayer.ReloadSkillCounter;
         }
     }
     #endregion

@@ -71,11 +71,6 @@ public class GunnerWalk : State {
             this.enabled = false;
             nextStates[Random.Range(0, nextStates.Length)].enabled = true;
         }
-
-        //if (owner.myHealthModule.Died()) {
-        //    this.enabled = false;
-        //    //owner.enabled = false;
-        //}
     }
     #region Update methods
     protected override bool ExitCondition() {

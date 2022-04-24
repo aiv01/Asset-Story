@@ -59,24 +59,6 @@ public class SpitterPatrol : State {
 
 
     public override void FixedUpdate() {
-        //Movement();
+
     }
-    //#region FixedUpdate methods
-    //private void Movement() {
-    //    #region Variables assignment
-    //    Vector2 direction = change ? Vector2.right : -Vector2.right;
-    //    Vector2 flat = FlattenVector(transform.position);
-    //    #endregion
-
-    //    diff += Mathf.Abs(flat.x - startPosition.x);
-
-    //    if (diff > maxPath) {
-    //        startPosition = transform.position;
-    //        change = !change;
-    //        diff = 0f;
-    //    }
-
-    //    myRigidbody.velocity = (direction.normalized * Speed) + Gravity(myRigidbody.velocity.y);
-    //}
-    //#endregion
 }

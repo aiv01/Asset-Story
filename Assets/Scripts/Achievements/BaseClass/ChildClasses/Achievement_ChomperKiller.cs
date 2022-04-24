@@ -1,6 +1,5 @@
 public class Achievement_ChomperKiller : Achievement {
     private int unlockNumber = 3;
-    //private bool isFirstTime = true;
 
 
     protected override void VariablesAssignment() {

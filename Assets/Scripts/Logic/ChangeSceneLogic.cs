@@ -48,7 +48,6 @@ public class ChangeSceneLogic : MonoBehaviour {
 
 
     public void ChangeSceneNullScene() {
-        //SceneManager.LoadScene(SceneType.Null.ToString().ToLower());
         Application.Quit();
     }
     #endregion

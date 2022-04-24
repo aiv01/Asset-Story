@@ -46,7 +46,6 @@ public class GunnerDashAttack : State {
         base.OnEnterState();
 
         isDash = true;
-        //mySpriteRenderer.color = dashColor;
         myAnimator.SetBool("IsDashAttack", true);
         MessageManager.CallOnGunnerDash();
     }
@@ -56,7 +55,6 @@ public class GunnerDashAttack : State {
         base.OnExitState();
 
         myAnimator.SetBool("IsDashAttack", false);
-        //mySpriteRenderer.color = startColor;
     }
     #endregion
 
@@ -73,7 +71,6 @@ public class GunnerDashAttack : State {
 
 
     public override void Update() {
-        //owner.IsDash = isDash;
 
         if (isDash) {
             DashAttack();

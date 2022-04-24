@@ -66,14 +66,7 @@ public class HealthModule : MonoBehaviour {
             StartCoroutine(Movement.Instance.Death());
             SceneManager.LoadScene(SceneType.DeathScene.ToString());
         }
-        //if (Health < 0) {
-        //    Health = 0;
-        //}
-        //else if (Health > maxHealth) {
-        //    Health = maxHealth;
-        //}
 
-        Debug.Log($"VITA {Health}");
     }
 
 

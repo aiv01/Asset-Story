@@ -52,8 +52,6 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
         CircleCollider2D myCollider = shield.AddComponent<CircleCollider2D>();
         myCollider.offset = new Vector2(0, 0.2911924f);
         myCollider.radius = 1.648142f;
-        //myCollider.isTrigger = true;
-        //shield.AddComponent<Shield>();
         shield.SetActive(false);
         return shield;
     } 
@@ -72,10 +70,6 @@ public class PlayerWithShieldMovement : Movement, IDefensible {
             if (!isDefence) {
                 databasePlayer.skillCounter = 0f;
             }
-
-            //if (isDefence) {
-            //    databaseInput.horizontal = 0f;
-            //}
         }
     }
     #region Update methods

@@ -17,10 +17,6 @@ public class PlatinumSunSpawnAttack : State {
     [SerializeField]
     private float randomSpawnPosOffset = 5f;
 
-
-    //[SerializeField]
-    //private Ghosty myGhosties = null;
-
     #region Awake methods
     protected override void TakeTheReferences() {
         base.TakeTheReferences();

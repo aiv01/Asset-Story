@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Ghosty : Enemy {
     #region Serialized attributes
-    //[SerializeField]
-    //private Transform playerTransform = null;
     #endregion
     #region Public attributes
     public DatabaseDamage ghostyDamage = null;
@@ -19,7 +17,7 @@ public class Ghosty : Enemy {
 
         myRigidbody.gravityScale = 0;
         myCollider.isTrigger = true;
-        startColor = /*mySpriteRenderer.color*/new Vector4(1, 1, 1, 1);
+        startColor = new Vector4(1, 1, 1, 1);
         newColor = new Vector4(1, 1, 1, 0.2f);
         playerHealth = Movement.Instance.myHealtModule;
     }
@@ -36,7 +34,7 @@ public class Ghosty : Enemy {
     protected override void FlipMe() {
         base.FlipMe();
 
-        if (transform.position.x <= /*playerTransform.position.x*/Movement.Instance.transform.position.x) {
+        if (transform.position.x <= Movement.Instance.transform.position.x) {
             mySpriteRenderer.flipX = true;
         }
         else {

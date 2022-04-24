@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b57077f304b7d47ac0cc88474d6887, type: 3}
   m_Name: GunnerDamage
   m_EditorClassIdentifier: 
-  bulletDamage: 2.5
-  meleeDamage: 3.5
+  bulletDamage: 1.5
+  meleeDamage: 2.5
   contactDamage: 0.8

@@ -15,9 +15,5 @@ public class PlayerBullet : Bullet {
 
     protected override void OnCollisionEnter2D(Collision2D collision) {
         base.OnCollisionEnter2D(collision);
-
-        //if (collision.collider.CompareTag("Enemy")) {
-        //    collision.collider.gameObject.SetActive(false);
-        //}
     }
 }

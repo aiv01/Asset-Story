@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SpitterAttack : State {
     #region Attributes
-    //[SerializeField]
     private Spitter owner = null;
 
     [SerializeField]

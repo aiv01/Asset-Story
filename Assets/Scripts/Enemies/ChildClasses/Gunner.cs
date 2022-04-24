@@ -10,9 +10,6 @@ public class Gunner : Enemy {
 
     [SerializeField]
     private float mass = 100f;
-
-    //[SerializeField]
-    //private Transform playerTransform = null;
     #endregion
     #region Private attributes
     private BoxCollider2D myCollider = null;

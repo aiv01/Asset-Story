@@ -28,11 +28,4 @@ public class GhostyManager : MonoBehaviour {
     private void Update() {
         
     }
-    //private void CheckGhostiesActiveness() {
-    //    for (int i = 0; i < ghosties.Length; i++) {
-    //        if (ghosties[i].gameObject.activeSelf) {
-
-    //        }
-    //    }
-    //}
 }

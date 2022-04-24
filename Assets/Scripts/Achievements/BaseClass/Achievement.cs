@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-//[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Achievement : MonoBehaviour {
     #region Enum varible
     protected AchievementType achievementType = AchievementType.Last;
@@ -17,7 +16,6 @@ public abstract class Achievement : MonoBehaviour {
     }
     #region Awake methods
     private void TakeTheReferences() {
-        //mySpirteRenderer = GetComponent<SpriteRenderer>();
     }
     #endregion
 

@@ -63,6 +63,7 @@ public enum SceneType : byte {
     Arena1,
     Arena2,
     DeathScene,
+    Credits,
     Null,
     Last
 }

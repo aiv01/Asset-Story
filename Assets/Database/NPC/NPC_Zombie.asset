@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: NPC_Zombie
   m_EditorClassIdentifier: 
   npcsPhrases:
-  - ' Collect those keys to open the door that will lead you to the next level'
-  - Sono in fin di vita
-  - Aiutoo
-  - ciao giocatore, morirai presto
-  - 'che freddo '
-  - ho senito spesso parlare degli sviluppatori...
-  - non ti sento!
-  - fatti colpire dai nemici per arrivare prima a fine gioco
+  - Our boss will teach you a lesson bwahahah
+  - Collect those keys to open the door that will lead you to the next level
+  - If i were you, i would go back and lay on those spikes before it's too late...
+  - What!?!? You beat our boss??
+  - After our boss was defeated, something weird happened...
+  - Could that be... A bug...?
+  - Ho senito spesso parlare degli sviluppatori...
+  - Non ti sento!
   - You will have a short life in this world HAHAHAHAHA ZAN ZAN!
-  - hihihihihihihihi
-  - uhuhuhuhuhuhuh
+  - Hihihihihihihihi
+  - Uhuhuhuhuhuhuh
   sprites:
   - {fileID: 21300002, guid: 8c2c753f45b686447b98240ee8ab9d4d, type: 3}
   - {fileID: 21300000, guid: 8c2c753f45b686447b98240ee8ab9d4d, type: 3}

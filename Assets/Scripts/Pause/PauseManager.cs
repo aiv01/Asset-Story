@@ -14,10 +14,8 @@ public class PauseManager : MonoBehaviour {
     private KeyCode pauseButton;
     private AudioSource mySource;
     private bool isPaused;
-
-    //[SerializeField]
-    //private GameObject resumeButton = null;
-
+    [SerializeField]
+    private DatabaseInput databaseInput = null;
 
 
     private void Awake() {
@@ -37,31 +35,11 @@ public class PauseManager : MonoBehaviour {
         if (!HealthModule.IsDead) {
             GoToPause();
         }
-        //if (isPaused) {
-        //    mySource.PlayOneShot(myClips[0]);
-        //    Time.timeScale = 0;
-        //    pausePanel.SetActive(isPaused);
-        //    source.Pause();
-        //}
-        //else {
-        //    mySource.PlayOneShot(myClips[1]);
-        //    Time.timeScale = 1;
-        //    pausePanel.SetActive(isPaused);
-        //    source.Play();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.I)) {
-        //    Time.timeScale = 0;
-        //}
-        Debug.Log($"ISPAUSED VALUE {isPaused}");
-
-      
-        Debug.Log($"TIMESCALE VALUE {  Time.timeScale}");
-
     }
     #region UpdateMethods
     private void GoToPause() {
-        if (Input.GetKeyDown(pauseButton)) {
+        if (databaseInput.Player.GetButtonDown
+            (databaseInput.PauseButton)) {
             isPaused = true;
             if (isPaused) {
                 mySource.PlayOneShot(myClips[0]);
@@ -90,7 +68,7 @@ public class PauseManager : MonoBehaviour {
         source.Play();
     }
     public void Exit() {
-        SceneManager.LoadScene(SceneType.StartScene.ToString());
+        Application.Quit();
     }
     #endregion
 }

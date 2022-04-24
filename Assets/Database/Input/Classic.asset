@@ -23,5 +23,6 @@ MonoBehaviour:
   shootButton: Shoot
   specialSkillButton: SpecialSkill
   interactButton: Interact
+  pauseButton: Pause
   horizontal: 0
   vertical: 0

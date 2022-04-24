@@ -86,6 +86,13 @@ public class DatabaseInput : ScriptableObject {
     public string InteractButton {
         get { return interactButton; }
     }
+
+    [SerializeField]
+    private string pauseButton = null;
+    public string PauseButton
+    {
+        get { return pauseButton; }
+    }
     #endregion
     #region Attributes
     [HideInInspector]

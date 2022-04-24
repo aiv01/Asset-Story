@@ -43,11 +43,7 @@ public class Bullet : MonoBehaviour {
     }
     #region OnEnable methods
     protected virtual void VariablesAssignment() {
-        //playerIsFlipped = Movement.IsFlipped ? true : false;
         gameObject.tag = "Bullet";
-        //myCollider.isTrigger = true;
-        //mySpriteRenderer.sprite = databaseBullet.Sprite;
-        //mySpriteRenderer.flipX = IsFlipped ? true : false;
         reloadCounter = databaseBullet.ReloadLifeCounter;
         counter = reloadCounter;
     } 

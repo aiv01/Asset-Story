@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Spitter : Enemy {
     #region Attributes
-    //[SerializeField]
-    //private Transform playerTransform = null;
     [SerializeField]
     private DatabaseDamage playerDamage = null;
 

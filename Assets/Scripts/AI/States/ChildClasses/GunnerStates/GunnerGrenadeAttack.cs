@@ -14,7 +14,7 @@ public class GunnerGrenadeAttack : State {
     private Enemy owner = null;
     private float counter = 0f;
     private int attackEnhancer = 0;
-    private int attackedTimes = 5;
+    private int attackedTimes = 4;
     #endregion
     #region Constant
     private const float BULLETPOSITION_OFFSET_Y = 0.8f;
@@ -78,7 +78,6 @@ public class GunnerGrenadeAttack : State {
         }
 
         if (counter <= 0) {
-            //GrenadeAttack();
             StartCoroutine(Attack());
             counter = reloadCounter;
             attackEnhancer += 1;

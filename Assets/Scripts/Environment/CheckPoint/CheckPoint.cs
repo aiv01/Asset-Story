@@ -46,7 +46,6 @@ public class CheckPoint : MonoBehaviour {
         if (isFirstTime && collision.CompareTag("Player") ) {
             ActivateCheckPoint();
             SaveData();
-            Debug.Log($"chiavi salvate {Save.Instance.numOfKeys}");
         }
     }
     #region OnTrigger methods
@@ -58,10 +57,4 @@ public class CheckPoint : MonoBehaviour {
         MessageManager.CallOnTouchedTheCheckPoint();
     }
     #endregion
-
-
-    private void Update() {
-        Debug.Log($"NUMERO DI CHIAVI {Save.Instance.numOfKeys}");
-
-    }
 }

@@ -16,8 +16,6 @@ public class Ui_EnemyLifeBar : MonoBehaviour {
 
 
     void Awake() {
-        //enemy = GetComponent<Gunner>();
-        //image = lifeBar.GetComponent<Image>();
         TakeTheReferences();
     }
     #region Awake methods

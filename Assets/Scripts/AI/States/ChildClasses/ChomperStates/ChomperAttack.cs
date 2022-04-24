@@ -25,11 +25,6 @@ public class ChomperAttack : State {
     private DatabaseHealth ChomperDatabaseHealth = null;
 
     protected override void Awake() {
-        //startScale = transform.localScale;
-
-        //SISTEMARE IL FATTO CHE DEVO RIRPENDERE LE REFERENCE QUI.
-        //Rigidbody = GetComponent<Rigidbody2D>();
-        //SpriteRenderer = GetComponent<SpriteRenderer>();
         base.Awake();
         this.enabled = false;
     }
@@ -53,9 +48,7 @@ public class ChomperAttack : State {
 
 
     protected override void Start() {
-        //set the counter
         counter = reloadCounter;
-        //mySpriteRenderer.color = Color.red;
     }
 
 
@@ -86,13 +79,11 @@ public class ChomperAttack : State {
     }
     #region FixedUpdate methods
     private void Move() {
-        myRigidbody.velocity = Vector2.right * (direction * AttackSpeed) /*+
-                               Gravity(myRigidbody.velocity.y)*/;
+        myRigidbody.velocity = Vector2.right * (direction * AttackSpeed);
     }
 
 
     private void Shoot() { 
-        //myRigidbody.bodyType = 
     }
     #endregion
 }

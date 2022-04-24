@@ -33,30 +33,11 @@ public class AudioManager : MonoBehaviour {
         myAudioSource.loop = true;
         myAudioSource.volume = 0.5f;
         myAudioSource.Play();
-
-        //myAudioSource.playOnAwake = true;
-
-        //walkAudioSource.loop = true;
-
     }
     #endregion
 
 
     private void Update() {
-        //if (Movement.Instance.IsWalkiing) {
-        //    walkAudioSource.Play();
-        //}
-        //else { 
-        //    walkAudioSource.Stop();
-
-        //}
-
-        //if (Movement.Instance.IsRunning) {
-        //    runAudioSource.Play();
-        //}
-        //else {
-        //    runAudioSource.Stop();
-        //}
     }
 
     private void OnDisable() {

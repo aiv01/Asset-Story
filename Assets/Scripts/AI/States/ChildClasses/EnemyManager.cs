@@ -13,16 +13,6 @@ public class EnemyManager : MonoBehaviour {
     [SerializeField]
     private int numOfEnemies = 5;
 
-
-    //[SerializeField]
-    //private Transform spawnPoints = null;
-
-    //[SerializeField]
-    //private SpriteRenderer platinumSunSpriteRenderer = null;
-
-    //[SerializeField]
-    //private State platinumSunAttack = null;
-
     #region Singleton
     public static EnemyManager Instance {
         get;
@@ -37,7 +27,6 @@ public class EnemyManager : MonoBehaviour {
     }
     #region Awake methods
     private void TakeTheReferences() {
-        //platinumSunSpriteRenderer = owner.mySpriteRenderer;
         Instance = this;
     } 
     #endregion

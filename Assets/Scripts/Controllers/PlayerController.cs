@@ -2,8 +2,6 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour {
-    //[SerializeField]
-    //[Tooltip("Object that represents the player")]
     private GameObject player = null;
 
     [SerializeField]
@@ -45,7 +43,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameLogic gameLogic = null;
 
-    //[SerializeField]
     public Transform startPosition = null;
 
 
@@ -56,10 +53,6 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Awake() {
-        //Questa operazione verrà eseguita nella scena precedente e 
-        //quindi all'interno della variabile sarà già salvato un valore utilizzabile.
-
-        //Save.Instance.skillType = SkillType.Shield;
     }
 
 
@@ -72,13 +65,7 @@ public class PlayerController : MonoBehaviour {
     private void BuildThePlayer() {
         switch (Save.Instance.skillType) {
             case SkillType.Shield:
-                //PlayerWithShieldMovement playerWithShieldMovement = player.AddComponent<PlayerWithShieldMovement>();
-                //playerWithShieldMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Shield];
-                //playerWithShieldMovement.databaseInput = databaseInput;
-                //playerWithShieldMovement.shieldSprite = shield;
-                //playerWithShieldMovement.club = club;
-                PlayerWithShieldMovement playerWithShieldMovement = Instantiate<PlayerWithShieldMovement>((PlayerWithShieldMovement)playerPrefabs[(int)SkillType.Shield]);
-                //player = playerWithShieldMovement.gameObject;
+                PlayerWithShieldMovement playerWithShieldMovement = Instantiate<PlayerWithShieldMovement>((PlayerWithShieldMovement)playerPrefabs[(int)SkillType.Shield]);              
                 playerCamera.playerTransform = playerWithShieldMovement.transform;
                 playerCamera.playerSpriteRenderer = playerWithShieldMovement.mySpriteRenderer;
                 playerLifeBar.healthModule = playerWithShieldMovement.myHealtModule;
@@ -89,14 +76,8 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithShieldMovement.myHealtModule;
                 playerWithShieldMovement.transform.position = transform.position;
                 player = playerWithShieldMovement.gameObject;
-                //player.transform.position = startPosition.position;
-
-                //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Shield];
-                //player.AddComponent<> //gli attacchiamo come componente la classe figlia di Movement.
-                //player.AddComponent<> //gli assegnamo all'animator del player (in caso non fosse il tipo standard), il suo override controller.
                 break;
             case SkillType.Dash:
-                //PlayerWithDashMovement playerWithDashMovement = player.AddComponent<PlayerWithDashMovement>();
                 PlayerWithDashMovement playerWithDashMovement = Instantiate<PlayerWithDashMovement>((PlayerWithDashMovement)playerPrefabs[(int)SkillType.Dash]);
                 playerCamera.playerTransform = playerWithDashMovement.transform;
                 playerCamera.playerSpriteRenderer = playerWithDashMovement.mySpriteRenderer;
@@ -108,18 +89,11 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithDashMovement.myHealtModule;
                 playerWithDashMovement.transform.position = transform.position;
                 player = playerWithDashMovement.gameObject;
-                //player.transform.position = startPosition.position;
 
 
 
-                //playerWithDashMovement.databasePlayer = myDatabasePlayers[(int)SkillType.Dash];
-                //playerWithDashMovement.databaseInput = databaseInput;
-                //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Dash];
-                //playerWithDashMovement.club = club;
                 break;
             case SkillType.Invincibilty:
-                //PlayerWithInvincibility playerWithInvincibility = player.AddComponent<PlayerWithInvincibility>();
-
                 PlayerWithInvincibility playerWithInvincibility = Instantiate<PlayerWithInvincibility>((PlayerWithInvincibility)playerPrefabs[(int)SkillType.Invincibilty]);
                 playerCamera.playerTransform = playerWithInvincibility.transform;
                 playerCamera.playerSpriteRenderer = playerWithInvincibility.mySpriteRenderer;
@@ -131,20 +105,12 @@ public class PlayerController : MonoBehaviour {
                 gameLogic.healthModule = playerWithInvincibility.myHealtModule;
                 playerWithInvincibility.transform.position = transform.position;
                 player = playerWithInvincibility.gameObject;
-                //player.transform.position = startPosition.position;
-
-
-                //playerWithInvincibility.databasePlayer = myDatabasePlayers[(int)SkillType.Invincibilty];
-                //playerWithInvincibility.databaseInput = databaseInput;
-                //playerAnimator.runtimeAnimatorController = overrideControllers[(int)SkillType.Invincibilty];
-                //playerWithInvincibility.club = club;
                 break;
         }
     }
     private void LoadPlayerData() {
         player.transform.position = Save.Instance.playerPosition;
         databaseKey.numOfKeys = Save.Instance.numOfKeys;
-        //databaseHealth.Health = Save.Instance.playerHealth;
     }
     private void SetPlayerComponents(Movement _movement, DatabasePlayer _databasePlayer,
                                      DatabaseInput _databaseInput,
@@ -156,11 +122,8 @@ public class PlayerController : MonoBehaviour {
 
 
     private void Update() {
-        //SavePlayerData();
     }
     private void SavePlayerData() {
-        //IN UN EVENTO QUANDO PREMERò IL TASTO 'SALVA' ESEGUIRò TUTTE QUESTE OPERAZIONI
-        //Debug.Log(Save.Instance.playerPosition);
         Save.Instance.playerPosition = player.transform.position;
     }
 

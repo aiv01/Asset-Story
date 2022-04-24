@@ -69,7 +69,7 @@ public class GhostyAttack : State {
     #region FixedUpdate methods
     private void Move() {
         #region Variable assignment
-        Vector2 direction = ((/*owner.playerTransform*/Movement.Instance.transform.position + playerPosOffset) - transform.position).normalized;
+        Vector2 direction = ((Movement.Instance.transform.position + playerPosOffset) - transform.position).normalized;
         #endregion
 
         myRigidbody.velocity = (direction * AttackSpeed) + (Vector2.up * (Mathf.Sin(Time.time * pulsation) * amplitude));

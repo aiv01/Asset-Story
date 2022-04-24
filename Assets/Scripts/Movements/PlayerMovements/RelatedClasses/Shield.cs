@@ -14,8 +14,6 @@ public class Shield : MonoBehaviour {
     public Sprite[] mySprites = null;
     #endregion
     #region Private attributes
-    //public CircleCollider2D myCollider = null;
-    //public SpriteRenderer mySpriteRenderer = null;
     [SerializeField]
     public int shieldLife = 0;
     #endregion
@@ -32,8 +30,6 @@ public class Shield : MonoBehaviour {
     }
     #region Awake methods
     private void TakeTheReferences() {
-        //myCollider = GetComponent<CircleCollider2D>();
-        //mySpriteRenderer = GetComponent<SpriteRenderer>();
         Instance = this;
     }
     #endregion
@@ -42,7 +38,6 @@ public class Shield : MonoBehaviour {
 
     private void OnEnable() {
         shieldLife = shieldHp;
-        //mySpriteRenderer.sprite = mySprites[2];
     }
 
 
@@ -71,7 +66,6 @@ public class Shield : MonoBehaviour {
         if (collision.collider.CompareTag("Enemy") ||
             collision.collider.CompareTag("Bullet")) {
             shieldLife -= 1;
-            //mySpriteRenderer.sprite = mySprites[shieldLife];
         }
     }
 }

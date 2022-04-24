@@ -65,7 +65,7 @@ public class EnemyHealthModule : MonoBehaviour {
             MessageManager.CallOnGunnerDead();
             ownerGunner.myAnimator.speed = 0.5f;
             ownerGunner.myAnimator.SetBool("IsDead", true);
-            yield return new WaitForSeconds(4.8f);
+            yield return new WaitForSeconds(4.5f);
             gameObject.SetActive(false);
         }
         else if (owner is Spitter ownerSpitter) {

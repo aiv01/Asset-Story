@@ -8,8 +8,6 @@ public class Ui_Bestiary : MonoBehaviour {
     private GameObject bestiary = null;
     [SerializeField]
     private Button bestiaryIconButton = null;
-    //[SerializeField]
-    //private GameObject bestiaryPanel = null;
 
     [SerializeField]
     private Text chomperTitle = null;
@@ -61,12 +59,10 @@ public class Ui_Bestiary : MonoBehaviour {
     }
     #region Start methods
     private void VariablesAssignment() {
-        //SetTextParameters();
         SetBestiaryTitles();
         SetBestiaryText();
         LoadBestiaryData();
         BestiarySwitch(false);
-        //bestiaryPanel.SetActive(false);
     }
     private void AddListeners() {
         MessageManager.OnClickCustomButton += SetIsOpen;
@@ -103,15 +99,11 @@ public class Ui_Bestiary : MonoBehaviour {
     }
     #region Update methods
     private void OpenState() {
-        //Time.timeScale = 0;
         SetBestiaryText();
-        //bestiaryPanel.SetActive(true);
         BestiarySwitch(true);
     }
     private void CloseState() {
         BestiarySwitch(false);
-        //bestiaryPanel.SetActive(false);
-        //Time.timeScale = 1;
     }
 
 

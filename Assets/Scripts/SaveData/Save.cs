@@ -140,11 +140,5 @@ public class Save : MonoBehaviour {
             currentScene = PlayerPrefs.GetString(PREF_CURRENTSCENE, DEFAULT_CURRENTSCENE.ToString());
         }
     }
-
-
-    //public void DeleteChangeSceneData() {
-    //    numOfKeys = 0;
-    
-    //}
     #endregion
 }

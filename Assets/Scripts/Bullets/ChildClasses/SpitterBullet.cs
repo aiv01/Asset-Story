@@ -1,8 +1,6 @@
 using UnityEngine;
 
 public class SpitterBullet : Bullet {
-    //[SerializeField]
-    //public HealthModule playerHealth = null;
     [SerializeField]
     private DatabaseDamage spitterDamage = null;
 
@@ -28,7 +26,6 @@ public class SpitterBullet : Bullet {
 
         if (collision.collider.CompareTag("Player") &&
             !Movement.Instance.IsDashing && !Movement.Instance.IsInvincible) {
-            //playerHealth = GameLogic.Instance.healthModule;
             playerHealth.TakeDamage(spitterDamage.bulletDamage);
             Movement.Instance.myAnimator.SetTrigger("IsHitted");
         }

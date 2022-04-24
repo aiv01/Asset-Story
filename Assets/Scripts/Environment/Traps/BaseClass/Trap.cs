@@ -6,8 +6,7 @@ using UnityEngine;
 public class Trap : MonoBehaviour {
     #region Attributes
     [SerializeField]
-    protected DatabaseTrap databaseTrap = null; 
-    //[SerializeField]
+    protected DatabaseTrap databaseTrap = null;
     public HealthModule playerHealth = null;
     protected Collider2D myCollider = null;
     protected SpriteRenderer mySpriteRenderer = null;

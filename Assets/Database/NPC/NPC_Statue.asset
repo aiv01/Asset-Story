@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: NPC_Statue
   m_EditorClassIdentifier: 
   npcsPhrases:
-  - ' ATTENTION! those strange animals could hurt you a lot ...'
-  - aaaaaaaaaaaa
-  - ddddddddddddddd
+  - ATTENTION! Those strange animals could hurt you a lot ...
+  - Those webs seem a lot elastic...
+  - Look closely at those plants...
   - ssssssssssssss
   - wwwwwwwwwwww
   - ddddddddddddddddd

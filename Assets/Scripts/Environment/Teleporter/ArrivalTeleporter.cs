@@ -5,8 +5,5 @@ public class ArrivalTeleporter : MonoBehaviour {
         
     }
     #region Start methods
-    //private void LoadNewSceneData() {
-    //    Save.Instance.DeleteChangeSceneData();
-    //}
     #endregion
 }

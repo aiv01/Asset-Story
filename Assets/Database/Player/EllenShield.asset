@@ -19,7 +19,7 @@ MonoBehaviour:
   jumpForce: 6
   damage: 5
   reloadSkillCounter: 10
-  skillCounter: -35.123707
+  skillCounter: 2.5020533
   startingSprite: {fileID: 0}
   speedAnimationDivider: 100
   rigidbodyType: 0

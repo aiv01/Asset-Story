@@ -3831,6 +3831,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 68c65aec95671b549be3b900cc305b1e, type: 3}
   - {fileID: 8300000, guid: 88ac5fcaaded1224484b71c9811f8bb1, type: 3}
   pauseButton: 13
+  databaseInput: {fileID: 11400000, guid: 38d64aa86c9f9804dbce11eb070c2ba8, type: 2}
 --- !u!4 &564279594
 Transform:
   m_ObjectHideFlags: 0
@@ -5624,7 +5625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d1dffbd1a1e70478e0e2cbaeace2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 75
 --- !u!95 &1065263354
 Animator:
   serializedVersion: 3

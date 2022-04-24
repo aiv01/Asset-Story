@@ -66,9 +66,7 @@ public class Teleporter : MonoBehaviour {
     }
     #region OnTrigger methods
     private void ResetGameData() {
-        //Save.Instance.DeleteChangeSceneData();
         Save.Instance.playerPosition = new Vector2(0, 5);
-        //Save.Instance.playerHealth = 
     }
     private void LoadNextScene() { 
         SceneManager.LoadScene(nextScene.ToString());

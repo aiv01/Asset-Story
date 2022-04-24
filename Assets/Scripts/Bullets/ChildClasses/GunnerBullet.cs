@@ -1,16 +1,12 @@
 using UnityEngine;
 
 public class GunnerBullet : Bullet {
-    //[SerializeField]
-    //public HealthModule playerHealth = null;
-
     [SerializeField]
     private DatabaseDamage databaseDamage = null;
 
     [SerializeField]
     private float damage = 0f;
 
-    //versione di prova
     public float Damage {
         get { return damage * Time.fixedDeltaTime; }
     }

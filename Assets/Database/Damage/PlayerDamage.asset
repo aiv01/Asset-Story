@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerDamage
   m_EditorClassIdentifier: 
   bulletDamage: 1
-  meleeDamage: 2
+  meleeDamage: 4
   contactDamage: 0

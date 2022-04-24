@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
-//[RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
@@ -18,7 +17,6 @@ public class Movement : MonoBehaviour {
     #endregion
     #region Protected attributes
     protected Rigidbody2D myRigidbody = null;
-    //protected BoxCollider2D myHeadCollider = null;
     protected CapsuleCollider2D myBodyCollider = null;
     protected CircleCollider2D myStickCollider = null;
     public SpriteRenderer mySpriteRenderer = null;
@@ -120,7 +118,6 @@ public class Movement : MonoBehaviour {
     #region Awake methods
     protected virtual void TakeTheReferences() {
         myRigidbody = GetComponent<Rigidbody2D>();
-        //myHeadCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myHealtModule = GetComponent<HealthModule>();
@@ -152,13 +149,6 @@ public class Movement : MonoBehaviour {
         myRigidbody.constraints = databasePlayer.RigidbodyConstraints;
         myRigidbody.sharedMaterial = databasePlayer.PhysicMaterial;
         myRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
-        //HeadCollider
-        //myHeadCollider.sharedMaterial = databasePlayer.PhysicMaterial;
-        //myHeadCollider.isTrigger = databasePlayer.HeadIsTrigger;
-        //myHeadCollider.usedByEffector = databasePlayer.HeadUsedByEffector;
-        //myHeadCollider.usedByComposite = databasePlayer.HeadUsedByComposite;
-        //myHeadCollider.autoTiling = databasePlayer.HeadAutoTiling;
-        //myHeadCollider.edgeRadius = databasePlayer.HeadEdgeRadius;
         //BodyCollider
         myBodyCollider.sharedMaterial = databasePlayer.BodyPhysicsMaterial;
         myBodyCollider.isTrigger = databasePlayer.BodyIsTrigger;
@@ -170,7 +160,6 @@ public class Movement : MonoBehaviour {
     }
     private void AddListener() {
         MessageManager.OnTouchedTheCheckPoint += SavePlayerData;
-        //MessageManager.OnNpcInteraction += StopInput;
     }
     #endregion
 
@@ -181,18 +170,12 @@ public class Movement : MonoBehaviour {
         Save.Instance.playerPosition = transform.position;
     }
     private void StopInput() {
-        //mySpriteRenderer.flipX = IsFlipped;
-        //float axis = databaseInput.Player.GetAxis("Horizontal");
-        //axis = 0f;
-        //databaseInput.horizontal = axis;
-        //mySpriteRenderer.flipX = true;
     }
     #endregion
 
 
     public IEnumerator Death() {
         SetAnimatorParameters("IsDead", true);
-        //myRigidbody.simulated = false;
         myRigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(1.05f);
         if (myAnimator.GetBool("IsDead")) {
@@ -207,15 +190,10 @@ public class Movement : MonoBehaviour {
 
         if (myAnimator.GetFloat("Speed") > 0.01f && !IsRunning) {
             IsWalking = true;
-            //MessageManager.CallOnPlayerWalk();
         }
         else { 
             IsWalking = false;
         }
-
-        //if () {
-
-        //}
 
         #region Variable assignment
         SetAnimatorParameters("Speed", Mathf.Abs(databaseInput.horizontal));
@@ -254,8 +232,7 @@ public class Movement : MonoBehaviour {
         #endregion
         #region Hit
         if (databaseInput.Player.GetButtonDown
-           (databaseInput.HitButton) /*&& !databaseInput.Player.GetButtonDoublePressDown*/
-           //(databaseInput.HitButton)
+           (databaseInput.HitButton)
             && IsGrounded
             && !IsCrouching
             && !IsHitting) {
@@ -289,10 +266,6 @@ public class Movement : MonoBehaviour {
         } 
         #endregion
     }
-    //private IEnumerator DisableAnimation() {
-    //    yield return new WaitForSeconds(1f);
-    //    IsShooting = false;
-    //}
 
     #region Update methods
     private void Run() {
@@ -329,9 +302,6 @@ public class Movement : MonoBehaviour {
         }
         #endregion
 
-        //StartCoroutine(ActiveClub());
-        //club.SetActive(true);
-
         if (!myAnimator.GetBool("Hit")) {
             club.SetActive(true);
             StartCoroutine(ActiveClub());
@@ -346,7 +316,6 @@ public class Movement : MonoBehaviour {
     }
     private IEnumerator ActiveClub() {
         yield return new WaitForSeconds(0.15f);
-        //club.SetActive(IsHitting);
         MessageManager.CallOnPlayerHit();
         yield return new WaitForSeconds(0.3f);
 
@@ -390,13 +359,6 @@ public class Movement : MonoBehaviour {
         Vector2 velocity = new Vector2(databaseInput.horizontal, 0);
         #endregion
 
-
-        //var hit=Physics2D.CapsuleCast(this.transform.TransformPoint(myBodyCollider.offset), myBodyCollider.size, myBodyCollider.direction,0, velocity.normalized,velocity.magnitude, collideMask);
-
-        //if (hit.collider == null) myRigidbody.velocity = (velocity.normalized * databasePlayer.Speed) +
-        //                         databasePlayer.Gravity(myRigidbody.velocity.y);
-        //else Debug.Log(hit.collider.gameObject.name);
-
         myRigidbody.velocity = velocity * databasePlayer.Speed + 
                                databasePlayer.Gravity(myRigidbody.velocity.y);
     }
@@ -421,18 +383,6 @@ public class Movement : MonoBehaviour {
             IsGrounded = true;
             SetAnimatorParameters("IsJumping", !IsGrounded);
         }
-
-        //if (collision.collider.CompareTag("Finish")) {
-        //    FollowTarget.Instance.StartPositionY = Camera.main.transform.position.y;
-
-        //}
-        //if (collision.collider.CompareTag("EnemyBullet")) {
-        //    myHealtModule.TakeDamage(2);
-        //}
-        //if (collision.collider.CompareTag("Bullet")) {
-        //    databaseHealth.TakeDamage(2);
-        //}
-        //GESTIONE DANNO COUNTERIZZATA (PER PRENDERE DANNO OGNI TOT)(CHOMPER/SPIKES/GUNNER)
     } 
     #endregion
 
@@ -481,7 +431,6 @@ public class Movement : MonoBehaviour {
     #region OnDestroy methods
     private void RemoveListeners() {
         MessageManager.OnTouchedTheCheckPoint -= SavePlayerData;
-        //MessageManager.OnNpcInteraction -= StopInput;
     } 
     #endregion
 }

@@ -78,7 +78,6 @@ public class GunnerConfusion : State {
         if (owner.myHealthModule.Died()) {
             this.enabled = false;
             nextState.enabled = false;
-            //owner.enabled = false;
         }
     }
     #region Update methods
